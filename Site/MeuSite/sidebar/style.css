@@ -70,7 +70,7 @@ span {
 }
 
 #sidebar.active {
-    min-width: 80px;
+    min-width: 105px;
     max-width: 80px;
     text-align: center;
 }
@@ -102,7 +102,7 @@ span {
 }
 
 #sidebar.active ul ul a {
-    padding: 10px !important;
+    padding: 14px !important;
 }
 
 #sidebar.active .dropdown-toggle::after {
@@ -163,7 +163,7 @@ a[data-toggle="collapse"] {
 }
 
 ul ul a {
-    font-size: 0.9em !important;
+    font-size: 0.8em !important;
     padding-left: 30px !important;
     background: rgba(10, 13, 14, 0.534);
 }
