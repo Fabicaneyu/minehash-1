@@ -11,7 +11,7 @@ public class Aplicacao {
         inserir.enviarBanco(); // é o void criado na classe MetodoBanco
         
         System.out.println(banco.template().queryForList(
-                "select * from dbo.Computador"));
+                "select * from Computador"));
         
     }  
 

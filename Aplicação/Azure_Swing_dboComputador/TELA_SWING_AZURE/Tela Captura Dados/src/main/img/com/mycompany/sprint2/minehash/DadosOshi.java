@@ -24,7 +24,7 @@ public class DadosOshi {
 
     public DadosOshi() {
         this.gpu = hardware.getDisplays().toString();
-        this.disco = FormatUtil.formatBytes(hardware.getDiskStores().length);
+        this.disco = FormatUtil.formatBytes(sistema.getOperatingSystem().getProcess(0).getBytesRead());
         this.memoriaTotal = FormatUtil.formatBytes(hardware.getMemory().getTotal());
         this.processador = hardware.getProcessor().getName();
         this.so = sistema.getOperatingSystem().getVersion().toString();

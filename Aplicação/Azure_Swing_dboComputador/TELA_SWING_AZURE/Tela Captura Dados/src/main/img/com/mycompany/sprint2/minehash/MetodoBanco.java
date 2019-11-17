@@ -10,8 +10,9 @@ public class MetodoBanco extends DadosOshi {
     public void enviarBanco() {
         conexao.getConnection();
         conexao.template().update(
-                "insert into dbo.Computador (GPU, DISCO, RAM, Processador, SO,"
-                        + " Hostname, Modelo, Fabricante, fkMinerador) values (?,?,?,?,?,?,?,?,5)",
+                "insert into Computador (GPU, DISCO, RAM, Processador, SO,"
+                        + " Hostname, Modelo, Fabricante, fkMinerador) "
+                        + "values (?,?,?,?,?,?,?,?,19)",
                getGpu(), getDisco(), getMemoriaTotal(), getProcessador(),
                 getSo(), getHostname(), getModelo(), getFabricante());
     }

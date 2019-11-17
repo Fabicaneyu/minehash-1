@@ -11,8 +11,8 @@ public class ConexaoBanco {
 
         try {
             conexao.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            conexao.setUrl("jdbc:sqlserver://mineservidor.database.windows.net:1433;"
-                    + "database=minehash;user=minehash@mineservidor;password=Bandtec@2019;"
+            conexao.setUrl("jdbc:sqlserver://srvminehash.database.windows.net:1433;"
+                    + "database=bdminehash;user=userminehash@srvminehash;password=#Gfgrupo1;"
                     + "encrypt=true;trustServerCertificate=false;"
                     + "hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
             
