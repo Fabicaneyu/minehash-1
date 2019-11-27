@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.minehash.dados;
+package com.minehash.monitoramento;
 
+import com.minehash.usuario.Computador;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,10 +20,11 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-public class Logs extends Computador {
+public class Logs {
 
+    Computador comp = new Computador();
     List<String> lista = new ArrayList<>();
-
+    
     LogManager lgmngr = LogManager.getLogManager();
     Logger log = lgmngr.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -44,12 +46,13 @@ public class Logs extends Computador {
         lista.add("\n" + LocalDateTime.now().format(
                 DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
         lista.add("----------------------------------------");
-        lista.add(String.format("Hostname: %s", getHostname()));
-        lista.add(String.format("Fabricante: %s", getFabricante()));
-        lista.add(String.format("Modelo: %s", getModelo()));
-        lista.add(String.format("Processador: %s", getProcessador()));
-        lista.add(String.format("RAM Total: %s", getRamTotal()));
-        lista.add(String.format("SO: %s", getSistemaOperacional()));
+        lista.add(String.format("Hostname: %s", comp.getHostname()));
+        lista.add(String.format("Fabricante: %s", comp.getFabricante()));
+        lista.add(String.format("Modelo: %s", comp.getModelo()));
+        lista.add(String.format("Processador: %s", comp.getProcessador()));
+        lista.add(String.format("RAM Total: %s", comp.getRamTotal()));
+        lista.add(String.format("SO: %s", comp.getSistemaOperacional()));
+        lista.add(String.format("Disco: %s", comp.getDisco()));
         lista.add("----------------------------------------");
         lista.add("");
 
@@ -63,8 +66,8 @@ public class Logs extends Computador {
 
     }
 
-        public List<String> getLista() {
+    public List<String> getLista() {
         return lista;
     }
-    
+
 }

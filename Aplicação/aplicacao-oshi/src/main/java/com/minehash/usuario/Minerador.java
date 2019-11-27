@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.minehash.dados;
+package com.minehash.usuario;
 
+import com.minehash.monitoramento.Processos;
 import com.minehash.database.ConexaoBanco;
 
 import java.sql.Connection;
@@ -38,15 +39,15 @@ public class Minerador {
 
     public void cadastrarComputador(String e, String s) {
 
-        Computador usuarioPC = new Computador();
+        Computador comp = new Computador();
 
         conectarBanco.montarConexao();
         conectarBanco.template().update(
                 "insert into Computador (hostname, fabricante, modelo, processador,"
                 + " sistemaOperacional, memoriaRam, fkMinerador) values (?,?,?,?,?,?,?)",
-                usuarioPC.getHostname(), usuarioPC.getFabricante(), usuarioPC.getModelo(),
-                usuarioPC.getProcessador(), usuarioPC.getSistemaOperacional(),
-                usuarioPC.getRamTotal(), getFkMinerador());
+                comp.getHostname(), comp.getFabricante(), comp.getModelo(),
+                comp.getProcessador(), comp.getSistemaOperacional(),
+                comp.getRamTotal(), getFkMinerador());
 
     }
 

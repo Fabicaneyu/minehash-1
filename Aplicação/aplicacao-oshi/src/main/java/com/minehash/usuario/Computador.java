@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.minehash.dados;
+package com.minehash.usuario;
 
+import oshi.hardware.HWDiskStore;
 import oshi.SystemInfo;
 import oshi.hardware.*;
 import oshi.software.os.*;
@@ -12,9 +13,9 @@ import oshi.util.FormatUtil;
 
 public class Computador {
 
-    SystemInfo si = new SystemInfo();
-    HardwareAbstractionLayer hal = si.getHardware();
-    OperatingSystem os = si.getOperatingSystem();
+    public final SystemInfo si = new SystemInfo();
+    public final HardwareAbstractionLayer hal = si.getHardware();
+    public final OperatingSystem os = si.getOperatingSystem();
 
     String usuario;
     String hostname;
@@ -23,6 +24,9 @@ public class Computador {
     String processador;
     String ramTotal;
     String sistemaOperacional;
+    String disco;
+    HWDiskStore ds;
+    GlobalMemory memoria;
 
     public Computador() {
 
@@ -31,8 +35,9 @@ public class Computador {
         fabricante = hal.getComputerSystem().getManufacturer();
         modelo = hal.getComputerSystem().getModel();
         processador = hal.getProcessor().getName();
-        ramTotal = FormatUtil.formatBytes(hal.getMemory().getTotal());
+        ramTotal = FormatUtil.formatBytes(memoria.getTotal());
         sistemaOperacional = si.getOperatingSystem().getFamily();
+        disco = FormatUtil.formatBytesDecimal(ds.getSize());
 
     }
 
@@ -64,4 +69,7 @@ public class Computador {
         return sistemaOperacional;
     }
 
+    public String getDisco() {
+        return disco;
+    }
 }

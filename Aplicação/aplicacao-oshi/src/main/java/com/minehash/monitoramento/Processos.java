@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.minehash.dados;
+package com.minehash.monitoramento;
 
 import com.minehash.database.ConexaoBanco;
+import com.minehash.usuario.Computador;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -15,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import oshi.hardware.GlobalMemory;
 import oshi.software.os.OSProcess;
 import oshi.software.os.OperatingSystem;
@@ -24,14 +19,16 @@ import oshi.software.os.OperatingSystem;
  *
  * @author ligimenes
  */
-public class Processos extends Computador {
+public class Processos {
 
+    Computador comp = new Computador();
+    
     List<OSProcess> listaProcessos;
     OSProcess procs;
     Integer pid;
     String nomeProcesso;
     Integer prioridadeProcesso;
-    String usuario;
+    String usuarioProc;
     String estadoProcesso;
     Double cpuPercentual;
     GlobalMemory memoria;
@@ -44,16 +41,18 @@ public class Processos extends Computador {
         conectarBanco.montarConexao();
 
         for (int i = 0; i < 10; i++) {
-            listaProcessos = Arrays.asList(os.getProcesses(10, OperatingSystem.ProcessSort.CPU));
+
+            listaProcessos = Arrays.asList(comp.os.getProcesses(10, OperatingSystem.ProcessSort.CPU));
             procs = listaProcessos.get(i);
-            usuario = procs.getUser();
+            usuarioProc = procs.getUser();
             pid = procs.getProcessID();
             nomeProcesso = procs.getName();
             prioridadeProcesso = procs.getPriority();
             estadoProcesso = procs.getState().name();
             cpuPercentual = procs.calculateCpuPercent();
+            
 
-            System.out.println(usuario);
+            System.out.println(usuarioProc);
             System.out.println(pid);
             System.out.println(nomeProcesso);
             System.out.println(prioridadeProcesso);
@@ -65,7 +64,7 @@ public class Processos extends Computador {
                     "insert into Processo "
                     + "(usuario, nomeProcesso, pid, statusProcesso, prioridadeProcesso, cpuPercentual, fkComputador)"
                     + " values (?,?,?,?,?,?,?)",
-                    usuario, nomeProcesso, pid, estadoProcesso, prioridadeProcesso, cpuPercentual, getFkComputador()
+                    usuarioProc, nomeProcesso, pid, estadoProcesso, prioridadeProcesso, cpuPercentual, getFkComputador()
             );
 
         }
