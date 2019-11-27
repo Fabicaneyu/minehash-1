@@ -17,9 +17,6 @@ import java.util.Scanner;
 
 public class Minerador {
 
-    ConexaoBanco conectarBanco = new ConexaoBanco();
-    Processos processos = new Processos();
-
     Integer idMinerador;
     Integer fkMinerador;
     String email;
@@ -29,9 +26,16 @@ public class Minerador {
 
         String query = String.format("select idMinerador from Minerador where email = '%s' and senha = '%s'", e, s);
 
-        selectQuery("jdbc:mysql://localhost:3306/minehash2?useTimezone=true&serverTimezone=UTC",
-                "root",
-                "Leo5767482200", query);
+        selectQuery("jdbc:sqlserver://srvminehash.database.windows.net:1433;"
+                + "database=bdminehash;"
+                + "user=userminehash@srvminehash;"
+                + "password=#Gfgrupo1;"
+                + "encrypt=true;"
+                + "trustServerCertificate=false;"
+                + "hostNameInCertificate=*.database.windows.net;"
+                + "loginTimeout=30;",
+                "userminehash@srvminehash",
+                "#Gfgrupo1", query);
 
         return;
 
@@ -40,6 +44,7 @@ public class Minerador {
     public void cadastrarComputador(String e, String s) {
 
         Computador comp = new Computador();
+        ConexaoBanco conectarBanco = new ConexaoBanco();
 
         conectarBanco.montarConexao();
         conectarBanco.template().update(
@@ -85,10 +90,9 @@ public class Minerador {
 
     public static void main(String[] args) {
 
-        Minerador teste = new Minerador();
-        Processos procTeste = new Processos();
-        
         Scanner leitor = new Scanner(System.in);
+        Minerador teste = new Minerador();
+        Processos procT = new Processos();
 
         System.out.println("Email: ");
         String emailTeste = leitor.next();
@@ -96,11 +100,10 @@ public class Minerador {
         System.out.println("Senha: ");
         String senhaTeste = leitor.next();
 
-        
         teste.logar(emailTeste, senhaTeste);
         teste.cadastrarComputador(emailTeste, senhaTeste);
         Integer fk = teste.getFkMinerador();
-        procTeste.inserirProcessosQuery(fk);
+        procT.inserirProcessosQuery(fk);
     }
 
     public void setIdMinerador(Integer idMinerador) {

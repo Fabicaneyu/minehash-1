@@ -21,8 +21,6 @@ import oshi.software.os.OperatingSystem;
  */
 public class Processos {
 
-    Computador comp = new Computador();
-    
     List<OSProcess> listaProcessos;
     OSProcess procs;
     Integer pid;
@@ -36,7 +34,8 @@ public class Processos {
     Integer fkComputador;
 
     public void monitorarProcessos() {
-
+        
+        Computador comp = new Computador();
         ConexaoBanco conectarBanco = new ConexaoBanco();
         conectarBanco.montarConexao();
 
@@ -50,7 +49,6 @@ public class Processos {
             prioridadeProcesso = procs.getPriority();
             estadoProcesso = procs.getState().name();
             cpuPercentual = procs.calculateCpuPercent();
-            
 
             System.out.println(usuarioProc);
             System.out.println(pid);
@@ -74,9 +72,17 @@ public class Processos {
     public void inserirProcessosQuery(Integer fkMinerador) {
 
         String query = String.format("select idComp from Computador where fkMinerador = %d", fkMinerador);
-        selectComputador("jdbc:mysql://localhost:3306/minehash2?useTimezone=true&serverTimezone=UTC",
-                "root",
-                "Leo5767482200", query);
+        
+           selectComputador("jdbc:sqlserver://srvminehash.database.windows.net:1433;"
+                + "database=bdminehash;"
+                + "user=userminehash@srvminehash;"
+                + "password=#Gfgrupo1;"
+                + "encrypt=true;"
+                + "trustServerCertificate=false;"
+                + "hostNameInCertificate=*.database.windows.net;"
+                + "loginTimeout=30;",
+                "userminehash@srvminehash",
+                "#Gfgrupo1", query);
 
         monitorarProcessos();
 

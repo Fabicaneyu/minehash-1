@@ -26,7 +26,7 @@ public class Computador {
     String sistemaOperacional;
     String disco;
     HWDiskStore ds;
-    GlobalMemory memoria;
+//    GlobalMemory memoria;
 
     public Computador() {
 
@@ -35,9 +35,9 @@ public class Computador {
         fabricante = hal.getComputerSystem().getManufacturer();
         modelo = hal.getComputerSystem().getModel();
         processador = hal.getProcessor().getName();
-        ramTotal = FormatUtil.formatBytes(memoria.getTotal());
+        ramTotal = FormatUtil.formatBytes(hal.getMemory().getTotal());
         sistemaOperacional = si.getOperatingSystem().getFamily();
-        disco = FormatUtil.formatBytesDecimal(ds.getSize());
+//        disco = FormatUtil.formatBytesDecimal(ds.getSize());
 
     }
 
@@ -69,7 +69,7 @@ public class Computador {
         return sistemaOperacional;
     }
 
-    public String getDisco() {
-        return disco;
-    }
+//    public String getDisco() {
+//        return disco;
+//    }
 }

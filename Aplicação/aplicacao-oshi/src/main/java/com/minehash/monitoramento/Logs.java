@@ -24,7 +24,7 @@ public class Logs {
 
     Computador comp = new Computador();
     List<String> lista = new ArrayList<>();
-    
+
     LogManager lgmngr = LogManager.getLogManager();
     Logger log = lgmngr.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -52,7 +52,6 @@ public class Logs {
         lista.add(String.format("Processador: %s", comp.getProcessador()));
         lista.add(String.format("RAM Total: %s", comp.getRamTotal()));
         lista.add(String.format("SO: %s", comp.getSistemaOperacional()));
-        lista.add(String.format("Disco: %s", comp.getDisco()));
         lista.add("----------------------------------------");
         lista.add("");
 
