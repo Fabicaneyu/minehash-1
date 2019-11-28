@@ -27,7 +27,7 @@ public class Processos extends CapturaDadosOshi {
 
     public Processos() {
 
-        listaProcessos = Arrays.asList(os.getProcesses(10, OperatingSystem.ProcessSort.CPU));
+        listaProcessos = Arrays.asList(os.getProcesses(20, OperatingSystem.ProcessSort.CPU));
 
     }
 
@@ -42,7 +42,7 @@ public class Processos extends CapturaDadosOshi {
 
 //        conexaoBanco.montarConexao();
         
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
 
             procs = listaProcessos.get(i);
             usuario = procs.getUser();
@@ -73,7 +73,7 @@ public class Processos extends CapturaDadosOshi {
 
         conexaoBanco.montarConexao();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
 
             procs = listaProcessos.get(i);
             id[i] = procs.getProcessID();

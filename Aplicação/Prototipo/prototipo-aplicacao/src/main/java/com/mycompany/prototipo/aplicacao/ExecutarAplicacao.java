@@ -9,6 +9,8 @@ public class ExecutarAplicacao {
 //        executar.conectar.montarConexao();
 //        executar.dados.enviarDados();
 //        executar.relatorio.enviarSMS();
+
+//executar.Jsensor.puxarGPU();
     }
 
 }
