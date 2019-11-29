@@ -20,6 +20,7 @@
 .modal-botao {
     align-content: center;
     text-align: center;
+    margin: 8px;
 }
 
 .modal-tamanho {
@@ -41,30 +42,7 @@
     color: #F0CC04;
 }
 
-.label-nome {
-    margin-left: 4.5em;
-}
-
-.label-data {
-    margin-left: 6em;
-}
-
-.label-cpf-cnpj {
-    margin-left: 3em;
-}
-
-.label-telefone-cel {
-    margin-left: 4.5em;
-}
-.label-logradouro {
-    margin-left: 2.5em;
-}
-.label-endereco {
-    margin-left: 1.4em;
-}
-.label-numero {
-    margin-left: -1.7em;
-}
-.label-apelido {
-    margin-left: 6em;
+.labelLogin {
+    right: 28em;
+    position: absolute;
 }
