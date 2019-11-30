@@ -21,6 +21,8 @@ import oshi.software.os.OperatingSystem;
  */
 public class Processos {
 
+    ConexaoBanco conectarBanco = new ConexaoBanco();
+
     List<OSProcess> listaProcessos;
     OSProcess procs;
     Integer pid;
@@ -34,9 +36,9 @@ public class Processos {
     Integer fkComputador;
 
     public void monitorarProcessos() {
-        
+
         Computador comp = new Computador();
-        ConexaoBanco conectarBanco = new ConexaoBanco();
+
         conectarBanco.montarConexao();
 
         for (int i = 0; i < 10; i++) {
@@ -72,8 +74,8 @@ public class Processos {
     public void inserirProcessosQuery(Integer fkMinerador) {
 
         String query = String.format("select idComp from Computador where fkMinerador = %d", fkMinerador);
-        
-           selectComputador("jdbc:sqlserver://srvminehash.database.windows.net:1433;"
+
+        selectComputador("jdbc:sqlserver://srvminehash.database.windows.net:1433;"
                 + "database=bdminehash;"
                 + "user=userminehash@srvminehash;"
                 + "password=#Gfgrupo1;"
@@ -120,7 +122,7 @@ public class Processos {
 
     }
 
-    public static boolean kill(String processo) {
+    public static boolean matarProcesso(String processo) {
         try {
             String line;
             Process p = Runtime.getRuntime().exec("tasklist.exe /fo csv /nh");
@@ -138,6 +140,21 @@ public class Processos {
             err.printStackTrace();
         }
         return false;
+    }
+
+    public void enviarProcessosSwing(int id[], String nome[], int prio[]) {
+
+        conectarBanco.montarConexao();
+
+        for (int i = 0; i < 20; i++) {
+
+            procs = listaProcessos.get(i);
+            id[i] = procs.getProcessID();
+            nome[i] = procs.getName();
+            prio[i] = procs.getPriority();
+
+        }
+
     }
 
     public void setIdComputador(Integer idComputador) {

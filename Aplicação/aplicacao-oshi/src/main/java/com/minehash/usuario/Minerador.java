@@ -8,6 +8,7 @@ package com.minehash.usuario;
 import com.minehash.monitoramento.Processos;
 import com.minehash.database.ConexaoBanco;
 import com.minehash.monitoramento.Consumo;
+import com.minehash.telas.TelaProcessos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,6 +23,7 @@ public class Minerador {
     Integer fkMinerador;
     String email;
     String senha;
+    Boolean status;
 
     public void logar(String e, String s) {
 
@@ -37,6 +39,19 @@ public class Minerador {
                 + "loginTimeout=30;",
                 "userminehash@srvminehash",
                 "#Gfgrupo1", query);
+
+        if (status.booleanValue() == true) {
+
+            TelaProcessos tela = new TelaProcessos();
+            tela.setVisible(true);
+
+        }
+        
+        else{
+            
+            System.out.println("ERRO DE LOGIN");
+            
+        }
 
         return;
 
@@ -77,7 +92,8 @@ public class Minerador {
                 getFkMinerador();
                 System.out.println("ID: " + getIdMinerador());
                 System.out.println("FK: " + getFkMinerador());
-
+                setStatus(true);
+                getStatus();
                 return;
             }
         } catch (SQLException e) {
@@ -106,10 +122,9 @@ public class Minerador {
         teste.cadastrarComputador(emailTeste, senhaTeste);
         Integer fk = teste.getFkMinerador();
         procT.inserirProcessosQuery(fk);
-        
+
         con.inserirDesempenhoQuery(fk);
-        
-        
+
     }
 
     public void setIdMinerador(Integer idMinerador) {
@@ -127,6 +142,14 @@ public class Minerador {
 
     public Integer getFkMinerador() {
         return fkMinerador;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Boolean getStatus() {
+        return status;
     }
 
 }
