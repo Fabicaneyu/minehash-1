@@ -7,6 +7,7 @@ package com.minehash.usuario;
 
 import com.minehash.monitoramento.Processos;
 import com.minehash.database.ConexaoBanco;
+import com.minehash.monitoramento.Consumo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -93,6 +94,7 @@ public class Minerador {
         Scanner leitor = new Scanner(System.in);
         Minerador teste = new Minerador();
         Processos procT = new Processos();
+        Consumo con = new Consumo();
 
         System.out.println("Email: ");
         String emailTeste = leitor.next();
@@ -104,6 +106,10 @@ public class Minerador {
         teste.cadastrarComputador(emailTeste, senhaTeste);
         Integer fk = teste.getFkMinerador();
         procT.inserirProcessosQuery(fk);
+        
+        con.inserirDesempenhoQuery(fk);
+        
+        
     }
 
     public void setIdMinerador(Integer idMinerador) {

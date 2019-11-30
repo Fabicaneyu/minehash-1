@@ -25,8 +25,6 @@ public class Computador {
     String ramTotal;
     String sistemaOperacional;
     String disco;
-    HWDiskStore ds;
-//    GlobalMemory memoria;
 
     public Computador() {
 
@@ -37,7 +35,6 @@ public class Computador {
         processador = hal.getProcessor().getName();
         ramTotal = FormatUtil.formatBytes(hal.getMemory().getTotal());
         sistemaOperacional = si.getOperatingSystem().getFamily();
-//        disco = FormatUtil.formatBytesDecimal(ds.getSize());
 
     }
 
@@ -69,7 +66,4 @@ public class Computador {
         return sistemaOperacional;
     }
 
-//    public String getDisco() {
-//        return disco;
-//    }
 }

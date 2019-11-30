@@ -5,121 +5,175 @@
  */
 package com.minehash.monitoramento;
 
+import com.minehash.database.ConexaoBanco;
+import com.minehash.usuario.Computador;
 import com.profesorfalken.jsensors.JSensors;
 import com.profesorfalken.jsensors.model.components.Component;
 import com.profesorfalken.jsensors.model.components.Components;
 import com.profesorfalken.jsensors.model.components.Cpu;
+import com.profesorfalken.jsensors.model.components.Disk;
 import com.profesorfalken.jsensors.model.components.Gpu;
 import com.profesorfalken.jsensors.model.sensors.Fan;
 import com.profesorfalken.jsensors.model.sensors.Load;
 import com.profesorfalken.jsensors.model.sensors.Temperature;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import oshi.util.FormatUtil;
 
 public class Consumo {
-    
-    //Components component = JSensors.get.components();
-    public static void main(String[] args) throws IOException {
 
-        /*O comando: JSensors.get.components() retorna uma classe abstrata,
-            Components, e nos da várias opções como:
-            component.cpus
-            component.disks
-            component.gpus
-            component.mobos
-        Cada um retornando uma lista de cada classe especifica (CPU, Disco, GPU,
-        Mobos)
-            O comando abaixao poderia ser substituido por:
-            List<Gpu> gpus = JSensors.get.components().gpus;
-            Ou por cada componente. Mas isto só se vcs precisarem pegar de apenas 
-            um componente, deixaria a aplicação mais rápida
-         */
-        Components component = JSensors.get.components();
+    List<Cpu> cpus;
+    List<Gpu> gpus;
+    List<Disk> disco;
 
-        List<Gpu> gpus = component.gpus;
-        List<Cpu> cpus = component.cpus;
+    int cpuSize;
+    int gpuSize;
+    int discoSize;
 
-        /*
-            Para cada item da lista, podemos acessar outra classe, Sensors, esta,
-            que também retorna uma lista, retornando valores como temperatura, 
-            utilização e velocidade.
+    Double temperaturaCPU;
+    Double temperaturaGPU;
+
+    Double consumoDisco;
+    String consumoRAM;
+
+    Integer idComputador;
+    Integer fkComputador;
+
+    ConexaoBanco conectar = new ConexaoBanco();
+    Computador comp = new Computador();
+
+    public Consumo() {
+
+        cpus = JSensors.get.components().cpus;
+        disco = JSensors.get.components().disks;
+
+        cpuSize = cpus.get(0).sensors.temperatures.size();
+        discoSize = disco.get(0).sensors.loads.size();
+
+        temperaturaCPU = cpus.get(0).sensors.temperatures.get(cpuSize - 1).value;
+
+        consumoDisco = cpus.get(0).sensors.loads.get(discoSize - 1).value;
+        consumoRAM = FormatUtil.formatBytes(comp.hal.getMemory().getAvailable());
+
+        //        gpus = JSensors.get.components().gpus;
+        //        gpuSize = gpus.get(0).sensors.temperatures.size();
+        //        temperaturaGPU = cpus.get(0).sensors.temperatures.get(gpuSize - 1).value;
+    }
+
+    public static void main(String[] args) {
+
+        Consumo c = new Consumo();
+        System.out.println(c.temperaturaCPU + "C°");
+        System.out.println(c.consumoDisco + "%");
+        System.out.println(c.consumoRAM);
+    }
+
+    public void inserirDesempenhoQuery(Integer fkMinerador) {
+
+        String query = String.format("select idComp from Computador where fkMinerador = %d", fkMinerador);
+
+        selectComputador("jdbc:sqlserver://srvminehash.database.windows.net:1433;"
+                + "database=bdminehash;"
+                + "user=userminehash@srvminehash;"
+                + "password=#Gfgrupo1;"
+                + "encrypt=true;"
+                + "trustServerCertificate=false;"
+                + "hostNameInCertificate=*.database.windows.net;"
+                + "loginTimeout=30;",
+                "userminehash@srvminehash",
+                "#Gfgrupo1", query);
+
+        monitorarDesempenho();
+
+    }
+
+    public void selectComputador(String url, String user, String password, String sql) {
+
+        try (
+                Connection connection = DriverManager.getConnection(url, user, password);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                while (resultSet.next()) {
+
+                    setIdComputador(resultSet.getInt("idComp"));
+                    setFkComputador(resultSet.getInt("idComp"));
+
+                }
+            } finally {
+
+                getIdComputador();
+                getFkComputador();
+                System.out.println("IDCOMP: " + getIdComputador());
+                System.out.println("FKCOMP: " + getFkComputador());
+
+                return;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return;
+
+    }
+
+    public void monitorarDesempenho() {
+
+        conectar.montarConexao();
+
+        System.out.println("INSERINDO DADOS...");
+        System.out.println("------------------");
+        System.out.println("FK: " + getFkComputador());
+
+        conectar.template().update(
+                "insert into Desempenho (fkComputador, CPUatual, RAMatual, DISCO, Temperatura) values"
+                + "(?,?,?,?,?)", getFkComputador(), getTemperaturaCPU(),
+                getConsumoRAM(), getConsumoDisco(), getTemperaturaCPU());
+
+        System.out.println("FIM DE INSERÇÃO");
+
+        return;
         
-            Estas listas não são de valores fixos, podendo variar de computador
-            para computador.
-         */
- /*
-            Quando falamos de temperatura no JSensors, os primeiros indices retornam
-            os valores de temperatura de cada núcleo existente em sua CPU;
-       
-            Agora, o último indice, retorna a temperatura como um todo, o que eu
-            acredito que seja uma média de todas as temperaturas;
-         */
-        // Este seria o valor da temperatura do núcleo 1
-        Double tempN1 = cpus.get(0).sensors.temperatures.get(0).value;
-        System.out.println("Temperatura núcleo 1: " + tempN1);
-
-        int tamanhoTemp = cpus.get(0).sensors.temperatures.size();
-
-        // Este seria o valor da temperatura de toda a CPU
-        Double tempMedia = cpus.get(0).sensors.temperatures.get(tamanhoTemp - 1).value;
-        System.out.println("Temperatura CPU: " + tempMedia);
-
-        //Especifiquei desta forma para vcs entenderem como pode ser melhor para 
-        //trabalharem. Caso queiram trabalhar com temperatura de cada núcleo, 
-        //podem fazer assim:
-        for (Cpu atual : cpus) {
-            System.out.println("Nome CPU: " + atual.name);
-            lerTemperatura(atual);
-            lerUtilizacao(atual);
-            lerVelocidade(atual);
-        }
-
-        //Lembrando que este código irá servir para qualquer componente, seja
-        //CPU ou GPU
     }
 
-    public static void lerTemperatura(Component component) {
-
-        //Verificando se a lista dos sensores do componente não é vazia
-        if (component.sensors != null) {
-
-            List<Temperature> temperatura = component.sensors.temperatures;
-
-            for (final Temperature tempAtual : temperatura) {
-                //tempAtual.name = É o nome do que está pegando, podendo ser a
-                //temperatura de um núcleo ou a temperatura média da CPU(ultimo indice)
-                System.out.println(tempAtual.value);
-            }
-
-            //Relembrando... caso queira só a última temperatura, pode ser assim:
-            //temperatura.get(temperatura.size() - 1).value;
-        }
-
+    public Double getTemperaturaCPU() {
+        return temperaturaCPU;
     }
 
-    private static void lerUtilizacao(Component component) {
-        if (component.sensors != null) {
-
-            List<Load> loads = component.sensors.loads;
-            for (final Load atualLoad : loads) {
-                System.out.println("3:" + atualLoad.name + ": " + atualLoad.value);
-            }
-
-        }
+    public Double getTemperaturaGPU() {
+        return temperaturaGPU;
     }
 
-    private static void lerVelocidade(Component component) {
-        if (component.sensors != null) {
-
-            List<Fan> fans = component.sensors.fans;
-            for (final Fan atualFan : fans) {
-                System.out.println("3:" + atualFan.name + ": " + atualFan.value);
-            }
-
-        }
+    public String getConsumoRAM() {
+        return consumoRAM;
     }
-    
-    
-    
+
+    public Double getConsumoDisco() {
+        return consumoDisco;
+    }
+
+    public Integer getIdComputador() {
+        return idComputador;
+    }
+
+    public Integer getFkComputador() {
+        return fkComputador;
+    }
+
+    public void setIdComputador(Integer idComputador) {
+        this.idComputador = idComputador;
+    }
+
+    public void setFkComputador(Integer fkComputador) {
+        this.fkComputador = fkComputador;
+    }
+
 }
