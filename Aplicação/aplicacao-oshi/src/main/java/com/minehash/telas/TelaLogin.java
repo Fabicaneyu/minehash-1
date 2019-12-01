@@ -6,13 +6,15 @@
 package com.minehash.telas;
 
 import com.minehash.usuario.Minerador;
+import java.awt.Color;
+import java.awt.Point;
 
 /**
  *
  * @author marco
  */
 public class TelaLogin extends javax.swing.JFrame {
-
+   private  Point point = new Point();
     /**
      * Creates new form TelaLogin
      */
@@ -29,62 +31,155 @@ public class TelaLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tfLogin = new javax.swing.JTextField();
-        tfSenha = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        tfUsuario = new javax.swing.JTextField();
+        Sair = new javax.swing.JButton();
         btLogin = new javax.swing.JButton();
+        tfSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        tfLogin.setText("jTextField1");
-
-        tfSenha.setText("jTextField1");
-
-        btLogin.setText("Login");
-        btLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btLoginActionPerformed(evt);
+        setMaximumSize(new java.awt.Dimension(400, 410));
+        setMinimumSize(new java.awt.Dimension(400, 410));
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(400, 410));
+        setResizable(false);
+        setSize(new java.awt.Dimension(400, 410));
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
             }
         });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(17, 63, 64));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("MineHash");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
+        );
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Faça seu login");
+
+        tfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfUsuarioActionPerformed(evt);
+            }
+        });
+
+        Sair.setBackground(new java.awt.Color(189, 126, 5));
+        Sair.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Sair.setForeground(new java.awt.Color(255, 255, 255));
+        Sair.setText("sair");
+        Sair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SairActionPerformed(evt);
+            }
+        });
+
+        btLogin.setBackground(new java.awt.Color(10, 13, 13));
+        btLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btLogin.setForeground(new java.awt.Color(255, 255, 255));
+        btLogin.setText("Login");
+        btLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btLoginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btLoginMouseExited(evt);
+            }
+        });
+
+        tfSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                            .addComponent(tfSenha)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(btLogin)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(btLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Sair, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(40, 40, 40)
+                .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
-                .addComponent(btLogin)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(btLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Sair, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
+    private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
+  System.exit(0);
+    }//GEN-LAST:event_SairActionPerformed
+
+    private void btLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLoginMouseEntered
+    btLogin.setBackground(new Color(17,63,64) );
+    }//GEN-LAST:event_btLoginMouseEntered
+
+    private void btLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLoginMouseExited
+    btLogin.setBackground(new Color(5,13,14) );
+    }//GEN-LAST:event_btLoginMouseExited
+
+    private void tfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUsuarioActionPerformed
         // TODO add your handling code here:
-        Minerador usuario = new Minerador();
+    }//GEN-LAST:event_tfUsuarioActionPerformed
 
-        usuario.logar(tfLogin.getText(), tfSenha.getText());
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        point.x = evt.getX();
+        point.y = evt.getY();
+    }//GEN-LAST:event_formMousePressed
 
-
-    }//GEN-LAST:event_btLoginActionPerformed
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        Point p = this.getLocation();
+        this.setLocation(p.x + evt.getX() - point.x,p.y + evt.getY() - point.y);
+    }//GEN-LAST:event_formMouseDragged
 
     /**
      * @param args the command line arguments
@@ -97,7 +192,7 @@ public class TelaLogin extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -122,8 +217,12 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Sair;
     private javax.swing.JButton btLogin;
-    private javax.swing.JTextField tfLogin;
-    private javax.swing.JTextField tfSenha;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField tfSenha;
+    private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 }

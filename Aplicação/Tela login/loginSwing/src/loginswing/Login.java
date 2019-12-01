@@ -39,11 +39,11 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        tfLogin = new loginswing.JTextFieldHint(new JTextField(),"user-icon","Nome de Usu√°rio");
+        tfLogin = new loginswing.JTextFieldHint(new JTextField(),"user-icon","Nome de Usu·rio");
         ;
         tfSenha = new JPassWordFieldHint(new JPasswordField(),"padlock", "senha");
         ;
-        btSenha = new javax.swing.JButton();
+        btSair = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btLogin = new javax.swing.JButton();
 
@@ -71,8 +71,6 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(17, 63, 64));
         jPanel1.setToolTipText("");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\gsramos\\Desktop\\mineHash\\Design\\Logo\\miniHash.png")); // NOI18N
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -98,13 +96,13 @@ public class Login extends javax.swing.JFrame {
         tfSenha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tfSenha.setForeground(new java.awt.Color(204, 204, 204));
 
-        btSenha.setBackground(new java.awt.Color(189, 126, 5));
-        btSenha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btSenha.setForeground(new java.awt.Color(255, 255, 255));
-        btSenha.setText("sair");
-        btSenha.addActionListener(new java.awt.event.ActionListener() {
+        btSair.setBackground(new java.awt.Color(189, 126, 5));
+        btSair.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btSair.setForeground(new java.awt.Color(255, 255, 255));
+        btSair.setText("sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSenhaActionPerformed(evt);
+                btSairActionPerformed(evt);
             }
         });
 
@@ -138,11 +136,11 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(btSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(btLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(180, 180, 180)
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -161,7 +159,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(55, 55, 55)
                 .addComponent(btLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
 
@@ -184,9 +182,9 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSenhaActionPerformed
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_btSenhaActionPerformed
+    }//GEN-LAST:event_btSairActionPerformed
 
     private void btLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLoginMouseEntered
         btLogin.setBackground(new Color(17,63,64) );
@@ -273,7 +271,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btLogin;
-    private javax.swing.JButton btSenha;
+    private javax.swing.JButton btSair;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
