@@ -43,7 +43,6 @@ public class TelaProcessos extends javax.swing.JFrame {
         btnMonitorar = new javax.swing.JButton();
         btMatarProcesso = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         PID = new javax.swing.JLabel();
         lbNome = new javax.swing.JLabel();
@@ -266,8 +265,6 @@ public class TelaProcessos extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Digite o nome do processo: ");
-
         jPanel3.setBackground(new java.awt.Color(96, 94, 94));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setMaximumSize(new java.awt.Dimension(321, 103));
@@ -322,7 +319,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(PID, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -341,7 +338,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID)
                     .addComponent(jLabel4)
                     .addComponent(lbPrioridade))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(96, 94, 94));
@@ -399,7 +396,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(PID1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbPrioridade1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,7 +415,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID1)
                     .addComponent(jLabel11)
                     .addComponent(lbPrioridade1))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(96, 94, 94));
@@ -476,7 +473,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(PID2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jLabel14)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -495,7 +492,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID2)
                     .addComponent(jLabel14)
                     .addComponent(lbPrioridade2))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(96, 94, 94));
@@ -553,7 +550,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(PID3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jLabel17)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -572,7 +569,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID3)
                     .addComponent(jLabel17)
                     .addComponent(lbPrioridade3))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel8.setBackground(new java.awt.Color(96, 94, 94));
@@ -637,7 +634,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addComponent(jLabel20)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(59, Short.MAX_VALUE))))
+                        .addContainerGap(73, Short.MAX_VALUE))))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -652,7 +649,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(jLabel20)
                     .addComponent(PID5)
                     .addComponent(lbPrioridade5))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel9.setBackground(new java.awt.Color(96, 94, 94));
@@ -714,7 +711,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addComponent(jLabel23)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -729,7 +726,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(jLabel23)
                     .addComponent(lbPrioridade6)
                     .addComponent(PID6))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel11.setBackground(new java.awt.Color(96, 94, 94));
@@ -786,7 +783,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addComponent(lbNome7, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(0, 12, Short.MAX_VALUE)
+                        .addGap(0, 25, Short.MAX_VALUE)
                         .addComponent(jLabel29)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade7, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -805,7 +802,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(jLabel29)
                     .addComponent(lbPrioridade7)
                     .addComponent(PID7))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jPanel12.setBackground(new java.awt.Color(96, 94, 94));
@@ -863,7 +860,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(PID8, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jLabel32)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade8, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -882,7 +879,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID8)
                     .addComponent(jLabel32)
                     .addComponent(lbPrioridade8))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel13.setBackground(new java.awt.Color(96, 94, 94));
@@ -932,7 +929,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addComponent(jLabel34)
                         .addGap(18, 18, 18)
                         .addComponent(PID10, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 30, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 44, Short.MAX_VALUE)
                         .addComponent(jLabel35)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbPrioridade10, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -956,7 +953,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(jLabel35)
                     .addComponent(lbPrioridade10)
                     .addComponent(PID10))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel14.setBackground(new java.awt.Color(96, 94, 94));
@@ -1006,7 +1003,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addComponent(jLabel37)
                         .addGap(18, 18, 18)
                         .addComponent(PID9, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 36, Short.MAX_VALUE)
                         .addComponent(jLabel38)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade9, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1030,7 +1027,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(jLabel38)
                     .addComponent(lbPrioridade9)
                     .addComponent(PID9))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel15.setBackground(new java.awt.Color(96, 94, 94));
@@ -1085,7 +1082,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addComponent(PID11, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jLabel41)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade11, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1107,7 +1104,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID11)
                     .addComponent(jLabel41)
                     .addComponent(lbPrioridade11))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel16.setBackground(new java.awt.Color(96, 94, 94));
@@ -1165,7 +1162,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(PID12, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jLabel44)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade12, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1184,7 +1181,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID12)
                     .addComponent(jLabel44)
                     .addComponent(lbPrioridade12))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel17.setBackground(new java.awt.Color(96, 94, 94));
@@ -1242,7 +1239,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addComponent(PID13, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(jLabel47)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade13, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1261,7 +1258,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID13)
                     .addComponent(jLabel47)
                     .addComponent(lbPrioridade13))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel18.setBackground(new java.awt.Color(96, 94, 94));
@@ -1319,7 +1316,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(PID14, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(jLabel50)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade14, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1338,7 +1335,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID14)
                     .addComponent(jLabel50)
                     .addComponent(lbPrioridade14))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel19.setBackground(new java.awt.Color(96, 94, 94));
@@ -1396,7 +1393,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel19Layout.createSequentialGroup()
                         .addComponent(PID15, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jLabel53)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade15, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1415,7 +1412,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID15)
                     .addComponent(jLabel53)
                     .addComponent(lbPrioridade15))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel20.setBackground(new java.awt.Color(96, 94, 94));
@@ -1473,7 +1470,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addComponent(PID16, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jLabel56)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade16, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1492,7 +1489,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID16)
                     .addComponent(jLabel56)
                     .addComponent(lbPrioridade16))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel21.setBackground(new java.awt.Color(96, 94, 94));
@@ -1550,7 +1547,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addComponent(PID17, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(jLabel59)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade17, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1569,7 +1566,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID17)
                     .addComponent(jLabel59)
                     .addComponent(lbPrioridade17))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel22.setBackground(new java.awt.Color(96, 94, 94));
@@ -1627,7 +1624,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(PID18, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(jLabel62)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade18, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1646,7 +1643,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID18)
                     .addComponent(jLabel62)
                     .addComponent(lbPrioridade18))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel23.setBackground(new java.awt.Color(96, 94, 94));
@@ -1704,7 +1701,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel23Layout.createSequentialGroup()
                         .addComponent(PID19, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jLabel65)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade19, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1723,7 +1720,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID19)
                     .addComponent(jLabel65)
                     .addComponent(lbPrioridade19))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel24.setBackground(new java.awt.Color(96, 94, 94));
@@ -1781,7 +1778,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel24Layout.createSequentialGroup()
                         .addComponent(PID20, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jLabel68)
                         .addGap(18, 18, 18)
                         .addComponent(lbPrioridade20, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1800,7 +1797,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addComponent(PID20)
                     .addComponent(jLabel68)
                     .addComponent(lbPrioridade20))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1811,30 +1808,25 @@ public class TelaProcessos extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel7, 320, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel12, 320, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel16, 320, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel20, 320, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel24, 320, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel6, 320, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel11, 320, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel15, 320, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel19, 320, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel23, 320, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1856,8 +1848,8 @@ public class TelaProcessos extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnMonitorar, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1888,18 +1880,13 @@ public class TelaProcessos extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -1914,10 +1901,10 @@ public class TelaProcessos extends javax.swing.JFrame {
                         .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jPanel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 70, 1840, 660));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 70, 1850, 660));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1949,7 +1936,7 @@ public class TelaProcessos extends javax.swing.JFrame {
         processos.enviarProcessosSwing(idSwing, nomeSwing, prioridadeSwing);
 
      PID.setText(String.valueOf(idSwing[1]));
-     lbNome.setText(nomeSwing[1].toString());
+     lbNome.setText(nomeSwing[1]);
      lbPrioridade.setText(String.valueOf(prioridadeSwing[1]));
 
      PID1.setText(String.valueOf(idSwing[2]));
@@ -2149,7 +2136,6 @@ public class TelaProcessos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;

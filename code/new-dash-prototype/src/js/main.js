@@ -1,16 +1,17 @@
 function checkSize() {
-  if ($(window).width() > $(window).height()) {
-    $('#menu-btn').hide()
-    if (!($(".page-wrapper").hasClass('toggled'))) {
-      $(".page-wrapper").toggleClass('toggled')
+    if ($(window).width() > $(window).height()) {
+        $('#menu-btn').hide()
+        if (!($(".page-wrapper").hasClass('toggled'))) {
+            $(".page-wrapper").toggleClass('toggled')
+        }
     }
-  }
 
-  if ($(window).width() < $(window).height()) {
-    $('#menu-btn').show();
-  }
+    if ($(window).width() < $(window).height()) {
+        $('#menu-btn').show();
+    }
 }
 
+<<<<<<< HEAD
 jQuery(function ($) {
   $(document).ready(() => {
     checkSize();
@@ -27,94 +28,112 @@ jQuery(function ($) {
       console.error(error);
     } finally {
       $('#breadcrumb-item-add').html(`
+=======
+jQuery(function($) {
+    $(document).ready(() => {
+        checkSize();
+    });
+
+    $(window).resize(() => {
+        checkSize();
+    });
+
+    $('#toggle-detalhes').click(() => {
+        try {
+            $('#dashboard-frame').attr('src', "detalhes.html");
+        } catch (error) {
+            console.error(error);
+        } finally {
+            $('#breadcrumb-item-add').html(`
+>>>>>>> 4e4f94de3ff5e8f6994432b59e10d97456ab5b66
         <li class="breadcrumb-item"><a href="#">Home</a></li>
         <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
         <li class="breadcrumb-item active" aria-current="page">Detalhes</li>
       `);
-    }
-    $('#dashboard-frame').change();
-  });
+        }
+        $('#dashboard-frame').change();
+    });
 
-  $('#toggle-cpu').click(() => {
-    try {
-      $('#dashboard-frame').attr('src', "cpu.html");
-    } catch (error) {
-      console.error(error);
-    } finally {
-      $('#breadcrumb-item-add').html(`
+    $('#toggle-cpu').click(() => {
+        try {
+            $('#dashboard-frame').attr('src', "cpu.html");
+        } catch (error) {
+            console.error(error);
+        } finally {
+            $('#breadcrumb-item-add').html(`
         <li class="breadcrumb-item"><a href="#">Home</a></li>
         <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
         <li class="breadcrumb-item active" aria-current="page">CPU</li>
       `);
-    }
+        }
 
-    $('#dashboard-frame').change();
-  });
+        $('#dashboard-frame').change();
+    });
 
-  $('#toggle-gpu').click(() => {
-    try {
-      $('#dashboard-frame').attr('src', "gpu.html");
-    } catch (error) {
-      console.error(error);
-    } finally {
-      $('#breadcrumb-item-add').html(`
+    $('#toggle-gpu').click(() => {
+        try {
+            $('#dashboard-frame').attr('src', "gpu.html");
+        } catch (error) {
+            console.error(error);
+        } finally {
+            $('#breadcrumb-item-add').html(`
         <li class="breadcrumb-item"><a href="#">Home</a></li>
         <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
         <li class="breadcrumb-item active" aria-current="page">GPU</li>
       `);
-    }
+        }
 
-    $('#dashboard-frame').change();
-  });
+        $('#dashboard-frame').change();
+    });
 
-  $('#toggle-ram').click(() => {
-    try {
-      $('#dashboard-frame').attr('src', "ram.html");
-    
-    } catch (error) {
-      console.error(error);
-    } finally {
-      $('#breadcrumb-item-add').html(`
+    $('#toggle-ram').click(() => {
+        try {
+            $('#dashboard-frame').attr('src', "ram.html");
+
+        } catch (error) {
+            console.error(error);
+        } finally {
+            $('#breadcrumb-item-add').html(`
         <li class="breadcrumb-item"><a href="#">Home</a></li>
         <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
         <li class="breadcrumb-item active" aria-current="page">RAM</li>
       `);
-    }
+        }
 
-    $('#dashboard-frame').change();
-  });
+        $('#dashboard-frame').change();
+    });
 
-  $('#toggle-disco').click(() => {
-    $('#dashboard-frame').attr('src', "armazenamento.html");
-    $('#breadcrumb-item-add').html(`
+    $('#toggle-disco').click(() => {
+        $('#dashboard-frame').attr('src', "armazenamento.html");
+        $('#breadcrumb-item-add').html(`
       <li class="breadcrumb-item"><a href="#">Home</a></li>
       <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
       <li class="breadcrumb-item active" aria-current="page">Unidade de Armazenmento</li>
     `);
 
-    $('#dashboard-frame').change()
-  });
+        $('#dashboard-frame').change()
+    });
 
-  $('#dashboard-frame').change(() => {
-    let element = document.getElementById('dashboard-frame');
-    element.style.height = element.contentWindow.document.body.scrollHeight + 'px';
-  });
+    $('#dashboard-frame').change(() => {
+        let element = document.getElementById('dashboard-frame');
+        element.style.height = element.contentWindow.document.body.scrollHeight + 'px';
+    });
 
 
 
-  $("#sidebar").hover(
-      function () {
-          console.log("mouseenter");
-          $(".page-wrapper").addClass("sidebar-hovered");
-      },
-      function () {
-          console.log("mouseout");
-          $(".page-wrapper").removeClass("sidebar-hovered");
-      }
-  )
+    $("#sidebar").hover(
+        function() {
+            console.log("mouseenter");
+            $(".page-wrapper").addClass("sidebar-hovered");
+        },
+        function() {
+            console.log("mouseout");
+            $(".page-wrapper").removeClass("sidebar-hovered");
+        }
+    )
 
     // Dropdown menu
-    $(".sidebar-dropdown > a").click(function () {
+    $(".sidebar-dropdown > a").click(function() {
         $(".sidebar-submenu").slideUp(200);
         if ($(this).parent().hasClass("active")) {
             $(".sidebar-dropdown").removeClass("active");
@@ -128,23 +147,23 @@ jQuery(function ($) {
     });
 
     //toggle sidebar
-    $("#toggle-sidebar").click(function () {
+    $("#toggle-sidebar").click(function() {
         $(".page-wrapper").toggleClass("toggled");
     });
     //Pin sidebar
-    $("#pin-sidebar").click(function () {
+    $("#pin-sidebar").click(function() {
         if ($(".page-wrapper").hasClass("pinned")) {
             // unpin sidebar when hovered
             $(".page-wrapper").removeClass("pinned");
-            $("#sidebar").unbind( "hover");
+            $("#sidebar").unbind("hover");
         } else {
             $(".page-wrapper").addClass("pinned");
             $("#sidebar").hover(
-                function () {
+                function() {
                     console.log("mouseenter");
                     $(".page-wrapper").addClass("sidebar-hovered");
                 },
-                function () {
+                function() {
                     console.log("mouseout");
                     $(".page-wrapper").removeClass("sidebar-hovered");
                 }
@@ -155,13 +174,13 @@ jQuery(function ($) {
 
 
     //toggle sidebar overlay
-    $("#overlay").click(function () {
+    $("#overlay").click(function() {
         $(".page-wrapper").toggleClass("toggled");
     });
 
     //switch between themes
     var themes = "default-theme legacy-theme chiller-theme ice-theme cool-theme light-theme";
-    $('[data-theme]').click(function () {
+    $('[data-theme]').click(function() {
         $('[data-theme]').removeClass("selected");
         $(this).addClass("selected");
         $('.page-wrapper').removeClass(themes);
@@ -170,7 +189,7 @@ jQuery(function ($) {
 
     // switch between background images
     var bgs = "bg1 bg2 bg3 bg4";
-    $('[data-bg]').click(function () {
+    $('[data-bg]').click(function() {
         $('[data-bg]').removeClass("selected");
         $(this).addClass("selected");
         $('.page-wrapper').removeClass(bgs);
@@ -178,13 +197,13 @@ jQuery(function ($) {
     });
 
     // toggle background image
-    $("#toggle-bg").change(function (e) {
+    $("#toggle-bg").change(function(e) {
         e.preventDefault();
         $('.page-wrapper').toggleClass("sidebar-bg");
     });
 
     // toggle border radius
-    $("#toggle-border-radius").change(function (e) {
+    $("#toggle-border-radius").change(function(e) {
         e.preventDefault();
         $('.page-wrapper').toggleClass("boder-radius-on");
     });
