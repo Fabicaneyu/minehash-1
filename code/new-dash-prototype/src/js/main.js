@@ -20,7 +20,7 @@ jQuery(function ($) {
     checkSize();
   });
 
-  await $('#toggle-detalhes').click(() => {
+  $('#toggle-detalhes').click(() => {
     try {
       $('#dashboard-frame').attr('src', "detalhes.html");
     } catch (error) {
