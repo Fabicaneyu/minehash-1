@@ -11,6 +11,24 @@ function checkSize() {
     }
 }
 
+<<<<<<< HEAD
+jQuery(function ($) {
+  $(document).ready(() => {
+    checkSize();
+  });
+
+  $(window).resize(() => {
+    checkSize();
+  });
+
+  $('#toggle-detalhes').click(() => {
+    try {
+      $('#dashboard-frame').attr('src', "detalhes.html");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      $('#breadcrumb-item-add').html(`
+=======
 jQuery(function($) {
     $(document).ready(() => {
         checkSize();
@@ -27,6 +45,7 @@ jQuery(function($) {
             console.error(error);
         } finally {
             $('#breadcrumb-item-add').html(`
+>>>>>>> 4e4f94de3ff5e8f6994432b59e10d97456ab5b66
         <li class="breadcrumb-item"><a href="#">Home</a></li>
         <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
         <li class="breadcrumb-item active" aria-current="page">Detalhes</li>
