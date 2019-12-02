@@ -82,12 +82,17 @@
         
         
         <!-- https://mvnrepository.com/artifact/org.netbeans.external/AbsoluteLayout -->
-<dependency>
-    <groupId>org.netbeans.external</groupId>
-    <artifactId>AbsoluteLayout</artifactId>
-    <version>RELEASE112</version>
-</dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE112</version>
+        </dependency>
         
+<!--         <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>-->
         
     </dependencies>
 </project>

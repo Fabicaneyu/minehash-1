@@ -5,7 +5,7 @@
  */
 package com.minehash.usuario;
 
-import oshi.hardware.HWDiskStore;
+//import oshi.hardware.HWDiskStore;
 import oshi.SystemInfo;
 import oshi.hardware.*;
 import oshi.software.os.*;
@@ -25,6 +25,7 @@ public class Computador {
     String ramTotal;
     String sistemaOperacional;
     String disco;
+    
 
     public Computador() {
 

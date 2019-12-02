@@ -22,6 +22,7 @@ import oshi.software.os.OperatingSystem;
 public class Processos {
 
     ConexaoBanco conectarBanco = new ConexaoBanco();
+    Computador comp = new Computador();
 
     List<OSProcess> listaProcessos;
     OSProcess procs;
@@ -35,15 +36,17 @@ public class Processos {
     Integer idComputador;
     Integer fkComputador;
 
-    public void monitorarProcessos() {
+    public Processos() {
 
-        Computador comp = new Computador();
+        listaProcessos = Arrays.asList(comp.os.getProcesses(21, OperatingSystem.ProcessSort.CPU));
+    }
+
+    public void monitorarProcessos() {
 
         conectarBanco.montarConexao();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 21; i++) {
 
-            listaProcessos = Arrays.asList(comp.os.getProcesses(10, OperatingSystem.ProcessSort.CPU));
             procs = listaProcessos.get(i);
             usuarioProc = procs.getUser();
             pid = procs.getProcessID();
@@ -61,10 +64,11 @@ public class Processos {
             System.out.println("-------------");
 
             conectarBanco.template().update(
-                    "insert into Processo "
-                    + "(usuario, nomeProcesso, pid, statusProcesso, prioridadeProcesso, cpuPercentual, fkComputador)"
-                    + " values (?,?,?,?,?,?,?)",
-                    usuarioProc, nomeProcesso, pid, estadoProcesso, prioridadeProcesso, cpuPercentual, getFkComputador()
+                    "insert into tb_processo (fk_computador, nr_pid, nm_processo, "
+                    + "nm_status, nm_prioridade, nr_consumo_cpu, nm_usuario) values "
+                    + "(?,?,?,?,?,?,?)",
+                    getFkComputador(), pid, nomeProcesso, estadoProcesso, prioridadeProcesso,
+                    cpuPercentual, usuarioProc
             );
 
         }
@@ -73,7 +77,7 @@ public class Processos {
 
     public void inserirProcessosQuery(Integer fkMinerador) {
 
-        String query = String.format("select idComp from Computador where fkMinerador = %d", fkMinerador);
+        String query = String.format("select id_computador from tb_computador where fk_usuario = %d", fkMinerador);
 
         selectComputador("jdbc:sqlserver://srvminehash.database.windows.net:1433;"
                 + "database=bdminehash;"
@@ -100,8 +104,8 @@ public class Processos {
 
                 while (resultSet.next()) {
 
-                    setIdComputador(resultSet.getInt("idComp"));
-                    setFkComputador(resultSet.getInt("idComp"));
+                    setIdComputador(resultSet.getInt("id_computador"));
+                    setFkComputador(resultSet.getInt("id_computador"));
 
                 }
             } finally {

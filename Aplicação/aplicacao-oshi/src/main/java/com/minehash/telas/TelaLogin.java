@@ -14,7 +14,10 @@ import java.awt.Point;
  * @author marco
  */
 public class TelaLogin extends javax.swing.JFrame {
-   private  Point point = new Point();
+
+    Minerador usuario = new Minerador();
+    private Point point = new Point();
+
     /**
      * Creates new form TelaLogin
      */
@@ -95,8 +98,8 @@ public class TelaLogin extends javax.swing.JFrame {
         Sair.setBackground(new java.awt.Color(189, 126, 5));
         Sair.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Sair.setForeground(new java.awt.Color(255, 255, 255));
-        Sair.setText("sair");
-        Sair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Sair.setText("SAIR");
+        Sair.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SairActionPerformed(evt);
@@ -106,14 +109,19 @@ public class TelaLogin extends javax.swing.JFrame {
         btLogin.setBackground(new java.awt.Color(10, 13, 13));
         btLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btLogin.setForeground(new java.awt.Color(255, 255, 255));
-        btLogin.setText("Login");
-        btLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btLogin.setText("LOGIN");
+        btLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btLoginMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btLoginMouseExited(evt);
+            }
+        });
+        btLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLoginActionPerformed(evt);
             }
         });
 
@@ -156,15 +164,15 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
-  System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_SairActionPerformed
 
     private void btLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLoginMouseEntered
-    btLogin.setBackground(new Color(17,63,64) );
+        btLogin.setBackground(new Color(17, 63, 64));
     }//GEN-LAST:event_btLoginMouseEntered
 
     private void btLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLoginMouseExited
-    btLogin.setBackground(new Color(5,13,14) );
+        btLogin.setBackground(new Color(5, 13, 14));
     }//GEN-LAST:event_btLoginMouseExited
 
     private void tfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUsuarioActionPerformed
@@ -178,8 +186,15 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
         Point p = this.getLocation();
-        this.setLocation(p.x + evt.getX() - point.x,p.y + evt.getY() - point.y);
+        this.setLocation(p.x + evt.getX() - point.x, p.y + evt.getY() - point.y);
     }//GEN-LAST:event_formMouseDragged
+
+    private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
+       
+        usuario.logar(tfUsuario.getText(), tfSenha.getText());
+        
+        
+    }//GEN-LAST:event_btLoginActionPerformed
 
     /**
      * @param args the command line arguments

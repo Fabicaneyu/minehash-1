@@ -9,6 +9,7 @@ import com.minehash.monitoramento.Processos;
 import com.minehash.database.ConexaoBanco;
 import com.minehash.monitoramento.Consumo;
 import com.minehash.telas.TelaProcessos;
+import com.minehash.telas.TelaCadastroComputador;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,50 +26,76 @@ public class Minerador {
     String senha;
     Boolean status;
 
-    public void logar(String e, String s) {
+    TelaCadastroComputador tela = new TelaCadastroComputador();
+    TelaProcessos telaProc = new TelaProcessos();
+    ConexaoBanco conectarBanco = new ConexaoBanco();
 
-        String query = String.format("select idMinerador from Minerador where email = '%s' and senha = '%s'", e, s);
+    String url;
+    String usuario;
+    String pass;
 
-        selectQuery("jdbc:sqlserver://srvminehash.database.windows.net:1433;"
+    public Minerador() {
+
+        url = "jdbc:sqlserver://srvminehash.database.windows.net:1433;"
                 + "database=bdminehash;"
                 + "user=userminehash@srvminehash;"
                 + "password=#Gfgrupo1;"
                 + "encrypt=true;"
                 + "trustServerCertificate=false;"
                 + "hostNameInCertificate=*.database.windows.net;"
-                + "loginTimeout=30;",
-                "userminehash@srvminehash",
-                "#Gfgrupo1", query);
+                + "loginTimeout=30;";
+
+        usuario = "userminehash@srvminehash";
+        pass = "#Gfgrupo1";
+
+    }
+
+    public void logar(String e, String s) {
+
+        String query = String.format("select id_usuario from tb_usuario where "
+                + "nm_email = '%s' and "
+                + "nm_senha = '%s'", e, s);
+
+        selectQuery(url, usuario, pass, query);
 
         if (status.booleanValue() == true) {
 
-            TelaProcessos tela = new TelaProcessos();
-            tela.setVisible(true);
+            setEmail(e);
+            setSenha(s);
 
-        }
-        
-        else{
-            
+            tela.setVisible(true);
+            tela.setEmail(e);
+            tela.setSenha(s);
+            tela.setId(getIdMinerador());
+            tela.setFk(getFkMinerador());
+            tela.setAutenticacao(getFkMinerador());
+            checarCadastro();
+
+        } else {
+
             System.out.println("ERRO DE LOGIN");
-            
+
         }
 
         return;
 
     }
 
-    public void cadastrarComputador(String e, String s) {
+    public void cadastrarComputador(String e, String s, Integer fk) {
 
         Computador comp = new Computador();
-        ConexaoBanco conectarBanco = new ConexaoBanco();
 
         conectarBanco.montarConexao();
         conectarBanco.template().update(
-                "insert into Computador (hostname, fabricante, modelo, processador,"
-                + " sistemaOperacional, memoriaRam, fkMinerador) values (?,?,?,?,?,?,?)",
-                comp.getHostname(), comp.getFabricante(), comp.getModelo(),
-                comp.getProcessador(), comp.getSistemaOperacional(),
-                comp.getRamTotal(), getFkMinerador());
+                "insert into tb_computador (fk_usuario, nm_ram, nm_processador, nm_so, nm_hostname,"
+                + " nm_modelo, nm_fabricante) values "
+                + "(?,?,?,?,?,?,?)",
+                fk, comp.getRamTotal(), comp.getProcessador(), comp.getSistemaOperacional(),
+                comp.getHostname(), comp.getModelo(), comp.getFabricante());
+
+        System.out.println("COMPUTADOR CADASTRADO! Usuário liberado.");
+
+        telaProc.setVisible(true);
 
     }
 
@@ -82,8 +109,8 @@ public class Minerador {
 
                 while (resultSet.next()) {
 
-                    setIdMinerador(resultSet.getInt("idMinerador"));
-                    setFkMinerador(resultSet.getInt("idMinerador"));
+                    setIdMinerador(resultSet.getInt("id_usuario"));
+                    setFkMinerador(resultSet.getInt("id_usuario"));
 
                 }
             } finally {
@@ -105,6 +132,58 @@ public class Minerador {
 
     }
 
+    public void checarCadastro() {
+
+        if (tela.getEmail() == null || tela.getSenha() == null) {
+
+            System.out.println("IMPOSSÍVEL EFETUAR CADASTRO DE MÁQUINA");
+
+        } else {
+
+            String sql = String.format("select * from tb_computador where fk_usuario = %d", tela.getAutenticacao());
+            int contador = 0;
+
+            try (
+                    Connection connection = DriverManager.getConnection(url, usuario, pass);
+                    PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                    while (resultSet.next()) {
+
+                        contador++;
+                        System.out.println(contador);
+
+                        tela.setAutenticacao(resultSet.getInt("fk_usuario"));
+
+                    }
+                } finally {
+
+                    if (tela.getAutenticacao() == null) {
+                        
+                        System.out.println("NÃO HÁ MÁQUINAS CADASTRADAS PARA ESSE USUÁRIO");
+                        System.out.println("-----------------------------");
+                        System.out.println("CADASTRE AO MENOS UMA MÁQUINA PARA AVANÇAR");
+
+                    } else {
+
+                        System.out.println("USUÁRIO POSSUI " + contador + " MÁQUINA(S) CADASTRADA(S)");
+
+                    }
+
+                    return;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+            }
+
+            return;
+
+        }
+
+    }
+
     public static void main(String[] args) {
 
         Scanner leitor = new Scanner(System.in);
@@ -119,12 +198,29 @@ public class Minerador {
         String senhaTeste = leitor.next();
 
         teste.logar(emailTeste, senhaTeste);
-        teste.cadastrarComputador(emailTeste, senhaTeste);
         Integer fk = teste.getFkMinerador();
+        teste.cadastrarComputador(emailTeste, senhaTeste, fk);
+
         procT.inserirProcessosQuery(fk);
 
         con.inserirDesempenhoQuery(fk);
 
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 
     public void setIdMinerador(Integer idMinerador) {
