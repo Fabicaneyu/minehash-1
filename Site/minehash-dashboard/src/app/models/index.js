@@ -7,9 +7,13 @@ const db = {};
 const sequelize = new Sequelize(cfg.database, cfg.username, cfg.password, {
   host: cfg.host,
   dialect: cfg.dialect,
-  // store: ':memory',
   dialectOptions: {
-    encrypt: true
+    options: { encrypt: true }
+  },
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000
   },
   define: {
     underscoredAll: true,

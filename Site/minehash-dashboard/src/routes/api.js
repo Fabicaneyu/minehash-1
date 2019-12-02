@@ -16,22 +16,22 @@ routes.get(ErrorController.api);
 
 // Rotas Usuário
 
-routes.get('/usuarios/:email', UsuarioController.get); // GET Dados do Usuário
+routes.get('/usuarios', UsuarioController.get); // GET Dados do Usuário
 routes.post('/usuarios', UsuarioController.post); // POST Cadastrar Usuario
-routes.put('/usuarios/:email', UsuarioController.put); // PUT Atualizar Cadastro (INSTAVEL)
+routes.put('/usuarios/', UsuarioController.put); // PUT Atualizar Cadastro (apenas Senha)
 
-routes.get('/usuarios/logout', SessionsController.get); // GET Fazer Logout
+routes.get('/usuarios/logout', SessionsController.get, SessionsController.verificarToken); // GET Fazer Logout
 routes.post('/usuarios/login', SessionsController.post); // POST Fazer Login
 
 // Rotas Computador
 
-routes.get('/computadores', ComputadoresController.post); // GET Lista de Computadores atrelados ao Usuário
+routes.post('/computadores', SessionsController.verificarToken, (req, res, next) => ComputadoresController.post); // GET Lista de Computadores atrelados ao Usuário
 
 // Rotas Detalhes do Computador
 
-routes.get('/desempenhos/:computador', DesempenhosController.post); // GET Dados de Desempenho do Computador
+routes.post('/desempenhos/:computador', SessionsController.verificarToken, (req, res, next) => DesempenhosController.post); // GET Dados de Desempenho do Computador
 
-routes.get('/processos/:computador', ProcessosController.post); // GET Dados de Processos do Computador
+routes.post('/processos/:computador', SessionsController.verificarToken, (req, res, next) => ProcessosController.post); // GET Dados de Processos do Computador
 
 // routes.get('/');
 module.exports = routes;

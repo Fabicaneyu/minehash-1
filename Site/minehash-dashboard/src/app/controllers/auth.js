@@ -1,52 +1,56 @@
 const jwt = require('jsonwebtoken');
 const auth = require('../../config/auth');
 const errHandler = require('../error-handler');
+const { Usuario } = require('../models');
 
 class SessionsController {
 
+  get(req, res, next) {
+    res.status(200).send({
+      auth: false,
+      token: null
+    });
+    next();
+  }
+
   async post(req, res) {
-    const { nm_email, nm_senha } = req.body;
+    const { nmEmail, nmSenha } = req.body;
 
     const result = await Usuario.findOne({
-      where: { nmEmail: nm_email }
-    });
+      where: {nmEmail: nmEmail}
+    }).then(results => {
+      if (!this.checkPassword(nmSenha)) {
+        return res.status(404).json(errHandler.pageError(404));
+      } else {
+        jwt.sign(results.idUsuario, auth.secret, {
+          expiresIn: auth.ttl
+        });
 
-    if (!result) {
-      return res.status(404).json(errHandler.pageError(404));
-    }
-
-    if (!await result.checkPassword(nm_senha)) {
-      return res.status(401).json(errHandler.pageError(401));
-    }
-
-    jwt.sign(result.idUsuario, auth.secret, {
-      expiresIn: auth.ttl
-    });
-
-    return res.json({
-      success: true,
-      message: 'OK',
-      data: result
+        return res.status(200).json({
+          success: true,
+          message: 'OK',
+          data: result
+        });
+      }
+    }).catch(err => {
+      return res.status(500).json({
+        success: false,
+        message: 'Algo deu errado, tente novamente.',
+        err: err
+      });
     });
   }
 
   verificarToken(req, res, next) {
-    const token = req.headers['x-access-token'];
+    const token = req.body['token'];
 
     if (!token) return res.status(401).send(errHandler.pageError(401));
 
     jwt.verify(token, auth.secret, (err, decoded) => {
       if (err) return res.status(500).send(errHandler.pageError(500));
 
-      req.id_usuario = decoded.id;
+      req.id_usuario = decoded.idUsuario;
       next();
-    });
-  }
-
-  get(req, res) {
-    res.status(200).send({
-      auth: false,
-      token: null
     });
   }
 }

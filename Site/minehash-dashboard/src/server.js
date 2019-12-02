@@ -3,8 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const logger = require('morgan');
 const routes = {
-  api: require('./routes/api'),
-  token: require('./app/controllers/auth')
+  api: require('./routes/api')
 }
 
 
@@ -25,9 +24,7 @@ class App {
   }
 
   routes() {
-    this.express.use('/', routes.token.verificarToken);
-    this.express.use('/api/v0', routes.token.verificarToken, routes.api);
-    this.express.use('/dev', routes.errors);
+    this.express.use(routes.api);
   }
 }
 

@@ -1,17 +1,26 @@
-const jwt = require('jsonwebtoken');
-const auth = require('../../config/auth');
 const { Usuario } = require('../models');
 const errHandler = require('../error-handler');
 
 class UsuarioController {
 
-  // GET
+  // Informacores de Usuário
   async get(req, res) {
-    const { nm_email } = req.params;
-    await Usuario.findOne({
-      where: { nm_email }
+    await Usuario.findAll().then(results => {
+      return res.status(200).json({
+        success: true,
+        message: 'OK',
+        data: results
+      });
+    }).catch(err => {
+      return res.status(500).json({
+        success: false,
+        message: 'Algo deu errado, tente novamente.',
+        error: err
+      });
     });
   }
+
+  // Cadastrar Usuário
 
   async post(req, res) {
     await Usuario.create(req.body).then(results => {
@@ -29,17 +38,27 @@ class UsuarioController {
     });
   }
 
+  // Atualizar Cadastro
+
   async put(req, res) {
-    await Usuario.update({
-      password: password
-    }, {
-        where: {nm_login : nm_login}
-      }).then(results => {
-        return res.status(200).json({
-          success: true,
-          message: 'OK',
-          data: results
-        });
+    const { nmEmail, nmSenha } = req.body;
+    await Usuario.update(
+      {nmSenha: nmSenha},
+      {where: {nmEmail: nmEmail},
+      individualHooks: true
+    }).then(results => {
+        if (results == 0) {
+          return res.status(400).json({
+            success: false,
+            message: 'Algo deu errado, tente novamente.'
+          });
+        } else {
+          return res.status(200).json({
+            success: true,
+            message: 'OK',
+            data: results
+          });
+        }
       }).catch(err => {
         return res.status(500).json({
           success: false,

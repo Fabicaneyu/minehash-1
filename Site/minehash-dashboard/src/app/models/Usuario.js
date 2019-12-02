@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'nr_cpf',
       validate: {
         max: 99999999999,
-        len: [8, 9]
+        len: [9]
       }
     },
     nmEmail: {
@@ -55,19 +55,31 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     tableName: 'tb_usuario',
-    instanceMethods: {
-      generateHash: pwd => {
-        return bcrypt.hash(pwd, bcrypt.genSaltSync(8));
-      },
-      checkPassword: pwd => {
-        return bcrypt.compare(pwd, this.nmSenha);
-      },
-    },
     associate: (models) => {
       Usuario.hasMany(models.Computador, {
         foreignKey: 'id_computador'
       });
     }
+  });
+
+  Usuario.prototype.checkPassword = async pwd => {
+    bcrypt.compareSync(pwd, this.nmSenha).then(results => {
+      return results;
+    });
+  };
+
+  const generateHash = user => {
+    return bcrypt.hash(user.nmSenha, bcrypt.genSaltSync(8)).then(pass => {
+      user.nmSenha = pass;
+    });
+  };
+
+  Usuario.beforeCreate((user, options) => {
+    generateHash(user);
+  });
+
+  Usuario.beforeSave((user, options) => {
+    generateHash(user);
   });
 
   return Usuario;
