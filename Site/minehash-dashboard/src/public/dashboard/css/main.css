@@ -200,7 +200,7 @@
 .sidebar-wrapper .sidebar-header .user-info .user-status i {
     font-size: 8px;
     margin-right: 4px;
-    color: #5cb85c;
+    color: #878a87;
 }
 
 .sidebar-wrapper .sidebar-search>div {
@@ -531,7 +531,7 @@ body {
 }
 
 .page-wrapper .theme.legacy-theme {
-    background: #2e333c;
+    background: rgb(122, 133, 153);
 }
 
 .page-wrapper .theme.ice-theme {
@@ -700,4 +700,9 @@ body {
 .boder-radius-on .sidebar-search .input-group-append .input-group-text {
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
+}
+
+body {
+    background-color: rgb(0, 0, 0);
+    size: 0 auto;
 }
