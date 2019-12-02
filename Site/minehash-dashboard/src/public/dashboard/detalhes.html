@@ -7,100 +7,29 @@
 
 
 
-<!-- consumo cpu -->
-<div class="container shadow-lg p-5 mb-3 bg-white rounded " id="card">
-    <canvas class="overflow-auto" id="myCpu" style="width: 200px !important; height: 80px !important"></canvas>
+<div class="container d-flex justify-content-between mb-3   ">
+    <!-- consumo cpu -->
+    <div class="container shadow-lg p-5 mr-md-5 bg-white rounded" id="card">
+        <canvas class="overflow-auto" id="myCpu" width="300px"></canvas>
+    </div>
+
+    <!-- Consumo Gpu -->
+    <div class="container shadow-lg p-5 mr-md-5 bg-white rounded">
+        <canvas class="overflow-auto" id="myGpu" width="300px"></canvas>
+    </div>
 </div>
 
-<!-- chart -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
-<script type="text/javascript">
-    var ctx = document.getElementById('myCpu');
-    var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['uasndo', 'livre'],
-            datasets: [{
-                label: 'Média de consumo dos últimos 7 dias',
-                data: [90, 10],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
+<div class="container d-flex justify-content-between mb-3   ">
+    <!-- consumo cpu -->
+    <div class="container shadow-lg p-5 mr-md-5 bg-white rounded" id="card">
+        <canvas class="overflow-auto" id="myRam" width="300px"></canvas>
+    </div>
 
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            circumference: 1 * Math.PI,
-            rotation: 1 * Math.PI,
-            responsive: true,
-            title: {
-                display: true,
-                text: 'CPU',
-                position: 'top'
-            }
-
-
-
-
-        }
-    });
-</script>
-
-
-<!-- Consumo Gpu -->
-<div class="container shadow-lg p-3 mb-5 bg-white rounded">
-    <canvas class="overflow-auto" id="myGpu" width="200" height="80"></canvas>
+    <!-- Consumo Gpu -->
+    <div class="container shadow-lg p-5 mr-md-5 bg-white rounded">
+        <canvas class="overflow-auto" id="myDisk" width="300px"></canvas>
+    </div>
 </div>
-
-<!-- chart -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
-<script type="text/javascript">
-    var ctx = document.getElementById('myGpu');
-    var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['uasndo', 'livre'],
-            datasets: [{
-                label: 'Média de consumo dos últimos 7 dias',
-                data: [90, 10],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            circumference: 1 * Math.PI,
-            rotation: 1 * Math.PI,
-            responsive: true,
-            title: {
-                display: true,
-                text: 'GPU',
-                position: 'top'
-            }
-
-
-
-
-        }
-    });
-</script>
-
-<!-- cards para visualização rápida -->
 
 <div class="container shadow-lg p-3 mb-5 bg-white rounded">
     <div class="row d-flex justify-content-between align-self-center mr-3 ml-3">
@@ -150,3 +79,83 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var ctx = document.getElementById('myCpu');
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['uasndo', 'livre'],
+            datasets: [{
+                label: 'Média de consumo dos últimos 7 dias',
+                data: [90, 10],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            circumference: 1 * Math.PI,
+            rotation: 1 * Math.PI,
+            responsive: true,
+            title: {
+                display: true,
+                text: 'CPU',
+                position: 'top'
+            }
+
+
+
+
+        }
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var ctx = document.getElementById('myGpu');
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['uasndo', 'livre'],
+            datasets: [{
+                label: 'Média de consumo dos últimos 7 dias',
+                data: [90, 10],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            circumference: 1 * Math.PI,
+            rotation: 1 * Math.PI,
+            responsive: true,
+            title: {
+                display: true,
+                text: 'GPU',
+                position: 'top'
+            }
+
+
+
+
+        }
+    });
+</script>
