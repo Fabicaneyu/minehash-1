@@ -44,6 +44,7 @@ public class Processos {
     public void monitorarProcessos() {
 
         conectarBanco.montarConexao();
+        Logs logs = new Logs();
 
         for (int i = 0; i < 21; i++) {
 
@@ -70,6 +71,8 @@ public class Processos {
                     getFkComputador(), pid, nomeProcesso, estadoProcesso, prioridadeProcesso,
                     cpuPercentual, usuarioProc
             );
+
+//            logs.gerarLogsProcessos(usuarioProc, pid, nomeProcesso, estadoProcesso, cpuPercentual);
 
         }
 

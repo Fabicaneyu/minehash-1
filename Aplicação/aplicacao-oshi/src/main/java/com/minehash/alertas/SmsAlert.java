@@ -12,24 +12,16 @@ import com.twilio.type.PhoneNumber;
 
 public class SmsAlert {
 
-    public static final String ACCOUNT_SID = "AC5e0e8b7e2338d814b71e30e5865c8f89";
-    public static final String AUTH_TOKEN = "7be2acb0d707e69352bcd23d6480a56d";
+    public static final String ACCOUNT_SID = "ACce49cdcce0902ae6fc5b60956ba37594";
+    public static final String AUTH_TOKEN = "7baf3e53c3620dc4cd4d3f88e3ff7c12";
 
-    public void enviarSMS() {
-        
-        Computador comp = new Computador();
-        
+    public void enviarSMS(String conteudo) {
+
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
         Message message = Message
-                .creator(new PhoneNumber("+5511959358729"), new PhoneNumber("+12029198974"),
-                        "Olá, Leonardo. Aqui está seu relatório: "
-                        + "\nHostname: " + comp.getHostname()
-                        + "\nFabricante: " + comp.getFabricante()
-                        + "\nModelo: " + comp.getModelo()
-                        + "\nProcessador: " + comp.getProcessador()
-                        + "\nMemóriaTotal: " + comp.getRamTotal()
-                        + "\nSistema: " + comp.getSistemaOperacional()
+                .creator(new PhoneNumber("+5511959358729"), new PhoneNumber("+12055576890"),
+                        conteudo
                 ).create();
 
         System.out.println(message.getSid());
