@@ -76,7 +76,7 @@ public class Consumo {
 
     public void inserirDesempenhoQuery(Integer fkMinerador) {
 
-        String query = String.format("select idComp from Computador where fkMinerador = %d", fkMinerador);
+        String query = String.format("select id_computador from tb_computador where fk_usuario = %d", fkMinerador);
 
         selectComputador("jdbc:sqlserver://srvminehash.database.windows.net:1433;"
                 + "database=bdminehash;"
@@ -103,8 +103,8 @@ public class Consumo {
 
                 while (resultSet.next()) {
 
-                    setIdComputador(resultSet.getInt("idComp"));
-                    setFkComputador(resultSet.getInt("idComp"));
+                    setIdComputador(resultSet.getInt("id_computador"));
+                    setFkComputador(resultSet.getInt("id_computador"));
 
                 }
             } finally {

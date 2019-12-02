@@ -5,6 +5,7 @@
  */
 package com.minehash.usuario;
 
+import com.minehash.alertas.SmsAlert;
 import com.minehash.monitoramento.Processos;
 import com.minehash.database.ConexaoBanco;
 import com.minehash.monitoramento.Consumo;
@@ -29,6 +30,7 @@ public class Minerador {
     TelaCadastroComputador tela = new TelaCadastroComputador();
     TelaProcessos telaProc = new TelaProcessos();
     ConexaoBanco conectarBanco = new ConexaoBanco();
+    SmsAlert mensagem = new SmsAlert();
 
     String url;
     String usuario;
@@ -77,6 +79,10 @@ public class Minerador {
 
         }
 
+        mensagem.enviarSMS("Olá, um login foi realizado: \n"
+                + "EMAIL: " + getEmail()
+                + "\nSENHA:");
+
         return;
 
     }
@@ -94,7 +100,13 @@ public class Minerador {
                 comp.getHostname(), comp.getModelo(), comp.getFabricante());
 
         System.out.println("COMPUTADOR CADASTRADO! Usuário liberado.");
-
+        mensagem.enviarSMS("Olá! O cadastro do seu equipamento foi realizado com sucesso!\n"
+                + "DADOS:\n"
+                + "Usuário: " + comp.getUsuario()
+                + "Sistema Operacional: " + comp.getSistemaOperacional()
+                + "Hostname: " + comp.getHostname()
+                + "\n Para saber mais, acesso a aplicação!");
+        
         telaProc.setVisible(true);
 
     }
@@ -160,7 +172,7 @@ public class Minerador {
                 } finally {
 
                     if (tela.getAutenticacao() == null) {
-                        
+
                         System.out.println("NÃO HÁ MÁQUINAS CADASTRADAS PARA ESSE USUÁRIO");
                         System.out.println("-----------------------------");
                         System.out.println("CADASTRE AO MENOS UMA MÁQUINA PARA AVANÇAR");
