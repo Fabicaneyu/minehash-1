@@ -20,42 +20,42 @@
 <body>
     <div class="login-page">
         <div class="login-container container">
-                <div class="login-logo container">
-                        <img src="./img/HASH_LOGO.png" alt="Logo Minehash">
+            <div class="login-logo container">
+                <img src="./img/HASH_LOGO.png" alt="Logo Minehash" onclick="voltar()" href="/">
+            </div>
+            <div class="login-form">
+                <form action="#0">
+                    <div>
+
+                        <input type="text" name="firstname" id="firstname" placeholder=" " required>
+                        <label for="firstname">Primeiro nome</label>
                     </div>
-                    <div class="login-form">
-                        <form action="#0">
-                                    <div>
-                            
-                                        <input type="text" name="firstname" id="firstname" placeholder=" " required>
-                                        <label for="firstname">Primeiro nome</label>
-                                    </div>
-                                    <div>
-                            
-                                        <input type="text" name="lastname" id="lastname" placeholder=" " required>
-                                        <label for="lastname">Sobrenome</label>
-                                    </div>
-                                    <div>
-                            
-                                        <input type="tel" name="tel" id="tel" placeholder=" " pattern="^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$" required>
-                                        <label for="tel">número do celular.</label>
-                                        <div class="requirements"> por favor insira um número válido</div>
-                                    </div>
-                                    <div>
-                            
-                                        <input type="email" name="email" id="email" placeholder=" " required>
-                                        <label for="email">Email</label>
-                                        <div class="requirements"> por favor insira um email válido</div>
-                                    </div>
-                                    <div>
-                            
-                                        <input type="password" name="password" id="password" placeholder=" " pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required>
-                                        <label for="password">Senha</label>
-                                        <div class="requirements"> A senha deve conter pelo menos uma letra maiuscula,um número e ter no minimo 6 caracteres </div>
-                                    </div>
-                                    <input type="submit" value="Registrar" />
-                        </form>
+                    <div>
+
+                        <input type="text" name="lastname" id="lastname" placeholder=" " required>
+                        <label for="lastname">Sobrenome</label>
                     </div>
+                    <div>
+
+                        <input type="tel" name="tel" id="tel" placeholder=" " pattern="^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$" required>
+                        <label for="tel">número do celular.</label>
+                        <div class="requirements"> por favor insira um número válido</div>
+                    </div>
+                    <div>
+
+                        <input type="email" name="email" id="email" placeholder=" " required>
+                        <label for="email">Email</label>
+                        <div class="requirements"> por favor insira um email válido</div>
+                    </div>
+                    <div>
+
+                        <input type="password" name="password" id="password" placeholder=" " pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required>
+                        <label for="password">Senha</label>
+                        <div class="requirements"> A senha deve conter pelo menos uma letra maiuscula,um número e ter no minimo 6 caracteres </div>
+                    </div>
+                    <input type="submit" value="Registrar teste" />
+                </form>
+            </div>
         </div>
     </div>
 
