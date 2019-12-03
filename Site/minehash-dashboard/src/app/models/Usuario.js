@@ -43,6 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     nmEmail: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       field: 'nm_email',
       validate: {
         isEmail: true
@@ -62,25 +63,39 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Usuario.prototype.checkPassword = async pwd => {
-    bcrypt.compareSync(pwd, this.nmSenha).then(results => {
-      return results;
+  Usuario.isEmailUnique = email => {
+    Usuario.count({ where: { nmEmail: email } })
+      .then(count => {
+        if (count != 0) {
+          return false;
+        }
+        return true;
     });
-  };
+  }
 
-  const generateHash = user => {
-    return bcrypt.hash(user.nmSenha, bcrypt.genSaltSync(8)).then(pass => {
-      user.nmSenha = pass;
-    });
-  };
+  // Usuario.prototype.validarSenha = async pwd => {
+  //   return pwd == this.nmSenha;
+  // }
+ 
+  // Usuario.prototype.checkPassword = async pwd => {
+  //   bcrypt.compareSync(pwd, this.nmSenha).then(results => {
+  //     return results;
+  //   });
+  // };
 
-  Usuario.beforeCreate((user, options) => {
-    generateHash(user);
-  });
+  // const generateHash = user => {
+  //   return bcrypt.hash(user.nmSenha, bcrypt.genSaltSync(8)).then(pass => {
+  //     user.nmSenha = pass;
+  //   });
+  // };
 
-  Usuario.beforeSave((user, options) => {
-    generateHash(user);
-  });
+  // Usuario.beforeCreate((user, options) => {
+  //   generateHash(user);
+  // });
+
+  // Usuario.beforeSave((user, options) => {
+  //   generateHash(user);
+  // });
 
   return Usuario;
 };

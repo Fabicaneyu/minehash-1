@@ -1,5 +1,4 @@
 const { Usuario } = require('../models');
-const errHandler = require('../error-handler');
 
 class UsuarioController {
 
@@ -23,6 +22,14 @@ class UsuarioController {
   // Cadastrar Usuário
 
   async post(req, res) {
+
+    if (!Usuario.isEmailUnique(req.body.nmEmail)) {
+      return res.json({
+        success: true,
+        message: 'Email já registrado.'
+      });
+    }
+
     await Usuario.create(req.body).then(results => {
       return res.status(200).json({
         success: true,
@@ -42,6 +49,7 @@ class UsuarioController {
 
   async put(req, res) {
     const { nmEmail, nmSenha } = req.body;
+
     await Usuario.update(
       {nmSenha: nmSenha},
       {where: {nmEmail: nmEmail},

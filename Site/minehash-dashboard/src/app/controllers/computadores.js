@@ -2,7 +2,9 @@ const { Computador } = require('../models')
 
 class ComputadoresController {
   async post(req, res) {
-    Computador.findAll({
+    const { idUsuario } = req.body;
+
+    await Computador.findAll({
       where: {fkMinerador: idUsuario}
     }).then(results => {
       return res.status(200).json({

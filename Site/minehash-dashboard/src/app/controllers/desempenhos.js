@@ -1,10 +1,11 @@
 const { Desempenho } = require('../models')
 
 class DesempenhosController {
-  async get(req, res) {
+  async post(req, res) {
+    const { idComputador } = req.body;
 
     await Desempenho.findAll({
-      where: {fkComputador: req.body.idComputador}
+      where: {fkComputador: idComputador}
     }).then(results => {
       return res.status(200).json({
         success: true,
