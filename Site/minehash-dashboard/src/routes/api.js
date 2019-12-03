@@ -19,12 +19,12 @@ routes.put('/usuarios', UsuarioController.put); // PUT Atualizar Cadastro (apena
 
 // Rotas Computador
 
-routes.post('/computadores', ComputadoresController.post); // GET Lista de Computadores atrelados ao Usuário
+routes.get('/computadores', SessionController.isLoggedIn, ComputadoresController.get); // GET Lista de Computadores atrelados ao Usuário
 
 // Rotas Detalhes do Computador
 
-routes.post('/desempenhos', DesempenhosController.post); // GET Dados de Desempenho do Computador
+routes.get('/desempenhos', SessionController.isLoggedIn, DesempenhosController.get); // GET Dados de Desempenho do Computador
 
-routes.get('/processos', ProcessosController.post); // GET Dados de Processos do Computador
+routes.get('/processos', SessionController.isLoggedIn, ProcessosController.get); // GET Dados de Processos do Computador
 
 module.exports = routes;

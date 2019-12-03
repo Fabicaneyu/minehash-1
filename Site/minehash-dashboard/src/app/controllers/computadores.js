@@ -1,12 +1,11 @@
-const { Computador } = require('../models')
+const { Computador, Processo, Desempenho } = require('../models')
 
 class ComputadoresController {
 
-  async post(req, res) {
-    const { idUsuario } = req.body;
+  async get(req, res) {
 
     await Computador.findAll({
-      where: {fkMinerador: idUsuario}
+      where: {fkUsuario: req.user.idUsuario}
     }).then(results => {
       return res.status(200).json({
         success: true,
@@ -20,6 +19,25 @@ class ComputadoresController {
         error: err
       });
     });
+  }
+
+  async getDetails(req, res) {
+    
+    // const processos = (id) => await Processo.findAll({
+    //   where: {fkComputador: id}
+    // }).then(results => results)
+    // .catch(err => err);
+
+    // const desempenho = (id) => await Desempenho.findAl({
+    //   where: {fkComputador: id}
+    // }).then(results => results)
+    // .catch(err => err);
+
+    // await Computador.findAll({
+    //   where: {fkUsuario: req.user.idUsuario}
+    // }).then(results => {
+    //   //
+    // })
   }
 
 }
