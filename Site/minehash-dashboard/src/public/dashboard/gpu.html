@@ -1,0 +1,69 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" ; integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/sidebar-themes.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+
+
+
+<div class="container shadow-lg p-3 mb-5 bg-dark rounded">
+    <canvas class="overflow-auto" id="cpuLine" width="60vw" height="20vh"></canvas>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var ctx = document.getElementById('cpuLine');
+    var cpuChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', ],
+            datasets: [{
+                label: 'média de uso',
+                data: [90, 90, 85, 90, 10, 100, 80],
+
+                backgroundColor: [
+                    '#dc3545b0',
+                    '#dc3545b0',
+                    '#dc3545b0',
+                    '#dc3545b0',
+                    '#dc3545b0',
+                    '#dc3545b0',
+                    '#dc3545b0',
+
+                ],
+                borderColor: [
+                    '#dc3545b0',
+                    '#dc3545b0',
+                    '#dc3545b0',
+                    '#dc3545b0',
+                    '#dc3545b0',
+                    '#dc3545b0',
+                    '#dc3545b0',
+                ],
+                borderWidth: 1
+            }]
+
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'média de consumo dos últimos 7 dias',
+                position: 'top',
+                fontColor: "",
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        offsetGridLines: true
+                    }
+                }]
+            }
+
+
+        }
+
+
+    });
+</script>

@@ -7,34 +7,34 @@
 
 
 
-<div class="container d-flex justify-content-between mb-3   ">
+<div class="container d-flex justify-content-between mb-3  text-white ">
     <!-- consumo cpu -->
-    <div class="container shadow-lg p-5 mr-md-5 bg-white rounded" id="card">
+    <div class="container shadow-lg p-5 mr-md-5 bg-dark rounded" id="card">
         <canvas class="overflow-auto" id="myCpu" width="300px"></canvas>
     </div>
 
     <!-- Consumo Gpu -->
-    <div class="container shadow-lg p-5 mr-md-5 bg-white rounded">
-        <canvas class="overflow-auto" id="myGpu" width="300px"></canvas>
+    <div class="container shadow-lg p-5 mr-md-5 bg-dark rounded">
+        <canvas class="overflow-auto text-white" id="myGpu" width="300px"></canvas>
     </div>
 </div>
 
 <div class="container d-flex justify-content-between mb-3   ">
     <!-- consumo cpu -->
-    <div class="container shadow-lg p-5 mr-md-5 bg-white rounded" id="card">
+    <div class="container shadow-lg p-5 mr-md-5 bg-dark text-white rounded" id="card">
         <canvas class="overflow-auto" id="myRam" width="300px"></canvas>
     </div>
 
     <!-- Consumo Gpu -->
-    <div class="container shadow-lg p-5 mr-md-5 bg-white rounded">
+    <div class="container shadow-lg p-5 mr-md-5 bg-dark rounded">
         <canvas class="overflow-auto" id="myDisk" width="300px"></canvas>
     </div>
 </div>
 
-<div class="container shadow-lg p-3 mb-5 bg-white rounded">
+<div class="container shadow-lg p-3 mb-5 bg-dark rounded">
     <div class="row d-flex justify-content-between align-self-center mr-3 ml-3">
 
-        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
             <a id="detalhes-cpu">
                 <div class="card-header">CPU <span class="badge badge-success">Okay</span></div>
                 <div class="card-body">
@@ -45,7 +45,7 @@
             </a>
         </div>
 
-        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
             <a id="detalhes-gpu">
                 <div class="card-header">GPU <span class="badge badge-success">Okay</span></div>
                 <div class="card-body">
@@ -56,7 +56,7 @@
             </a>
         </div>
 
-        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
             <a id="detalhes-ram">
                 <div class="card-header">RAM <span class="badge badge-warning">Atenção</span></div>
                 <div class="card-body">
@@ -67,7 +67,7 @@
             </a>
         </div>
 
-        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
             <a id="detalhes-armazenamento">
                 <div class="card-header">Armazenamento <span class="badge badge-danger">Pouco Espaço</span></div>
                 <div class="card-body">
@@ -80,6 +80,8 @@
     </div>
 </div>
 
+<!-- chart cpu -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
 <script type="text/javascript">
     var ctx = document.getElementById('myCpu');
@@ -91,13 +93,13 @@
                 label: 'Média de consumo dos últimos 7 dias',
                 data: [90, 10],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
+                    'rgb(31, 192, 17, 0.85)',
+                    'rgb(105, 113, 121, 0.85)',
 
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
+                    'rgb(31, 192, 17, 1)',
+                    'rgb(105, 113, 121, 1)',
 
                 ],
                 borderWidth: 1
@@ -110,15 +112,19 @@
             title: {
                 display: true,
                 text: 'CPU',
-                position: 'top'
+                position: 'top',
+                fontColor: "white",
+            },
+            legend: {
+                labels: {
+                    fontColor: "white",
+                }
             }
-
-
-
-
         }
     });
 </script>
+
+<!-- chart gpu -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
 <script type="text/javascript">
@@ -129,15 +135,15 @@
             labels: ['uasndo', 'livre'],
             datasets: [{
                 label: 'Média de consumo dos últimos 7 dias',
-                data: [90, 10],
+                data: [13, 87],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
+                    'rgb(31, 192, 17, 0.85)',
+                    'rgb(105, 113, 121, 0.85)',
 
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
+                    'rgb(31, 192, 17, 1)',
+                    'rgb(105, 113, 121, 1)',
 
                 ],
                 borderWidth: 1
@@ -149,13 +155,103 @@
             responsive: true,
             title: {
                 display: true,
-                text: 'GPU',
-                position: 'top'
+                text: 'CPU',
+                position: 'top',
+                fontColor: "white",
+            },
+            legend: {
+                labels: {
+                    fontColor: "white",
+                }
             }
+        }
+    });
+</script>
 
+<!-- chart RAM -->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var ctx = document.getElementById('myRam');
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['uasndo', 'livre'],
+            datasets: [{
+                label: 'Média de consumo dos últimos 7 dias',
+                data: [66, 34],
+                backgroundColor: [
+                    'rgb(31, 192, 17, 0.85)',
+                    'rgb(105, 113, 121, 0.85)',
 
+                ],
+                borderColor: [
+                    'rgba(31, 192, 17, 1)',
+                    'rgb(105, 113, 121, 1)',
 
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            circumference: 1 * Math.PI,
+            rotation: 1 * Math.PI,
+            responsive: true,
+            title: {
+                display: true,
+                text: 'CPU',
+                position: 'top',
+                fontColor: "white",
+            },
+            legend: {
+                labels: {
+                    fontColor: "white",
+                }
+            }
+        }
+    });
+</script>
+
+<!-- chart Disco -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var ctx = document.getElementById('myDisk');
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['uasndo', 'livre'],
+            datasets: [{
+                label: 'Média de consumo dos últimos 7 dias',
+                data: [45, 55],
+                backgroundColor: [
+                    'rgb(31, 192, 17, 0.85)',
+                    'rgb(105, 113, 121, 0.85)',
+
+                ],
+                borderColor: [
+                    'rgb(31, 192, 17, 1)',
+                    'rgb(105, 113, 121, 1)',
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            circumference: 1 * Math.PI,
+            rotation: 1 * Math.PI,
+            responsive: true,
+            title: {
+                display: true,
+                text: 'CPU',
+                position: 'top',
+                fontColor: "white",
+            },
+            legend: {
+                labels: {
+                    fontColor: "white",
+                }
+            }
         }
     });
 </script>
