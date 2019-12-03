@@ -27,11 +27,11 @@ module.exports = (passport) => {
       where: {nmEmail: email}
     }).then(results => {
       if (!results) {
-        return done('Usuario nao existe.', false, req.flash('loginMsg', 'Usuario nao existe.'));
+        return done(null, false, req.flash('loginMsg', 'Usuario nao existe.'));
       }
 
       if (results.nmSenha !== senha) {
-        return done('Senha incorreta.', false, req.flash('loginMsg', 'Senha incorreta.'));
+        return done(null, false, req.flash('loginMsg', 'Senha incorreta.'));
       }
 
       return done(null, results);
