@@ -5,6 +5,7 @@
  */
 package com.minehash.telas;
 
+import com.minehash.monitoramento.Consumo;
 import com.minehash.usuario.Minerador;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -97,7 +98,9 @@ public class TelaCadastroComputador extends javax.swing.JFrame {
         usuario.setFkMinerador(fk);
         usuario.cadastrarComputador(email, senha, fk);
 
-
+        Consumo consumo = new Consumo();
+        consumo.inserirDesempenhoQuery(fk);
+        
     }//GEN-LAST:event_btCadastroActionPerformed
 
     private void btAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAvancarActionPerformed
