@@ -1,6 +1,7 @@
 const { Computador } = require('../models')
 
 class ComputadoresController {
+
   async post(req, res) {
     const { idUsuario } = req.body;
 
@@ -20,6 +21,7 @@ class ComputadoresController {
       });
     });
   }
+
 }
 
 module.exports = new ComputadoresController();

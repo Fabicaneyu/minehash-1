@@ -1,6 +1,7 @@
 const { Desempenho } = require('../models')
 
 class DesempenhosController {
+
   async post(req, res) {
     const { idComputador } = req.body;
 
@@ -20,6 +21,7 @@ class DesempenhosController {
       });
     });
   }
+
 }
 
 module.exports = new DesempenhosController();
