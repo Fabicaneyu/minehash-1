@@ -1,0 +1,52 @@
+/* .modal-login {
+    text-align: center;
+    align-content: center;
+} */
+
+.input-login {
+    /* width: 300px; */
+    /* align-content: center; */
+    border: solid 1px black;
+    border-radius: 4px;
+    color: black;
+    font-size: 1em;
+}
+
+
+.div-modal {
+    padding: 8px;
+}
+
+.modal-botao {
+    align-content: center;
+    text-align: center;
+    margin: 8px;
+}
+
+.modal-tamanho {
+    width: 500px;
+    height: 600px;
+    align-content: center;
+}
+
+.forgot-pass {
+    font-size: 1em;
+}
+
+.input-forgot-pass {
+    /* width: 300px; */
+    /* align-content: center; */
+    border: solid 1px black;
+    /* margin: 0.5em; */
+    /* border-width: 0.4px; */
+    /* border-radius: 3.6px; */
+}
+
+.forgot-pass:hover {
+    color: #F0CC04;
+}
+
+.labelLogin {
+    right: 28em;
+    position: absolute;
+}

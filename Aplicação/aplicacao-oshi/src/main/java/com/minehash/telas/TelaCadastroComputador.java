@@ -5,6 +5,7 @@
  */
 package com.minehash.telas;
 
+import com.minehash.monitoramento.Consumo;
 import com.minehash.usuario.Minerador;
 import java.awt.Color;
 import java.awt.Point;
@@ -182,7 +183,9 @@ private Point point = new Point();
         usuario.setFkMinerador(fk);
         usuario.cadastrarComputador(email, senha, fk);
 
-
+        Consumo consumo = new Consumo();
+        consumo.inserirDesempenhoQuery(fk);
+        
     }//GEN-LAST:event_btCadastroActionPerformed
 
     private void btAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAvancarActionPerformed
