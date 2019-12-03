@@ -19,27 +19,23 @@
         data: {
             labels: ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', ],
             datasets: [{
+
                 label: 'média de uso',
                 data: [90, 90, 85, 90, 10, 100, 80],
 
                 backgroundColor: [
-                    '#dc3545b0',
-                    '#dc3545b0',
-                    '#dc3545b0',
-                    '#dc3545b0',
-                    '#dc3545b0',
-                    '#dc3545b0',
-                    '#dc3545b0',
+                    'rgba(255,179,71,0.1)',
+                    'rgba(255,179,71,0.1)',
+                    'rgba(255,179,71,0.1)',
+                    'rgba(255,179,71,0.1)',
+                    'rgba(255,179,71,0.1)',
+                    'rgba(255,179,71,0.1)',
+                    'rgba(255,179,71,0.1)',
 
                 ],
                 borderColor: [
-                    '#dc3545b0',
-                    '#dc3545b0',
-                    '#dc3545b0',
-                    '#dc3545b0',
-                    '#dc3545b0',
-                    '#dc3545b0',
-                    '#dc3545b0',
+                    'rgb(255,179,71)',
+
                 ],
                 borderWidth: 1
             }]
@@ -54,12 +50,13 @@
                 fontColor: "",
             },
             scales: {
-                xAxes: [{
+                xAxes: {
                     gridLines: {
                         offsetGridLines: true
                     }
-                }]
-            }
+                }
+            },
+
 
 
         }
