@@ -2,6 +2,7 @@ const { Usuario } = require('../models');
 
 class UsuarioController {
 
+  // Informacores de Usuário
   async get(req, res) {
     await Usuario.findAll().then(results => {
       return res.status(200).json({
@@ -18,7 +19,10 @@ class UsuarioController {
     });
   }
 
+  // Cadastrar Usuário
+
   async post(req, res) {
+
     if (!Usuario.isEmailUnique(req.body.nmEmail)) {
       return res.json({
         success: true,
@@ -40,6 +44,8 @@ class UsuarioController {
       });
     });
   }
+
+  // Atualizar Cadastro
 
   async put(req, res) {
     const { nmEmail, nmSenha } = req.body;
@@ -69,7 +75,6 @@ class UsuarioController {
       });
     });
   }
-
 }
 
 module.exports = new UsuarioController();

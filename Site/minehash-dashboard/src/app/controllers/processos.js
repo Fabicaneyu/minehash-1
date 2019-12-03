@@ -1,8 +1,7 @@
-const { Processo, Computador } = require('../models')
+const { Processo } = require('../models')
 
 class ProcessosController {
-
-  async get(req, res) {
+  async post(req, res) {
 
     await Processo.findAll({
       where: {fkComputador: req.body.idComputador}
@@ -20,7 +19,6 @@ class ProcessosController {
       });
     });
   }
-
 }
 
 module.exports = new ProcessosController();

@@ -15,7 +15,7 @@ import java.awt.Color;
 public class TelaProcessos extends javax.swing.JFrame {
 
     Processos processos = new Processos();
-    
+
     int idSwing[] = new int[20];
     String nomeSwing[] = new String[20];
     int prioridadeSwing[] = new int[20];
