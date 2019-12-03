@@ -9,7 +9,6 @@ import com.minehash.alertas.SmsAlert;
 import com.minehash.monitoramento.Processos;
 import com.minehash.database.ConexaoBanco;
 import com.minehash.monitoramento.Consumo;
-import com.minehash.monitoramento.Logs;
 import com.minehash.telas.TelaProcessos;
 import com.minehash.telas.TelaCadastroComputador;
 
@@ -32,7 +31,6 @@ public class Minerador {
     TelaProcessos telaProc = new TelaProcessos();
     ConexaoBanco conectarBanco = new ConexaoBanco();
     SmsAlert mensagem = new SmsAlert();
-    Logs logs = new Logs();
 
     String url;
     String usuario;
@@ -82,7 +80,8 @@ public class Minerador {
         }
 
         mensagem.enviarSMS("Olá, um login foi realizado: \n"
-                + "EMAIL: " + getEmail());
+                + "EMAIL: " + getEmail()
+                + "\nSENHA:");
 
         return;
 
@@ -94,11 +93,10 @@ public class Minerador {
 
         conectarBanco.montarConexao();
         conectarBanco.template().update(
-                "insert into tb_computador (fk_usuario, nm_ram, nm_disco, nm_processador, nm_so, nm_hostname,"
+                "insert into tb_computador (fk_usuario, nm_ram, nm_processador, nm_so, nm_hostname,"
                 + " nm_modelo, nm_fabricante) values "
-                + "(?,?,?,?,?,?,?,?)",
-                fk, comp.getRamTotal(), comp.getDisco(),
-                comp.getProcessador(), comp.getSistemaOperacional(),
+                + "(?,?,?,?,?,?,?)",
+                fk, comp.getRamTotal(), comp.getProcessador(), comp.getSistemaOperacional(),
                 comp.getHostname(), comp.getModelo(), comp.getFabricante());
 
         System.out.println("COMPUTADOR CADASTRADO! Usuário liberado.");
@@ -108,7 +106,7 @@ public class Minerador {
                 + "Sistema Operacional: " + comp.getSistemaOperacional()
                 + "Hostname: " + comp.getHostname()
                 + "\n Para saber mais, acesso a aplicação!");
-
+        
         telaProc.setVisible(true);
 
     }
