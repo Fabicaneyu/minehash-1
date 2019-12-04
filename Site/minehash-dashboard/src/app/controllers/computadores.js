@@ -42,8 +42,6 @@ class ComputadoresController {
     const computadores = await Computador.findAll({
       where: {fkUsuario: req.user.idUsuario}
     }).then(results => {
-      await Promise.all(computadores.map(async cmp => {
-        //
     })
     .catch(err => err);
 
