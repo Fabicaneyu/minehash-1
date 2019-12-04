@@ -24,8 +24,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import oshi.util.FormatUtil;
 
 public class Consumo {
@@ -37,21 +35,18 @@ public class Consumo {
     int cpuSize;
     int gpuSize;
     int discoSize;
-    int cpuFan;
 
     Double temperaturaCPU;
-    String temperaturaGPU;
+    Double temperaturaGPU;
 
     Double consumoDisco;
     String consumoRAM;
-    Double consumoCpu;
 
     Integer idComputador;
     Integer fkComputador;
 
     ConexaoBanco conectar = new ConexaoBanco();
     Computador comp = new Computador();
-    Logs logs = new Logs();
 
     public Consumo() {
 
@@ -65,7 +60,6 @@ public class Consumo {
 
         consumoDisco = cpus.get(0).sensors.loads.get(discoSize - 1).value;
         consumoRAM = FormatUtil.formatBytes(comp.hal.getMemory().getAvailable());
-        consumoCpu = cpus.get(0).sensors.loads.get(cpuSize - 1).value;
 
         //        gpus = JSensors.get.components().gpus;
         //        gpuSize = gpus.get(0).sensors.temperatures.size();
@@ -78,8 +72,6 @@ public class Consumo {
         System.out.println(c.temperaturaCPU + "C°");
         System.out.println(c.consumoDisco + "%");
         System.out.println(c.consumoRAM);
-        System.out.println(c.consumoCpu);
-
     }
 
     public void inserirDesempenhoQuery(Integer fkMinerador) {
@@ -137,37 +129,26 @@ public class Consumo {
 
         conectar.montarConexao();
 
-        int delay = 2000;   // tempo de espera antes da 1ª execução da tarefa.
-        int interval = 4000;  // intervalo no qual a tarefa será executada.
+        System.out.println("INSERINDO DADOS...");
+        System.out.println("------------------");
+        System.out.println("FK: " + getFkComputador());
 
-        Timer timer = new Timer();
-
-        timer.scheduleAtFixedRate(new TimerTask() {
-
-            public void run() {
-                System.out.println("INSERINDO DADOS...");
-                System.out.println("------------------");
-                System.out.println("FK: " + getFkComputador());
-                System.out.println("CONSUMO CPU: " + getConsumoCpu());
-                System.out.println("CONSUMO DISCO: " + getConsumoDisco());
-
-                conectar.template().update(
-                        "insert into tb_desempenho (fk_computador, nr_cpu, nr_ram, nr_disco, nr_temperatura_cpu) values"
-                        + "(?,?,?,?,?)", getFkComputador(), getConsumoCpu(), getConsumoRAM(),
-                        getConsumoDisco(), getTemperaturaCPU());
-
-            }
-        }, delay, interval);
+        conectar.template().update(
+                "insert into Desempenho (fkComputador, CPUatual, RAMatual, DISCO, Temperatura) values"
+                + "(?,?,?,?,?)", getFkComputador(), getTemperaturaCPU(),
+                getConsumoRAM(), getConsumoDisco(), getTemperaturaCPU());
 
         System.out.println("FIM DE INSERÇÃO");
 
+        return;
+        
     }
 
     public Double getTemperaturaCPU() {
         return temperaturaCPU;
     }
 
-    public String getTemperaturaGPU() {
+    public Double getTemperaturaGPU() {
         return temperaturaGPU;
     }
 
@@ -177,10 +158,6 @@ public class Consumo {
 
     public Double getConsumoDisco() {
         return consumoDisco;
-    }
-
-    public Double getConsumoCpu() {
-        return consumoCpu;
     }
 
     public Integer getIdComputador() {

@@ -1,4 +1,3 @@
-const path = require('path');
 const express = require('express');
 const routes = express.Router();
 
@@ -8,11 +7,10 @@ const UsuarioController = require('../app/controllers/usuarios');
 const DesempenhosController = require('../app/controllers/desempenhos');
 const ProcessosController = require('../app/controllers/processos');
 const ComputadoresController = require('../app/controllers/computadores');
-const SessionController = require('../app/controllers/session');
+
 
 // Rotas Usuário
 
-routes.get('/dashboard/usuarioLogado', SessionController.isLoggedIn, SessionController.getLoggedUser);
 routes.get('/usuarios', UsuarioController.get); // GET Dados do Usuário
 routes.post('/usuarios', UsuarioController.post); // POST Cadastrar Usuario
 routes.put('/usuarios', UsuarioController.put); // PUT Atualizar Cadastro (apenas Senha)
@@ -24,8 +22,9 @@ routes.get('/detalhes', SessionController.isLoggedIn, ComputadoresController.get
 
 // Rotas Detalhes do Computador
 
-routes.get('/desempenhos', SessionController.isLoggedIn, DesempenhosController.get); // GET Dados de Desempenho do Computador
+routes.post('/desempenhos', DesempenhosController.post); // GET Dados de Desempenho do Computador
 
-routes.get('/processos', SessionController.isLoggedIn, ProcessosController.get); // GET Dados de Processos do Computador
+routes.get('/processos', ProcessosController.post); // GET Dados de Processos do Computador
 
+// routes.get('/');
 module.exports = routes;

@@ -6,11 +6,6 @@
 package com.minehash.usuario;
 
 //import oshi.hardware.HWDiskStore;
-import com.profesorfalken.jsensors.JSensors;
-import com.profesorfalken.jsensors.model.components.Cpu;
-import com.profesorfalken.jsensors.model.components.Disk;
-import com.profesorfalken.jsensors.model.components.Gpu;
-import java.util.List;
 import oshi.SystemInfo;
 import oshi.hardware.*;
 import oshi.software.os.*;
@@ -29,12 +24,8 @@ public class Computador {
     String processador;
     String ramTotal;
     String sistemaOperacional;
-    List<Disk> ds;
-    List<Cpu> cpus;
-//    List<Gpu> gpus;
-//    String gpuNome;
-    int discoSize;
-    Double disco;    
+    String disco;
+    
 
     public Computador() {
 
@@ -45,14 +36,6 @@ public class Computador {
         processador = hal.getProcessor().getName();
         ramTotal = FormatUtil.formatBytes(hal.getMemory().getTotal());
         sistemaOperacional = si.getOperatingSystem().getFamily();
-        ds = JSensors.get.components().disks;
-        discoSize = ds.get(0).sensors.loads.size();
-        cpus = JSensors.get.components().cpus;
-        disco = cpus.get(0).sensors.loads.get(discoSize - 1).value;
-//        gpus = JSensors.get.components().gpus;
-//        gpuNome = gpus.get(0).name.toString();
-        
-        
 
     }
 
@@ -83,25 +66,5 @@ public class Computador {
     public String getSistemaOperacional() {
         return sistemaOperacional;
     }
-
-    public Double getDisco() {
-        return disco;
-    }
-
-    public void setDisco(Double disco) {
-        this.disco = disco;
-    }
-
-//    public String getGpuNome() {
-//        return gpuNome;
-//    }
-//
-//    public void setGpuNome(String gpuNome) {
-//        this.gpuNome = gpuNome;
-//    }
-    
-    
-    
-    
 
 }
