@@ -52,6 +52,7 @@ public class Consumo {
 
     ConexaoBanco conectar = new ConexaoBanco();
     Computador comp = new Computador();
+    Logs logs = new Logs();
 
     public Consumo() {
 
@@ -115,7 +116,7 @@ public class Consumo {
                 "userminehash@srvminehash",
                 "#Gfgrupo1", query);
 
-        monitorarDesempenho();
+        monitorarDesempenho(fkMinerador);
 
     }
 
@@ -151,24 +152,23 @@ public class Consumo {
 
     }
 
-    public void monitorarDesempenho() {
+    public void monitorarDesempenho(Integer fk) {
 
         conectar.montarConexao();
-
-        System.out.println("INSERINDO DADOS...");
-        System.out.println("------------------");
-        System.out.println("FK: " + getFkComputador());
 
         int delay = 2000;   // tempo de espera antes da 1ª execução da tarefa.
         int interval = 2000;  // intervalo no qual a tarefa será executada.
 
         Timer timer = new Timer();
+        gpuUsuario();
 
         timer.scheduleAtFixedRate(new TimerTask() {
 
             public void run() {
 
-                gpuUsuario();
+                System.out.println("INSERINDO DADOS...");
+                System.out.println("------------------");
+                System.out.println("FK: " + getFkComputador());
 
                 if (gpuUsuario() == false) {
 
@@ -186,11 +186,11 @@ public class Consumo {
                             getGpu(), getTemperaturaCPU(), getTemperaturaGPU());
 
                 }
-
+                 System.out.println("FIM DE INSERÇÃO");
             }
         }, delay, interval);
 
-        System.out.println("FIM DE INSERÇÃO");
+       
 
         return;
 

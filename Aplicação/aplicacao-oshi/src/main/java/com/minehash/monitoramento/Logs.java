@@ -36,10 +36,18 @@ public class Logs {
     String formatData = periodo.format(data);
     String formatHora = periodo.format(hora);
 
+    
+    public static void main(String[] args) {
+        
+        Logs l = new Logs();
+//        l.gerarLogs();
+        
+        
+    }
     public void gerarLogs() throws IOException {
 
         File arquivo = new File("data - " + formatData + "- hora - " + formatHora + ".log");
-        Processos procs = new Processos();
+     
 
         arquivo.createNewFile();
         String urlArquivo = arquivo.getAbsolutePath();
@@ -62,7 +70,7 @@ public class Logs {
         System.out.println(getLista());
         System.out.println(arquivo.getAbsolutePath());
 
-        Runtime.getRuntime().exec("explorer.exe " + urlArquivo);
+       
 
     }
 

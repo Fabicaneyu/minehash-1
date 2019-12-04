@@ -31,6 +31,7 @@ public class Minerador {
     TelaProcessos telaProc = new TelaProcessos();
     ConexaoBanco conectarBanco = new ConexaoBanco();
     SmsAlert mensagem = new SmsAlert();
+    Consumo consumo = new Consumo();
 
     String url;
     String usuario;
@@ -64,13 +65,16 @@ public class Minerador {
 
             setEmail(e);
             setSenha(s);
-
+            Consumo con = new Consumo();
             tela.setVisible(true);
             tela.setEmail(e);
             tela.setSenha(s);
             tela.setId(getIdMinerador());
             tela.setFk(getFkMinerador());
             tela.setAutenticacao(getFkMinerador());
+
+            tela.setFkComputador(con.getFkComputador());
+
             checarCadastro();
 
         } else {
@@ -123,8 +127,8 @@ public class Minerador {
                 + "\n Para saber mais, acesso a aplicação!");
 
         telaProc.setVisible(true);
-        Consumo consumo = new Consumo();
-        consumo.monitorarDesempenho();
+        
+        
 
     }
 

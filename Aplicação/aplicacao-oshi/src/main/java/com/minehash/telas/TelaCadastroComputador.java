@@ -5,6 +5,8 @@
  */
 package com.minehash.telas;
 
+import com.minehash.monitoramento.Consumo;
+import com.minehash.monitoramento.Processos;
 import com.minehash.usuario.Minerador;
 import java.awt.Color;
 import java.awt.Point;
@@ -16,12 +18,14 @@ import javax.swing.JLabel;
  * @author marco
  */
 public class TelaCadastroComputador extends javax.swing.JFrame {
-private Point point = new Point();
+
+    private Point point = new Point();
     String email;
     String senha;
     Integer id;
     Integer fk;
     Integer autenticacao;
+    Integer fkComputador;
 
     public TelaCadastroComputador() {
         initComponents();
@@ -178,10 +182,16 @@ private Point point = new Point();
         System.out.println(fk);
 
         Minerador usuario = new Minerador();
+        Consumo con = new Consumo();
+        Processos proc = new Processos();
+        
         usuario.setIdMinerador(id);
         usuario.setFkMinerador(fk);
         usuario.cadastrarComputador(email, senha, fk);
 
+        con.inserirDesempenhoQuery(fk);
+        
+        proc.inserirProcessosQuery(fk);
 
     }//GEN-LAST:event_btCadastroActionPerformed
 
@@ -194,7 +204,7 @@ private Point point = new Point();
     }//GEN-LAST:event_btAvancarActionPerformed
 
     private void btCadastroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCadastroMouseEntered
-        btCadastro.setBackground(new Color(189,126,5));
+        btCadastro.setBackground(new Color(189, 126, 5));
     }//GEN-LAST:event_btCadastroMouseEntered
 
     private void btCadastroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCadastroMouseExited
@@ -207,20 +217,20 @@ private Point point = new Point();
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-       Point p = this.getLocation();
-       this.setLocation(p.x + evt.getX() - point.x, p.y + evt.getY() - point.y);
+        Point p = this.getLocation();
+        this.setLocation(p.x + evt.getX() - point.x, p.y + evt.getY() - point.y);
     }//GEN-LAST:event_formMouseDragged
 
     private void btAvancar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAvancar1ActionPerformed
-           System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_btAvancar1ActionPerformed
 
     private void btAvancarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAvancarMouseEntered
-      btAvancar.setBackground(new Color(189,126,5));
+        btAvancar.setBackground(new Color(189, 126, 5));
     }//GEN-LAST:event_btAvancarMouseEntered
 
     private void btAvancarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAvancarMouseExited
-       btAvancar.setBackground(new Color(10, 13, 14));
+        btAvancar.setBackground(new Color(10, 13, 14));
     }//GEN-LAST:event_btAvancarMouseExited
 
     /**
@@ -307,6 +317,14 @@ private Point point = new Point();
 
     public void setAutenticacao(Integer autenticacao) {
         this.autenticacao = autenticacao;
+    }
+
+    public Integer getFkComputador() {
+        return fkComputador;
+    }
+
+    public void setFkComputador(Integer fkComputador) {
+        this.fkComputador = fkComputador;
     }
 
 }

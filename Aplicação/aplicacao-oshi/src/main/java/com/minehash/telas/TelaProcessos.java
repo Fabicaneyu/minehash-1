@@ -6,8 +6,11 @@
 package com.minehash.telas;
 
 import com.minehash.monitoramento.Consumo;
+import com.minehash.monitoramento.Logs;
 import com.minehash.monitoramento.Processos;
 import java.awt.Color;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -2037,8 +2040,9 @@ public class TelaProcessos extends javax.swing.JFrame {
         lbNome19.setText(nomeSwing[20]);
         lbPrioridade20.setText(String.valueOf(prioridadeSwing[20]));
 
-        Consumo consumo = new Consumo();
-        consumo.monitorarDesempenho();
+        int delay = 2000;   // tempo de espera antes da 1ª execução da tarefa.
+        int interval = 2000;  // intervalo no qual a tarefa será executada.
+
 
     }//GEN-LAST:event_btnMonitorarActionPerformed
 
