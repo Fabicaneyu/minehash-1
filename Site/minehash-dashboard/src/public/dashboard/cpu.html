@@ -13,8 +13,8 @@
     </div>
 
     <div class="container shadow-lg p-3 mb-5 bg-dark rounded">
-            <canvas class="overflow-auto" id="cpuChart-b" width="500px"></canvas>
-        </div>
+        <canvas class="overflow-auto" id="cpuChart-b" width="500px"></canvas>
+    </div>
 
     <div class="container shadow-lg p-3 mb-5 bg-dark rounded">
         <table class="table">
@@ -33,16 +33,18 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-$.get('/computadores', (results, status) => {
-    if (!results.success || results.data == null) throw new Error('Erro na requisição de Computadores');
+    $.get('/computadores', (results, status) => {
+        if (!results.success || results.data == null) throw new Error('Erro na requisição de Computadores');
 
-    $.post('/processos', {idComputador: results.data.idComputador}, (procs, status) => {
-        if (!procs.success) throw new Error('Erro na requisição de Processos');
+        $.post('/processos', {
+            idComputador: results.data.idComputador
+        }, (procs, status) => {
+            if (!procs.success) throw new Error('Erro na requisição de Processos');
 
-        let i = 0;
-        procs.data.map(proc => {
-            i++;
-            $('#table-processos').append(`
+            let i = 0;
+            procs.data.map(proc => {
+                i++;
+                $('#table-processos').append(`
             <tr>
                 <th scope="row">${i}</th>
                 <td>${proc.nmProcesso}</td>
@@ -53,9 +55,9 @@ $.get('/computadores', (results, status) => {
                 <td>${proc.nmUsuario}</td>
             </tr>
             `);
+            });
         });
     });
-});
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
@@ -78,6 +80,41 @@ $.get('/computadores', (results, status) => {
             title: {
                 display: true,
                 text: 'média de consumo dos últimos 7 dias',
+                position: 'top',
+                fontColor: "",
+            },
+            scales: {
+                xAxes: {
+                    gridLines: {
+                        offsetGridLines: true
+                    }
+                }
+            },
+        }
+    });
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    const chart = new Chart(document.getElementById('cpuChart-b'), {
+        type: 'pie',
+        data: {
+            labels: ['temperatura da CPU'],
+            datasets: [{
+                label: 'temperatura',
+                data: [60, 40],
+                backgroundColor: 'rgba(255,179,71,0.1)',
+                borderColor: 'rgb(255,179,71)',
+                borderWidth: 1
+            }]
+
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Temperatura atual da CPU',
                 position: 'top',
                 fontColor: "",
             },

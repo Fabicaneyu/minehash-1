@@ -8,28 +8,67 @@
 
 
 <div class="container shadow-lg p-3 mb-5 bg-dark rounded">
-    <canvas class="overflow-auto" id="cpuLine" width="60vw" height="20vh"></canvas>
+    <canvas class="overflow-auto" id="diskChart-a" width="60vw" height="20vh"></canvas>
 </div>
+<div class="container shadow-lg p-3 mb-5 bg-dark rounded">
+    <canvas class="overflow-auto" id="diskChart-b" width="500px"></canvas>
+</div>
+
+<div class="container shadow-lg p-3 mb-5 bg-dark rounded">
+    <table class="table">
+        <thead>
+            <th scope="col">Nome do Processo</th>
+            <th scope="col">PID</th>
+            <th scope="col">Status</th>
+            <th scope="col">Prioridade</th>
+            <th scope="col">Consumo de CPU</th>
+            <th scope="col">Usuário (OS)</th>
+        </thead>
+        <tbody id="table-processos"></tbody>
+    </table>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $.get('/computadores', (results, status) => {
+        if (!results.success || results.data == null) throw new Error('Erro na requisição de Computadores');
+
+        $.post('/processos', {
+            idComputador: results.data.idComputador
+        }, (procs, status) => {
+            if (!procs.success) throw new Error('Erro na requisição de Processos');
+
+            let i = 0;
+            procs.data.map(proc => {
+                i++;
+                $('#table-processos').append(`
+    <tr>
+        <th scope="row">${i}</th>
+        <td>${proc.nmProcesso}</td>
+        <td>${proc.nrPid}</td>
+        <td>${proc.nmStatus}</td>
+        <td>${proc.nmPrioridade}</td>
+        <td>${proc.nrConsumoCpu}</td>
+        <td>${proc.nmUsuario}</td>
+    </tr>
+    `);
+            });
+        });
+    });
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
 <script type="text/javascript">
-    var ctx = document.getElementById('cpuLine');
-    var cpuChart = new Chart(ctx, {
+    const chart = new Chart(document.getElementById('diskChart-a'), {
         type: 'line',
         data: {
-            labels: ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', ],
+            labels: ['Consumo do Disco'],
             datasets: [{
                 label: 'média de uso',
                 data: [90, 90, 85, 90, 10, 100, 80],
-
-                backgroundColor: [
-                    'rgba(70,182,247,0.1)',
-
-                ],
-                borderColor: [
-                    'rgb(70,182,247)',
-
-                ],
+                backgroundColor: 'rgba(270,182,247,0.1)',
+                borderColor: 'rgb(270,182,247)',
                 borderWidth: 1
             }]
 
@@ -43,16 +82,12 @@
                 fontColor: "",
             },
             scales: {
-                xAxes: [{
+                xAxes: {
                     gridLines: {
                         offsetGridLines: true
                     }
-                }]
-            }
-
-
+                }
+            },
         }
-
-
     });
 </script>
