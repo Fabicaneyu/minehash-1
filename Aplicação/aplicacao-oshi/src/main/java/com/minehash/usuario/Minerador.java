@@ -9,8 +9,10 @@ import com.minehash.alertas.SmsAlert;
 import com.minehash.monitoramento.Processos;
 import com.minehash.database.ConexaoBanco;
 import com.minehash.monitoramento.Consumo;
+import com.minehash.monitoramento.Logs;
 import com.minehash.telas.TelaProcessos;
 import com.minehash.telas.TelaCadastroComputador;
+import java.io.IOException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -83,7 +85,7 @@ public class Minerador {
 
         }
 
-        mensagem.enviarSMS("Olá, um login foi realizado: \n"
+        mensagem.enviarSMS("Olá, um login foi realizado na aplicação: \n"
                 + "EMAIL: " + getEmail()
         );
 
@@ -120,15 +122,13 @@ public class Minerador {
 
         System.out.println("COMPUTADOR CADASTRADO! Usuário liberado.");
         mensagem.enviarSMS("Olá! O cadastro do seu equipamento foi realizado com sucesso!\n"
-                + "DADOS:\n"
-                + "Usuário: " + comp.getUsuario()
-                + "Sistema Operacional: " + comp.getSistemaOperacional()
-                + "Hostname: " + comp.getHostname()
+                + "DADOS:"
+                + "\nUsuário: " + getEmail()
+                + "\nSistema Operacional: " + comp.getSistemaOperacional()
+                + "\nHostname: " + comp.getHostname()
                 + "\n Para saber mais, acesso a aplicação!");
 
         telaProc.setVisible(true);
-        
-        
 
     }
 
@@ -214,29 +214,6 @@ public class Minerador {
             return;
 
         }
-
-    }
-
-    public static void main(String[] args) {
-
-        Scanner leitor = new Scanner(System.in);
-        Minerador teste = new Minerador();
-        Processos procT = new Processos();
-        Consumo con = new Consumo();
-
-        System.out.println("Email: ");
-        String emailTeste = leitor.next();
-
-        System.out.println("Senha: ");
-        String senhaTeste = leitor.next();
-
-        teste.logar(emailTeste, senhaTeste);
-        Integer fk = teste.getFkMinerador();
-        teste.cadastrarComputador(emailTeste, senhaTeste, fk);
-
-        procT.inserirProcessosQuery(fk);
-
-        con.inserirDesempenhoQuery(fk);
 
     }
 

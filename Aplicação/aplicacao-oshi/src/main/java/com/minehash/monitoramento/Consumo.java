@@ -52,7 +52,6 @@ public class Consumo {
 
     ConexaoBanco conectar = new ConexaoBanco();
     Computador comp = new Computador();
-    Logs logs = new Logs();
 
     public Consumo() {
 
@@ -70,14 +69,6 @@ public class Consumo {
 
         cpu = cpus.get(0).sensors.loads.get(cpuLoad - 1).value;
 
-    }
-
-    public static void main(String[] args) {
-
-        Consumo c = new Consumo();
-        System.out.println(c.temperaturaCPU + "C°");
-        System.out.println(c.consumoDisco + "%");
-        System.out.println(c.consumoRAM);
     }
 
     public Boolean gpuUsuario() {
@@ -186,11 +177,11 @@ public class Consumo {
                             getGpu(), getTemperaturaCPU(), getTemperaturaGPU());
 
                 }
-                 System.out.println("FIM DE INSERÇÃO");
+
+                System.out.println("FIM DE INSERÇÃO");
+
             }
         }, delay, interval);
-
-       
 
         return;
 

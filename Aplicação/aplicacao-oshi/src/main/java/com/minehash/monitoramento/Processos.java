@@ -3,6 +3,7 @@ package com.minehash.monitoramento;
 import com.minehash.database.ConexaoBanco;
 import com.minehash.usuario.Computador;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -71,7 +72,6 @@ public class Processos {
                     cpuPercentual, usuarioProc
             );
 
-//            logs.gerarLogsProcessos(usuarioProc, pid, nomeProcesso, estadoProcesso, cpuPercentual);
         }
 
     }

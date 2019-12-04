@@ -27,13 +27,20 @@ class PrototipoLog extends CapturaDadosOshi {
     Logger log = lgmngr.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     LocalDateTime periodo = LocalDateTime.now();
-    
+
     DateTimeFormatter data = DateTimeFormatter.ofPattern("yyyy_MM_dd");
-    DateTimeFormatter hora = DateTimeFormatter.ofPattern("HH-mm");
-    
+    DateTimeFormatter hora = DateTimeFormatter.ofPattern("HH:mm");
+
     String formatData = periodo.format(data);
     String formatHora = periodo.format(hora);
+
     
+    public static void main(String[] args) throws IOException{
+        
+        PrototipoLog a = new PrototipoLog();
+        a.gerarLog();
+        
+    }
     public void gerarLog() throws IOException {
 
         File arquivo = new File("data - " + formatData + "- hora - " + formatHora + ".log");
