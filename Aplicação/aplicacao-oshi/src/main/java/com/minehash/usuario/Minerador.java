@@ -81,7 +81,7 @@ public class Minerador {
 
         mensagem.enviarSMS("Olá, um login foi realizado: \n"
                 + "EMAIL: " + getEmail()
-                + "\nSENHA:");
+        );
 
         return;
 
@@ -92,12 +92,27 @@ public class Minerador {
         Computador comp = new Computador();
 
         conectarBanco.montarConexao();
-        conectarBanco.template().update(
-                "insert into tb_computador (fk_usuario, nm_ram, nm_processador, nm_so, nm_hostname,"
-                + " nm_modelo, nm_fabricante) values "
-                + "(?,?,?,?,?,?,?)",
-                fk, comp.getRamTotal(), comp.getProcessador(), comp.getSistemaOperacional(),
-                comp.getHostname(), comp.getModelo(), comp.getFabricante());
+        comp.gpuUsuario();
+
+        if (comp.gpuUsuario() == false) {
+
+            conectarBanco.template().update(
+                    "insert into tb_computador (fk_usuario, nm_disco, nm_ram, nm_processador, nm_so, nm_hostname,"
+                    + " nm_modelo, nm_fabricante) values "
+                    + "(?,?,?,?,?,?,?,?)",
+                    fk, comp.getDisco(), comp.getRamTotal(), comp.getProcessador(), comp.getSistemaOperacional(),
+                    comp.getHostname(), comp.getModelo(), comp.getFabricante());
+
+        } else {
+
+            conectarBanco.template().update(
+                    "insert into tb_computador (fk_usuario, nm_gpu, nm_disco, nm_ram, nm_processador, nm_so, nm_hostname,"
+                    + " nm_modelo, nm_fabricante) values "
+                    + "(?,?,?,?,?,?,?,?,?)",
+                    fk, comp.getGpu(), comp.getDisco(), comp.getRamTotal(), comp.getProcessador(), comp.getSistemaOperacional(),
+                    comp.getHostname(), comp.getModelo(), comp.getFabricante());
+
+        }
 
         System.out.println("COMPUTADOR CADASTRADO! Usuário liberado.");
         mensagem.enviarSMS("Olá! O cadastro do seu equipamento foi realizado com sucesso!\n"
@@ -106,8 +121,10 @@ public class Minerador {
                 + "Sistema Operacional: " + comp.getSistemaOperacional()
                 + "Hostname: " + comp.getHostname()
                 + "\n Para saber mais, acesso a aplicação!");
-        
+
         telaProc.setVisible(true);
+        Consumo consumo = new Consumo();
+        consumo.monitorarDesempenho();
 
     }
 

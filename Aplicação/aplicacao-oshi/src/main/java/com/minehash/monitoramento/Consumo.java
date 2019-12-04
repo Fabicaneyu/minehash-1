@@ -24,6 +24,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import oshi.util.FormatUtil;
 
 public class Consumo {
@@ -35,6 +37,9 @@ public class Consumo {
     int cpuSize;
     int gpuSize;
     int discoSize;
+    int gpu;
+    int cpuLoad;
+    Double cpu;
 
     Double temperaturaCPU;
     Double temperaturaGPU;
@@ -54,6 +59,7 @@ public class Consumo {
         disco = JSensors.get.components().disks;
 
         cpuSize = cpus.get(0).sensors.temperatures.size();
+        cpuLoad = cpus.get(0).sensors.loads.size();
         discoSize = disco.get(0).sensors.loads.size();
 
         temperaturaCPU = cpus.get(0).sensors.temperatures.get(cpuSize - 1).value;
@@ -61,9 +67,8 @@ public class Consumo {
         consumoDisco = cpus.get(0).sensors.loads.get(discoSize - 1).value;
         consumoRAM = FormatUtil.formatBytes(comp.hal.getMemory().getAvailable());
 
-        //        gpus = JSensors.get.components().gpus;
-        //        gpuSize = gpus.get(0).sensors.temperatures.size();
-        //        temperaturaGPU = cpus.get(0).sensors.temperatures.get(gpuSize - 1).value;
+        cpu = cpus.get(0).sensors.loads.get(cpuLoad - 1).value;
+
     }
 
     public static void main(String[] args) {
@@ -72,6 +77,27 @@ public class Consumo {
         System.out.println(c.temperaturaCPU + "C°");
         System.out.println(c.consumoDisco + "%");
         System.out.println(c.consumoRAM);
+    }
+
+    public Boolean gpuUsuario() {
+
+        gpus = JSensors.get.components().gpus;
+
+        if (getGpus().size() == 0) {
+
+            System.out.println("COMPUTADOR NÃO POSSUI PLACA DEDICADA");
+
+            return false;
+
+        } else {
+
+            gpu = gpus.get(0).sensors.loads.size();
+            gpuSize = gpus.get(0).sensors.temperatures.size();
+            temperaturaGPU = cpus.get(0).sensors.temperatures.get(gpuSize - 1).value;
+
+            return true;
+        }
+
     }
 
     public void inserirDesempenhoQuery(Integer fkMinerador) {
@@ -133,15 +159,41 @@ public class Consumo {
         System.out.println("------------------");
         System.out.println("FK: " + getFkComputador());
 
-        conectar.template().update(
-                "insert into Desempenho (fkComputador, CPUatual, RAMatual, DISCO, Temperatura) values"
-                + "(?,?,?,?,?)", getFkComputador(), getTemperaturaCPU(),
-                getConsumoRAM(), getConsumoDisco(), getTemperaturaCPU());
+        int delay = 2000;   // tempo de espera antes da 1ª execução da tarefa.
+        int interval = 2000;  // intervalo no qual a tarefa será executada.
+
+        Timer timer = new Timer();
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+
+            public void run() {
+
+                gpuUsuario();
+
+                if (gpuUsuario() == false) {
+
+                    conectar.template().update(
+                            "INSERT INTO tb_desempenho (fk_computador, nr_cpu, nr_ram, nr_disco, nr_temperatura_cpu)\n"
+                            + "values (?,?,?,?,?)", getFkComputador(), getCpu(), getConsumoRAM(), getConsumoDisco(),
+                            getTemperaturaCPU());
+
+                } else {
+
+                    conectar.template().update(
+                            "INSERT INTO tb_desempenho (fk_computador, nr_cpu, nr_ram, nr_disco,"
+                            + " nr_gpu, nr_temperatura_cpu, nr_temperatura_gpu)\n"
+                            + "values (?,?,?,?,?,?,?)", getFkComputador(), getCpu(), getConsumoRAM(), getConsumoDisco(),
+                            getGpu(), getTemperaturaCPU(), getTemperaturaGPU());
+
+                }
+
+            }
+        }, delay, interval);
 
         System.out.println("FIM DE INSERÇÃO");
 
         return;
-        
+
     }
 
     public Double getTemperaturaCPU() {
@@ -174,6 +226,18 @@ public class Consumo {
 
     public void setFkComputador(Integer fkComputador) {
         this.fkComputador = fkComputador;
+    }
+
+    public List<Gpu> getGpus() {
+        return gpus;
+    }
+
+    public int getGpu() {
+        return gpu;
+    }
+
+    public Double getCpu() {
+        return cpu;
     }
 
 }

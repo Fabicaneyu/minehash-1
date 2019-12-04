@@ -5,6 +5,7 @@
  */
 package com.minehash.telas;
 
+import com.minehash.monitoramento.Consumo;
 import com.minehash.monitoramento.Processos;
 import java.awt.Color;
 
@@ -16,9 +17,9 @@ public class TelaProcessos extends javax.swing.JFrame {
 
     Processos processos = new Processos();
 
-    int idSwing[] = new int[20];
-    String nomeSwing[] = new String[20];
-    int prioridadeSwing[] = new int[20];
+    int idSwing[] = new int[21];
+    String nomeSwing[] = new String[21];
+    int prioridadeSwing[] = new int[21];
 
     //    int[] idProcesso = new int[10];
 //    String[] nomeProcesso = new String[10];
@@ -2036,6 +2037,8 @@ public class TelaProcessos extends javax.swing.JFrame {
         lbNome19.setText(nomeSwing[20]);
         lbPrioridade20.setText(String.valueOf(prioridadeSwing[20]));
 
+        Consumo consumo = new Consumo();
+        consumo.monitorarDesempenho();
 
     }//GEN-LAST:event_btnMonitorarActionPerformed
 
