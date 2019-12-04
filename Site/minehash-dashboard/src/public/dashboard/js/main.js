@@ -16,10 +16,6 @@ jQuery(async $ => {
   $(document).ready(() => {
     checkSize();
     $('#dashboard-frame').load(() => {
-      setTimeout(() => {
-        let element = document.getElementById('dashboard-frame');
-        element.style.height = element.contentWindow.document.body.scrollHeight + 'px';
-      });
       this.style.height =
       this.contentWindow.document.body.offsetHeight + 'px';
     });
@@ -90,7 +86,6 @@ jQuery(async $ => {
   });
 
   $('#dashboard-frame').change(() => {
-    $("#dashboard-frame").load();
     let element = document.getElementById('dashboard-frame');
     element.style.height = element.contentWindow.document.body.scrollHeight + 'px';
   });
