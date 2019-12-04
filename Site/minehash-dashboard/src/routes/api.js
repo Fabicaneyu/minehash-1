@@ -20,6 +20,7 @@ routes.put('/usuarios', UsuarioController.put); // PUT Atualizar Cadastro (apena
 // Rotas Computador
 
 routes.get('/computadores', SessionController.isLoggedIn, ComputadoresController.get); // GET Lista de Computadores atrelados ao Usuário
+routes.get('/detalhes', SessionController.isLoggedIn, ComputadoresController.getDetails); // GET TUDO
 
 // Rotas Detalhes do Computador
 
