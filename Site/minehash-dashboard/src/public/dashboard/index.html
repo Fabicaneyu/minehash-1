@@ -35,22 +35,23 @@
             <div class="sidebar-content">
                 <!-- sidebar-brand  -->
                 <div class="sidebar-item sidebar-brand">
-                    <a href="#">pro sidebar</a>
+                    <a href="#">Minehash Dashboard</a>
                 </div>
                 <!-- sidebar-header  -->
                 <div class="sidebar-item sidebar-header d-flex flex-nowrap">
                     <div class="user-pic">
-                        <img class="img-responsive img-rounded" src="img/user.jpg" alt="User picture">
+                        <img class="img-responsive img-rounded" src="img/user.jpg" alt="img/user.jpg">
                     </div>
                     <div class="user-info">
-                        <span class="user-name">Jhon
+                        <span class="user-name"></span>
+                        <!-- <span class="user-name">Jhon
                             <strong>Smith</strong>
                         </span>
                         <span class="user-role">Administrator</span>
                         <span class="user-status">
                             <i class="fa fa-circle"></i>
                             <span>Online</span>
-                        </span>
+                        </span> -->
                     </div>
                 </div>
                 <!-- sidebar-search  -->
@@ -75,7 +76,7 @@
                         <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-tachometer-alt"></i>
-                                <span class="menu-text">Meu Computador</span>
+                                <span class="menu-text"><span id="db-hostname"></span></span>
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
@@ -214,7 +215,7 @@
             </div>
             <!-- sidebar-footer  -->
             <div class="sidebar-footer">
-                <div class="dropdown">
+                <!-- <div class="dropdown">
 
                     <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell"></i>
@@ -334,10 +335,10 @@
                         <a class="dropdown-item" href="#">Help</a>
                         <a class="dropdown-item" href="#">Setting</a>
                     </div>
-                </div>
+                </div> -->
                 <div>
-                    <a href="#">
-                        <i class="fa fa-power-off"></i>
+                    <a href="../logout">
+                        <i class="fa fa-power-off" ></i>
                     </a>
                 </div>
                 <div class="pinned-footer">
@@ -352,15 +353,15 @@
             <div id="overlay" class="overlay"></div>
             <div class="container-fluid p-3">
                 <div class="container">
-                    <div class="shadow-lg p-3 mb-5 bg-dark  rounded nav nav-pills row mx-md-n5">
+                    <div class="shadow-lg p-2 mb-5 bg-dark rounded nav nav-pills">
                         <li id="menu-btn" class="nav-item">
                             <a id="toggle-sidebar" class="nav-link p-2 mb-2 bg-dark text-white rounded"><i class="fas fa-bars p-2"></i></a>
                         </li>
                         <div class="nav-item col px-md-2 bg-dark">
                             <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb" id="breadcrumb-item-add">
+                                <ol class="breadcrumb bg-dark" id="breadcrumb-item-add">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Meu</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Detalhes</li>
                                 </ol>
                             </nav>
@@ -369,7 +370,7 @@
                 </div>
 
                 <div class="row">
-                    <iframe id="dashboard-frame" src="detalhes.html" frameborder="0" scrolling="no" width="100%" height="auto" class="overflow-hidden" onload="resizeIframe(this)"></iframe>
+                    <iframe id="dashboard-frame" src="detalhes.html" frameborder="0" scrolling="no" width="100%" height="100%" class="overflow-hidden"></iframe>
                 </div>
             </div>
             <!-- <div class="container-fluid p-5">
@@ -486,6 +487,9 @@
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
 
+    <!-- Start of minehashhelp Zendesk Widget script -->
+    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=c93e1017-64b8-4c31-bc60-2142efdde790"> </script>
+    <!-- End of minehashhelp Zendesk Widget script -->
 
     <script src="js/main.js"></script>
 </body>

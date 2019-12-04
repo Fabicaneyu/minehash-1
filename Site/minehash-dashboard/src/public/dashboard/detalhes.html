@@ -5,253 +5,147 @@
 <link rel="stylesheet" href="css/sidebar-themes.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
 
-
-
-<div class="container d-flex justify-content-between mb-3  text-white ">
-    <!-- consumo cpu -->
-    <div class="container shadow-lg p-5 mr-md-5 bg-dark rounded" id="card">
-        <canvas class="overflow-auto" id="myCpu" width="300px"></canvas>
-    </div>
-
-    <!-- Consumo Gpu -->
-    <div class="container shadow-lg p-5 mr-md-5 bg-dark rounded">
-        <canvas class="overflow-auto text-white" id="myGpu" width="300px"></canvas>
-    </div>
-</div>
-
-<div class="container d-flex justify-content-between mb-3   ">
-    <!-- consumo cpu -->
-    <div class="container shadow-lg p-5 mr-md-5 bg-dark text-white rounded" id="card">
-        <canvas class="overflow-auto" id="myRam" width="300px"></canvas>
-    </div>
-
-    <!-- Consumo Gpu -->
-    <div class="container shadow-lg p-5 mr-md-5 bg-dark rounded">
-        <canvas class="overflow-auto" id="myDisk" width="300px"></canvas>
-    </div>
-</div>
-
-<div class="container shadow-lg p-3 mb-5 bg-dark rounded">
-    <div class="row d-flex justify-content-between align-self-center mr-3 ml-3">
-
-        <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-            <a id="detalhes-cpu">
-                <div class="card-header">CPU <span class="badge badge-success">Okay</span></div>
-                <div class="card-body">
-                    <h5 class="card-title">AMD Ryzen 7 1700 Octacore 3.0GHz</h5>
-                    <p class="card-text">Último registro:</p>
-                    <p class="card-text">Média de Consumo Diária:</p>
-                </div>
-            </a>
+<div class="container-fluid p-3">
+    <div class="container d-flex justify-content-between mb-3 text-white">
+        <div class="container shadow-lg p-5 mr-md-5 bg-dark rounded" id="card">
+            <canvas class="overflow-auto" id="cpuChart" width="300px"></canvas>
         </div>
-
-        <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-            <a id="detalhes-gpu">
-                <div class="card-header">GPU <span class="badge badge-success">Okay</span></div>
-                <div class="card-body">
-                    <h5 class="card-title">Nvidia GeForce GTX 1080 8GB GDDR5</h5>
-                    <p class="card-text">Último registro:</p>
-                    <p class="card-text">Média de consumo Diário:</p>
-                </div>
-            </a>
+            
+        <div class="container shadow-lg p-5 mr-md-5 bg-dark rounded">
+            <canvas class="overflow-auto text-white" id="gpuChart" width="300px"></canvas>
         </div>
-
-        <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-            <a id="detalhes-ram">
-                <div class="card-header">RAM <span class="badge badge-warning">Atenção</span></div>
-                <div class="card-body">
-                    <h5 class="card-title">HyperX 8GB 2400MHz DDR4</h5>
-                    <p class="card-text">Último registro:</p>
-                    <p class="card-text">Média de consumo Diário:</p>
-                </div>
-            </a>
+    </div>
+            
+    <div class="container d-flex justify-content-between mb-3   ">
+                <!-- consumo CPU -->
+        <div class="container shadow-lg p-5 mr-md-5 bg-dark text-white rounded" id="card">
+            <canvas class="overflow-auto" id="ramChart" width="300px"></canvas>
         </div>
-
-        <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-            <a id="detalhes-armazenamento">
-                <div class="card-header">Armazenamento <span class="badge badge-danger">Pouco Espaço</span></div>
-                <div class="card-body">
-                    <h5 class="card-title">HyperX SSD 480GB</h5>
-                    <p class="card-text">Último registro:</p>
-                    <p class="card-text">Média de consumo Diário:</p>
-                </div>
-            </a>
+            
+        <div class="container shadow-lg p-5 mr-md-5 bg-dark rounded">
+            <canvas class="overflow-auto" id="diskChart" width="300px"></canvas>
         </div>
     </div>
 </div>
 
-<!-- chart cpu -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Script Chart CPu -->
+
+<script src="./js/charts/detalhes/cpuChart.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
-<script type="text/javascript">
-    var ctx = document.getElementById('myCpu');
-    var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['uasndo', 'livre'],
-            datasets: [{
-                label: 'Média de consumo dos últimos 7 dias',
-                data: [90, 10],
-                backgroundColor: [
-                    '#6565ff',
-                    'rgb(105, 113, 121, 0.85)',
+<script>
+// const startChartPct = (media, somatorio, opts) => {
+//   calc = somatorio / media;
+//   const chart = new Chart(document.getElementById(opts.id), { //cpuChart
+//     type: 'doughnut',
+//     data: {
+//       labels: ['Média Consumida', 'Média não consumida'],
+//       datasets: [{
+//         label: 'Média de consumo dos últimos 7 dias',
+//         data: [calc, 100 - calc],
+//         backgroundColor: [
+//           '#6565ff',
+//           'rgb(105, 113, 121, 0.85)',
+//         ],
+//         borderColor: [
+//           '#6565ff',
+//           'rgb(105, 113, 121, 1)',
+//         ],
+//         borderWidth: 1
+//       }]
+//     },
+//     options: {
+//       circumference: 1 * Math.PI,
+//       rotation: 1 * Math.PI,
+//       responsive: true,
+//       title: {
+//         display: true,
+//         text: 'CPU',
+//         position: 'top',
+//         fontColor: "white",
+//       },
+//       legend: {
+//         labels: {
+//           fontColor: "white",
+//           title: 'Média de CPU'
+//         }
+//       }
+//     }
+//   });
+// };
 
-                ],
-                borderColor: [
-                    '#6565ff',
-                    'rgb(105, 113, 121, 1)',
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            circumference: 1 * Math.PI,
-            rotation: 1 * Math.PI,
-            responsive: true,
-            title: {
-                display: true,
-                text: 'CPU',
-                position: 'top',
-                fontColor: "white",
-            },
-            legend: {
-                labels: {
-                    fontColor: "white",
-                }
-            }
+const startChart = (media, somatorio, opts) => {
+  calc = somatorio / media;
+  const chart = new Chart(document.getElementById(opts.id), { //cpuChart
+    type: 'doughnut',
+    data: {
+      labels: opts.labels,
+      datasets: [{
+        data: [calc, 100 - calc],
+        backgroundColor: [
+          '#6565ff',
+          'rgb(105, 113, 121, 0.85)',
+        ],
+        borderColor: [
+          '#6565ff',
+          'rgb(105, 113, 121, 1)',
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      circumference: 1 * Math.PI,
+      rotation: 1 * Math.PI,
+      responsive: true,
+      title: {
+        display: true,
+        text: opts.title,
+        position: 'top',
+        fontColor: "white",
+      },
+      legend: {
+        labels: {
+          fontColor: "white"
         }
+      }
+    }
+  });
+};
+
+$.get('/computadores', (results, status) => {
+    console.log(results);
+    if (!results.success && results.data == null) return console.error('Requisição Mal-sucedida.');
+
+    return $.post('/desempenhos', {idComputador: results.data.idComputador}, results => {
+
+        startChart(results.data.media, results.data.somas.nrCpu, {
+            id: 'cpuChart',
+            labels: ['Consumido', 'Total Restante'],
+            title: 'Processador'
+        });
+
+        startChart(results.data.media, results.data.somas.nrGpu, {
+            id: 'gpuChart',
+            labels: ['Consumido', 'Total Restante'],
+            title: 'Placa de Vídeo'
+        });
+
+        startChart(results.data.media, results.data.somas.nrRam, {
+            id: 'ramChart',
+            labels: ['Consumido', 'Livre'],
+            title: 'Memória RAM'
+        });
+
+        startChart(results.data.media, results.data.somas.nrDisco, {
+            id: 'diskChart',
+            labels: ['Espaço Usado', 'Espaço Livre'],
+            title: 'Armazenamento'
+        });
+
+        
     });
-</script>
+  });
 
-<!-- chart gpu -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
-<script type="text/javascript">
-    var ctx = document.getElementById('myGpu');
-    var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['uasndo', 'livre'],
-            datasets: [{
-                label: 'Média de consumo dos últimos 7 dias',
-                data: [13, 87],
-                backgroundColor: [
-                    '#6565ff',
-                    'rgb(105, 113, 121, 0.85)',
-
-                ],
-                borderColor: [
-                    '#6565ff',
-                    'rgb(105, 113, 121, 1)',
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            circumference: 1 * Math.PI,
-            rotation: 1 * Math.PI,
-            responsive: true,
-            title: {
-                display: true,
-                text: 'GPU',
-                position: 'top',
-                fontColor: "white",
-            },
-            legend: {
-                labels: {
-                    fontColor: "white",
-                }
-            }
-        }
-    });
-</script>
-
-<!-- chart RAM -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
-<script type="text/javascript">
-    var ctx = document.getElementById('myRam');
-    var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['uasndo', 'livre'],
-            datasets: [{
-                label: 'Média de consumo dos últimos 7 dias',
-                data: [66, 34],
-                backgroundColor: [
-                    '#6565ff',
-                    'rgb(105, 113, 121, 0.85)',
-
-                ],
-                borderColor: [
-                    '#6565ff',
-                    'rgb(105, 113, 121, 1)',
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            circumference: 1 * Math.PI,
-            rotation: 1 * Math.PI,
-            responsive: true,
-            title: {
-                display: true,
-                text: 'RAM',
-                position: 'top',
-                fontColor: "white",
-            },
-            legend: {
-                labels: {
-                    fontColor: "white",
-                }
-            }
-        }
-    });
-</script>
-
-<!-- chart Disco -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
-<script type="text/javascript">
-    var ctx = document.getElementById('myDisk');
-    var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['uasndo', 'livre'],
-            datasets: [{
-                label: 'Média de consumo dos últimos 7 dias',
-                data: [45, 55],
-                backgroundColor: [
-                    '#6565ff',
-                    'rgb(105, 113, 121, 0.85)',
-
-                ],
-                borderColor: [
-                    '#6565ff',
-                    'rgb(105, 113, 121, 1)',
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            circumference: 1 * Math.PI,
-            rotation: 1 * Math.PI,
-            responsive: true,
-            title: {
-                display: true,
-                text: 'Disco',
-                position: 'top',
-                fontColor: "white",
-            },
-            legend: {
-                labels: {
-                    fontColor: "white",
-                }
-            }
-        }
-    });
 </script>

@@ -27,9 +27,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       field: 'nr_gpu'
     },
-    nrTemperatura: {
+    nrTemperaturaCpu: {
       type: DataTypes.DECIMAL,
-      field: 'nr_temperatura'
+      field: 'nr_temperatura_cpu'
+    },
+    nrTemperaturaGpu: {
+      type: DataTypes.DECIMAL,
+      field: 'nr_temperatura_gpu'
     }
   }, { 
     tableName: 'tb_desempenho',

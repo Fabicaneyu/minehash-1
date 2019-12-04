@@ -22,6 +22,22 @@ module.exports = (sequelize, DataTypes) => {
     dtDatahora: {
       type: DataTypes.DATE,
       field: 'dt_datahora'
+    },
+    nmStatus: {
+      type: DataTypes.STRING,
+      field: 'nm_status'
+    },
+    nmPrioridade: {
+      type: DataTypes.INTEGER,
+      field: 'nm_prioridade'
+    },
+    nrConsumoCpu: {
+      type: DataTypes.DECIMAL,
+      field: 'nr_consumo_cpu'
+    },
+    nmUsuario: {
+      type: DataTypes.STRING,
+      field: 'nm_usuario'
     }
   }, {
     tableName: 'tb_processo',

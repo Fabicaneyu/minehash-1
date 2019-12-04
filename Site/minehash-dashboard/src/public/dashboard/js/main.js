@@ -11,9 +11,18 @@ function checkSize() {
   }
 }
 
-jQuery(function ($) {
+jQuery(async $ => {
+
   $(document).ready(() => {
     checkSize();
+    $('#dashboard-frame').load(() => {
+      setTimeout(() => {
+        let element = document.getElementById('dashboard-frame');
+        element.style.height = element.contentWindow.document.body.scrollHeight + 'px';
+      });
+      this.style.height =
+      this.contentWindow.document.body.offsetHeight + 'px';
+    });
   });
 
   $(window).resize(() => {
@@ -21,81 +30,67 @@ jQuery(function ($) {
   });
 
   $('#toggle-detalhes').click(() => {
-    try {
-      $('#dashboard-frame').attr('src', "detalhes.html");
-    } catch (error) {
-      console.error(error);
-    } finally {
-      $('#breadcrumb-item-add').html(`
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Detalhes</li>
-      `);
-    }
-    $('#dashboard-frame').change();
-  });
+    setTimeout($('#dashboard-frame').change(), 50);
+    $('#dashboard-frame').attr('src', "");
+    $('#dashboard-frame').attr('src', 'detalhes.html');
 
-  $('#toggle-cpu').click(() => {
-    try {
-      $('#dashboard-frame').attr('src', "cpu.html");
-    } catch (error) {
-      console.error(error);
-    } finally {
-      $('#breadcrumb-item-add').html(`
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
-        <li class="breadcrumb-item active" aria-current="page">CPU</li>
-      `);
-    }
-
-    $('#dashboard-frame').change();
-  });
-
-  $('#toggle-gpu').click(() => {
-    try {
-      $('#dashboard-frame').attr('src', "gpu.html");
-    } catch (error) {
-      console.error(error);
-    } finally {
-      $('#breadcrumb-item-add').html(`
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
-        <li class="breadcrumb-item active" aria-current="page">GPU</li>
-      `);
-    }
-
-    $('#dashboard-frame').change();
-  });
-
-  $('#toggle-ram').click(() => {
-    try {
-      $('#dashboard-frame').attr('src', "ram.html");
-    
-    } catch (error) {
-      console.error(error);
-    } finally {
-      $('#breadcrumb-item-add').html(`
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
-        <li class="breadcrumb-item active" aria-current="page">RAM</li>
-      `);
-    }
-
-    $('#dashboard-frame').change();
-  });
-
-  $('#toggle-disco').click(() => {
-    $('#dashboard-frame').attr('src', "armazenamento.html");
     $('#breadcrumb-item-add').html(`
       <li class="breadcrumb-item"><a href="#">Home</a></li>
       <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Unidade de Armazenmento</li>
+      <li class="breadcrumb-item active" aria-current="page">Detalhes</li>
     `);
+  });
 
-    $('#dashboard-frame').change()
+  $('#toggle-cpu').click(() => {
+    setTimeout($('#dashboard-frame').change(), 50);
+    $('#dashboard-frame').attr('src', "");
+    $('#dashboard-frame').attr('src', 'cpu.html');
+
+    $('#breadcrumb-item-add').html(`
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Processador</li>
+    `);
+  });
+
+  $('#toggle-gpu').click(() => {
+    setTimeout($('#dashboard-frame').change(), 50);
+    $('#dashboard-frame').attr('src', "");
+    $('#dashboard-frame').attr('src', 'gpu.html');
+
+    $('#breadcrumb-item-add').html(`
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Placa de Vídeo</li>
+    `);
+  });
+
+  $('#toggle-ram').click(() => {
+    setTimeout($('#dashboard-frame').change(), 50);
+    $('#dashboard-frame').attr('src', "");
+    $('#dashboard-frame').attr('src', 'ram.html');
+
+    $('#breadcrumb-item-add').html(`
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Memória RAM</li>
+    `);
+  });
+
+  $('#toggle-disco').click(() => {
+    setTimeout($('#dashboard-frame').change(), 50);
+    $('#dashboard-frame').attr('src', "");
+    $('#dashboard-frame').attr('src', 'armazenamento.html');
+
+    $('#breadcrumb-item-add').html(`
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Armazenamento</li>
+    `);
   });
 
   $('#dashboard-frame').change(() => {
+    $("#dashboard-frame").load();
     let element = document.getElementById('dashboard-frame');
     element.style.height = element.contentWindow.document.body.scrollHeight + 'px';
   });

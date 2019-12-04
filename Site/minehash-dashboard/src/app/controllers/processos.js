@@ -1,6 +1,7 @@
-const { Processo } = require('../models')
+const { Processo, Computador } = require('../models')
 
 class ProcessosController {
+
   async post(req, res) {
 
     await Processo.findAll({
@@ -19,6 +20,7 @@ class ProcessosController {
       });
     });
   }
+
 }
 
 module.exports = new ProcessosController();
