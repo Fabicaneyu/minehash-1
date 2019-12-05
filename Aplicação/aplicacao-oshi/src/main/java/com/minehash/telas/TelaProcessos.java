@@ -9,6 +9,7 @@ import com.minehash.monitoramento.Consumo;
 import com.minehash.monitoramento.Logs;
 import com.minehash.monitoramento.Processos;
 import java.awt.Color;
+import java.awt.Point;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,6 +21,8 @@ public class TelaProcessos extends javax.swing.JFrame {
 
     Processos processos = new Processos();
 
+     private Point point = new Point();
+    
     int idSwing[] = new int[21];
     String nomeSwing[] = new String[21];
     int prioridadeSwing[] = new int[21];
@@ -45,6 +48,7 @@ public class TelaProcessos extends javax.swing.JFrame {
         lbNome4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnMonitorar = new javax.swing.JButton();
         btMatarProcesso = new javax.swing.JButton();
@@ -216,6 +220,16 @@ public class TelaProcessos extends javax.swing.JFrame {
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(lbNome4, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 534, 48, -1));
 
@@ -228,6 +242,14 @@ public class TelaProcessos extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("MineHash");
 
+        jButton2.setBackground(new java.awt.Color(253, 79, 90));
+        jButton2.setText("X");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -235,13 +257,19 @@ public class TelaProcessos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1378, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1260, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(77, 77, 77))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -2056,6 +2084,20 @@ public class TelaProcessos extends javax.swing.JFrame {
         btnMonitorar.setForeground(Color.WHITE);
     }//GEN-LAST:event_btnMonitorarMouseEntered
 
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+          point.x = evt.getX();
+        point.y = evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+         Point p = this.getLocation();
+        this.setLocation(p.x + evt.getX() - point.x, p.y + evt.getY() - point.y);
+    }//GEN-LAST:event_formMouseDragged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -2114,6 +2156,7 @@ public class TelaProcessos extends javax.swing.JFrame {
     private javax.swing.JLabel PID9;
     private javax.swing.JButton btMatarProcesso;
     private javax.swing.JButton btnMonitorar;
+    private javax.swing.JButton jButton2;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
