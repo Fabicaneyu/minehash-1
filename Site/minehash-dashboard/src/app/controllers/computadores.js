@@ -28,7 +28,8 @@ class ComputadoresController {
     const processos = async id => {
       return await Processo.findAll({
         where: {fkComputador: id},
-        raw : true
+        raw : true,
+        limit: 20
       }).then(results => [results])
       .catch(err => err);
     };
@@ -36,13 +37,15 @@ class ComputadoresController {
     const desempenhos = async id => {
       return await Desempenho.findAll({
         where: {fkComputador: id},
-        raw : true
+        raw : true,
+        limit: 20
       }).then(results => [results])
       .catch(err => err);
     };
 
     const computadores = await Computador.findAll({
-      where: {fkUsuario: req.user.idUsuario}
+      where: {fkUsuario: req.user.idUsuario},
+      limit: 20
     }).then(results => {
     })
     .catch(err => err);

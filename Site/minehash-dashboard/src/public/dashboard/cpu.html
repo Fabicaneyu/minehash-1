@@ -16,8 +16,8 @@
         <canvas class="overflow-auto" id="cpuChart-b" width="500px"></canvas>
     </div>
 
-    <div class="container shadow-lg p-3 mb-5 bg-dark rounded">
-        <table class="table">
+    <div class="container shadow-lg p-2 mb-3 bg-dark rounded">
+        <table class="table" style="color: white !important">
             <thead>
                 <th scope="col">Nome do Processo</th>
                 <th scope="col">PID</th>
@@ -41,12 +41,9 @@
         }, (procs, status) => {
             if (!procs.success) throw new Error('Erro na requisição de Processos');
 
-            let i = 0;
             procs.data.map(proc => {
-                i++;
                 $('#table-processos').append(`
             <tr>
-                <th scope="row">${i}</th>
                 <td>${proc.nmProcesso}</td>
                 <td>${proc.nrPid}</td>
                 <td>${proc.nmStatus}</td>
@@ -62,69 +59,130 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
 <script type="text/javascript">
-    const chart = new Chart(document.getElementById('cpuChart-a'), {
-        type: 'line',
-        data: {
-            labels: ['Consumo de CPU'],
-            datasets: [{
-                label: 'média de uso',
-                data: [90, 90, 85, 90, 10, 100, 80],
-                backgroundColor: 'rgba(255,179,71,0.1)',
-                borderColor: 'rgb(255,179,71)',
-                borderWidth: 1
-            }]
+    const requestData = arg => {
+        $.get('/computadores', results => {
+        if (!results.success) throw new Error('Computadores Falhou');
 
-        },
-        options: {
-            responsive: true,
-            title: {
-                display: true,
-                text: 'média de consumo dos últimos 7 dias',
-                position: 'top',
-                fontColor: "",
+        $.post('/desempenhos', {idComputador: results.data.idComputador}, desempenhos => {
+            let res = {
+                cpu: [],
+                temp: []
+            }
+
+            desempenhos.data.desempenho.map(dsp => {
+                res.cpu.push(dsp.nrCpu);
+                res.temp.push(dsp.nrTemperaturaCpu);
+            });
+                if (arg === 'cpu') return res.cpu;
+                return res.temp;
+            });
+        });
+    }
+
+    const chartA = res => { 
+        const chartcpuA = new Chart(document.getElementById('cpuChart-a'), {
+            type: 'bar',
+            data: {
+                labels: ['Consumo de CPU'],
+                datasets: [{
+                    label: 'Consumo',
+                    data: res,
+                    backgroundColor: 'rgba(255,179,71,0.1)',
+                    borderColor: 'rgb(255,179,71)',
+                    borderWidth: 1
+                }]
             },
-            scales: {
-                xAxes: {
-                    gridLines: {
-                        offsetGridLines: true
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Consumo da CPU',
+                    position: 'top',
+                    fontColor: "",
+                },
+                scales: {
+                    xAxes: {
+                        gridLines: {
+                            offsetGridLines: true
+                        }
+                    },
+                    yAxes: {
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            steps: 10,
+                            max: 100
+                        }
                     }
-                }
+                },
+            }
+        });
+        setTimeout(async () => {
+            chartcpuA.data.datasets.data = await requestData('cpu');
+        });
+    };
+
+    const chartB = res => {
+        const chartcpuB = new Chart(document.getElementById('cpuChart-b'), {
+            type: 'line',
+            data: {
+                labels: ['Temperatura da CPU'],
+                datasets: [{
+                    label: 'Temperatura',
+                    data: res,
+                    backgroundColor: 'rgba(255,179,71,0.1)',
+                    borderColor: 'rgb(255,179,71)',
+                    borderWidth: 1
+                }]
             },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Temperatura da CPU',
+                    position: 'top',
+                    fontColor: "",
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            offsetGridLines: true
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            steps: 10,
+                            max: 100
+                        }
+                    }]
+                },
+            }
+        });
+        setTimeout(async () => {
+            chartcpuB.data.datasets.data = await requestData();
+        });
+    };
+
+    $.get('/computadores', results => {
+        if (!results.success) throw new Error('Computadores Falhou');
+
+        $.post('/desempenhos', {idComputador: results.data.idComputador}, desempenhos => {
+        let res = {
+            cpu: [],
+            temp: []
         }
-    });
-</script>
 
+        desempenhos.data.desempenho.map(dsp => {
+            res.cpu.push(dsp.nrCpu);
+            res.temp.push(dsp.nrTemperaturaCpu);
+        });
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
-<script type="text/javascript">
-    const chart = new Chart(document.getElementById('cpuChart-b'), {
-        type: 'pie',
-        data: {
-            labels: ['temperatura da CPU'],
-            datasets: [{
-                label: 'temperatura',
-                data: [60, 40],
-                backgroundColor: 'rgba(255,179,71,0.1)',
-                borderColor: 'rgb(255,179,71)',
-                borderWidth: 1
-            }]
-
-        },
-        options: {
-            responsive: true,
-            title: {
-                display: true,
-                text: 'Temperatura atual da CPU',
-                position: 'top',
-                fontColor: "",
-            },
-            scales: {
-                xAxes: {
-                    gridLines: {
-                        offsetGridLines: true
-                    }
-                }
-            },
-        }
+            console.log(res.cpu);
+            chartA(res.cpu);
+            console.log(res.temp);
+            chartB(res.temp);
+        });
     });
 </script>

@@ -31,7 +31,8 @@ class DesempenhosController {
     }
 
     await Desempenho.findAll({
-      where: {fkComputador: req.body.idComputador}
+      where: {fkComputador: req.body.idComputador},
+      limit: 20
     }).then(results => {
       const resObject = results.map(result => {
         somador(result);

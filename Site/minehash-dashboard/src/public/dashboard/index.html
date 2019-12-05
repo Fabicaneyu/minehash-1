@@ -43,12 +43,9 @@
                         <img class="img-responsive img-rounded" src="img/user.jpg" alt="img/user.jpg">
                     </div>
                     <div class="user-info">
-                        <span class="user-name"></span>
-                        <!-- <span class="user-name">Jhon
-                            <strong>Smith</strong>
-                        </span>
-                        <span class="user-role">Administrator</span>
-                        <span class="user-status">
+                        <span class="user-name" id="user-name"></span>
+                        <span class="user-role" id="user-role"></span>
+                        <!-- <span class="user-status">
                             <i class="fa fa-circle"></i>
                             <span>Online</span>
                         </span> -->
@@ -76,7 +73,7 @@
                         <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-tachometer-alt"></i>
-                                <span class="menu-text"><span id="db-hostname"></span></span>
+                                <span class="menu-text">Meu Computador</span>
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
@@ -370,7 +367,7 @@
                 </div>
 
                 <div class="row">
-                    <iframe id="dashboard-frame" src="detalhes.html" frameborder="0" scrolling="auto" width="100%" height="1000px" class="overflow-hidden"></iframe>
+                    <iframe id="dashboard-frame" src="detalhes.html" frameborder="0" scrolling="auto" width="100%" height="1000px" onload="$('#dashboard-frame').change()" class="overflow-hidden"></iframe>
                 </div>
             </div>
             <!-- <div class="container-fluid p-5">
@@ -493,6 +490,28 @@
     <!-- End of minehashhelp Zendesk Widget script -->
 
     <script src="js/main.js"></script>
+    <script>
+    new Promise((resolve, reject) => {
+        $.get('/dashboard/usuarioLogado', (results, status) => {
+            console.log('RES', results);
+            if (!results.success || results.data == null) reject('Falhou!');
+            console.log('Promise');
+            resolve(results.data);
+        });
+    }).then(res => {
+      if ($('#user-name')) {
+        try {
+            $('#user-name').text(res.nmNome);
+            $('#user-role').text(res.nmEmail);
+        } catch (e) {
+            throw new Error('Falhou!');
+        } finally {
+            $('#user-name').text(res.nmUsuario);
+            $('#user-role').text(res.nmEmail);
+        }
+      }
+    });
+    </script>
 </body>
 
 </html>

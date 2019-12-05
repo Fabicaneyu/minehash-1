@@ -1,0 +1,23 @@
+Dashboard {
+- Cor da Dashboard (Contrastes Ruins, Nomes
+- Colocar Foto no Dashboard
+}
+
+Diagrama {
+- LLD Letra pequena
+- Legenda no HLD
+- SEM Diagramas de Sequências
+}
+
+Apresentacao {
+- "Sumário" para "Agenda"
+- Fabi, "Hyperleadger", procurar
+- Resumir em "Agile"
+- Inverter "Agradecimentos" com "Coclusão"
+- Ícones de empresas no agradecimento
+}
+
+Proto-persona {
+- Proto-persona é separado
+- Aumentar a Fonte
+}

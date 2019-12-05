@@ -15,10 +15,6 @@ jQuery(async $ => {
 
   $(document).ready(() => {
     checkSize();
-    $('#dashboard-frame').load(() => {
-      this.style.height =
-      this.contentWindow.document.body.offsetHeight + 'px';
-    });
   });
 
   $(window).resize(() => {
@@ -35,6 +31,7 @@ jQuery(async $ => {
       <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
       <li class="breadcrumb-item active" aria-current="page">Detalhes</li>
     `);
+    $('#dashboard-frame').change()
   });
 
   $('#toggle-cpu').click(() => {
@@ -47,6 +44,7 @@ jQuery(async $ => {
       <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
       <li class="breadcrumb-item active" aria-current="page">Processador</li>
     `);
+    $('#dashboard-frame').change()
   });
 
   $('#toggle-gpu').click(() => {
@@ -59,6 +57,7 @@ jQuery(async $ => {
       <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
       <li class="breadcrumb-item active" aria-current="page">Placa de Vídeo</li>
     `);
+    $('#dashboard-frame').change()
   });
 
   $('#toggle-ram').click(() => {
@@ -71,6 +70,7 @@ jQuery(async $ => {
       <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
       <li class="breadcrumb-item active" aria-current="page">Memória RAM</li>
     `);
+    $('#dashboard-frame').change()
   });
 
   $('#toggle-disco').click(() => {
@@ -83,6 +83,7 @@ jQuery(async $ => {
       <li class="breadcrumb-item"><a href="#">Meu Computador</a></li>
       <li class="breadcrumb-item active" aria-current="page">Armazenamento</li>
     `);
+    $('#dashboard-frame').change()
   });
 
   $('#dashboard-frame').change(() => {
