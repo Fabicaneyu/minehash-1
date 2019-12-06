@@ -10,6 +10,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import oshi.hardware.GlobalMemory;
@@ -64,11 +66,14 @@ public class Processos {
             System.out.println(cpuPercentual + "%");
             System.out.println("-------------");
 
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+
             conectarBanco.template().update(
-                    "insert into tb_processo (fk_computador, nr_pid, nm_processo, "
+                    "insert into tb_processo (fk_computador, nr_pid, nm_processo, dt_datahora, "
                     + "nm_status, nm_prioridade, nr_consumo_cpu, nm_usuario) values "
-                    + "(?,?,?,?,?,?,?)",
-                    getFkComputador(), pid, nomeProcesso, estadoProcesso, prioridadeProcesso,
+                    + "(?,?,?,?,?,?,?,?)",
+                    getFkComputador(), pid, nomeProcesso, dtf.format(now), estadoProcesso, prioridadeProcesso,
                     cpuPercentual, usuarioProc
             );
 

@@ -23,6 +23,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -145,6 +147,7 @@ public class Consumo {
 
     public void monitorarDesempenho(Integer fk) {
 
+        //2016/11/16 12:08:43
         conectar.montarConexao();
 
         int delay = 2000;   // tempo de espera antes da 1ª execução da tarefa.
@@ -159,14 +162,18 @@ public class Consumo {
 
                 System.out.println("INSERINDO DADOS...");
                 System.out.println("------------------");
+                
                 System.out.println("FK: " + getFkComputador());
-
+                
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                LocalDateTime now = LocalDateTime.now();
+                
                 if (gpuUsuario() == false) {
 
                     conectar.template().update(
-                            "INSERT INTO tb_desempenho (fk_computador, nr_cpu, nr_ram, nr_disco, nr_temperatura_cpu)\n"
-                            + "values (?,?,?,?,?)", getFkComputador(), getCpu(), getConsumoRAM(), getConsumoDisco(),
-                            getTemperaturaCPU());
+                            "INSERT INTO tb_desempenho (fk_computador, nr_cpu, nr_ram, nr_disco, nr_temperatura_cpu, dt_datahora)\n"
+                            + "values (?,?,?,?,?,?)", getFkComputador(), getCpu(), getConsumoRAM(), getConsumoDisco(),
+                            getTemperaturaCPU(), dtf.format(now));
 
                 } else {
 
