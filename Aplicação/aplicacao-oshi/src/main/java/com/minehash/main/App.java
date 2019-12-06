@@ -19,9 +19,7 @@ public class App {
 
         TelaLogin telaApp = new TelaLogin();
         telaApp.setVisible(true);
-        Logs log = new Logs();
-        log.gerarLog();
-        log.gerarLogConsumo();
+
     }
 
 }
