@@ -12,6 +12,7 @@ import com.minehash.monitoramento.Consumo;
 import com.minehash.monitoramento.Logs;
 import com.minehash.telas.TelaProcessos;
 import com.minehash.telas.TelaCadastroComputador;
+import com.minehash.telas.TelaMonitoramento;
 import java.io.IOException;
 
 import java.sql.Connection;
@@ -19,21 +20,24 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class Minerador {
 
     Integer idMinerador;
     Integer fkMinerador;
+    String nome;
     String email;
     String senha;
     Boolean status;
 
     TelaCadastroComputador tela = new TelaCadastroComputador();
-    TelaProcessos telaProc = new TelaProcessos();
+    TelaMonitoramento telaMon = new TelaMonitoramento();
     ConexaoBanco conectarBanco = new ConexaoBanco();
     SmsAlert mensagem = new SmsAlert();
     Consumo consumo = new Consumo();
+    Computador comp = new Computador();
 
     String url;
     String usuario;
@@ -68,13 +72,12 @@ public class Minerador {
             setEmail(e);
             setSenha(s);
             Consumo con = new Consumo();
-            tela.setVisible(true);
+
+            tela.setAutenticacao(getFkMinerador());
             tela.setEmail(e);
             tela.setSenha(s);
             tela.setId(getIdMinerador());
             tela.setFk(getFkMinerador());
-            tela.setAutenticacao(getFkMinerador());
-
             tela.setFkComputador(con.getFkComputador());
 
             checarCadastro();
@@ -85,17 +88,12 @@ public class Minerador {
 
         }
 
-        mensagem.enviarSMS("Olá, um login foi realizado na aplicação: \n"
-                + "EMAIL: " + getEmail()
-        );
-
-        return;
-
+//        mensagem.enviarSMS("Olá, login realizado com sucesso! \n"
+//                + "EMAIL: " + getEmail()
+//        );
     }
 
     public void cadastrarComputador(String e, String s, Integer fk) {
-
-        Computador comp = new Computador();
 
         conectarBanco.montarConexao();
         comp.gpuUsuario();
@@ -121,44 +119,68 @@ public class Minerador {
         }
 
         System.out.println("COMPUTADOR CADASTRADO! Usuário liberado.");
-        mensagem.enviarSMS("Olá! O cadastro do seu equipamento foi realizado com sucesso!\n"
-                + "DADOS:"
-                + "\nUsuário: " + getEmail()
-                + "\nSistema Operacional: " + comp.getSistemaOperacional()
-                + "\nHostname: " + comp.getHostname()
-                + "\n Para saber mais, acesso a aplicação!");
 
-        telaProc.setVisible(true);
+        telaMon.setNomeUsuario(nome);
+        telaMon.setProc(comp.getProcessador());
+        telaMon.setSo(comp.getSistemaOperacional());
+        telaMon.setRam(comp.getRamTotal());
+        telaMon.setVisible(true);
 
+//        mensagem.enviarSMS("Olá! O cadastro do seu equipamento foi realizado com sucesso!\n"
+//                + "DADOS:"
+//                + "\nUsuário: " + getEmail()
+//                + "\nSistema Operacional: " + comp.getSistemaOperacional()
+//                + "\nHostname: " + comp.getHostname()
+//                + "\n Para saber mais, acesso a aplicação!");
     }
 
     public void selectQuery(String url, String user, String password, String sql) {
 
-        try (
-                Connection connection = DriverManager.getConnection(url, user, password);
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        Connection connect = null;
+        Statement statement = null;
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        try {
 
-                while (resultSet.next()) {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-                    setIdMinerador(resultSet.getInt("id_usuario"));
-                    setFkMinerador(resultSet.getInt("id_usuario"));
+            connect = DriverManager.getConnection(url, user, password);
 
-                }
-            } finally {
+            statement = connect.createStatement();
 
-                getIdMinerador();
-                getFkMinerador();
-                System.out.println("ID: " + getIdMinerador());
-                System.out.println("FK: " + getFkMinerador());
-                setStatus(true);
-                getStatus();
-                return;
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                System.out.println("Aguardando resultado...");
+
+                setIdMinerador(resultSet.getInt("id_usuario"));
+                setFkMinerador(resultSet.getInt("id_usuario"));
+
             }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
 
+            getIdMinerador();
+            getFkMinerador();
+            System.out.println("NOME: " + getNome());
+            System.out.println("ID: " + getIdMinerador());
+            System.out.println("FK: " + getFkMinerador());
+            setStatus(true);
+
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                connect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return;
@@ -169,49 +191,81 @@ public class Minerador {
 
         if (tela.getEmail() == null || tela.getSenha() == null) {
 
-            System.out.println("IMPOSSÍVEL EFETUAR CADASTRO DE MÁQUINA");
+            System.out.println("EMAIL E/OU SENHA VAZIOS");
+            System.out.println("IMPOSSÍVEL EFETUAR CADASTRO");
 
         } else {
 
             String sql = String.format("select * from tb_computador where fk_usuario = %d", tela.getAutenticacao());
             int contador = 0;
 
-            try (
-                    Connection connection = DriverManager.getConnection(url, usuario, pass);
-                    PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            Connection connect = null;
+            Statement statement = null;
 
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            try {
 
-                    while (resultSet.next()) {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-                        contador++;
-                        System.out.println(contador);
+                connect = DriverManager.getConnection(url, usuario, pass);
 
-                        tela.setAutenticacao(resultSet.getInt("fk_usuario"));
+                statement = connect.createStatement();
 
-                    }
-                } finally {
+                ResultSet resultSet = statement.executeQuery(sql);
 
-                    if (tela.getAutenticacao() == null) {
+                while (resultSet.next()) {
+                    System.out.println("Aguardando resultado...");
 
+                    contador++;
+                    System.out.println(contador);
+
+                    tela.setAutenticacao(resultSet.getInt("fk_usuario"));
+
+                }
+
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+
+                if (tela.getAutenticacao() == null) {
+
+                    System.out.println("NÃO HÁ MÁQUINAS CADASTRADAS PARA ESSE USUÁRIO");
+                    System.out.println("-----------------------------");
+                    System.out.println("CADASTRE AO MENOS UMA MÁQUINA PARA AVANÇAR");
+                    tela.setVisible(true);
+
+                } else {
+
+                    if (contador == 0) {
                         System.out.println("NÃO HÁ MÁQUINAS CADASTRADAS PARA ESSE USUÁRIO");
-                        System.out.println("-----------------------------");
-                        System.out.println("CADASTRE AO MENOS UMA MÁQUINA PARA AVANÇAR");
+                        tela.setVisible(true);
 
                     } else {
 
                         System.out.println("USUÁRIO POSSUI " + contador + " MÁQUINA(S) CADASTRADA(S)");
+                        telaMon.setVisible(true);
+                        telaMon.setNomeUsuario(nome);
+                        telaMon.setProc(comp.getProcessador());
+                        telaMon.setSo(comp.getSistemaOperacional());
+                        telaMon.setRam(comp.getRamTotal());
 
                     }
 
-                    return;
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
 
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    connect.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-
-            return;
 
         }
 
@@ -256,6 +310,14 @@ public class Minerador {
 
     public Boolean getStatus() {
         return status;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
 }

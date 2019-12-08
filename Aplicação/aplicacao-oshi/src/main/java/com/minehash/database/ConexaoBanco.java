@@ -26,15 +26,15 @@ public class ConexaoBanco {
 //            conexao.setPassword("Leo5767482200");
 
 //            CONECTAR AO AZURE:
-//            conexao.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-         conexao.setUrl("jdbc:sqlserver://srvminehash.database.windows.net:1433;"
-                + "database=bdminehash;"
-                + "user=userminehash@srvminehash;"
-                + "password=#Gfgrupo1;"
-                + "encrypt=true;"
-                + "trustServerCertificate=false;"
-                + "hostNameInCertificate=*.database.windows.net;"
-                + "loginTimeout=30;");
+            conexao.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            conexao.setUrl("jdbc:sqlserver://srvminehash.database.windows.net:1433;"
+                    + "database=bdminehash;"
+                    + "user=userminehash@srvminehash;"
+                    + "password=#Gfgrupo1;"
+                    + "encrypt=true;"
+                    + "trustServerCertificate=false;"
+                    + "hostNameInCertificate=*.database.windows.net;"
+                    + "loginTimeout=30;");
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -61,7 +61,7 @@ public class TelegramAlert {
                 sendResponse = bot.execute(
                         new SendMessage(
                                 update.message().chat().id(),
-                                "A"
+                                "Olá! Segue o consumo da sua máquina:"
                         )
                 );
             }
