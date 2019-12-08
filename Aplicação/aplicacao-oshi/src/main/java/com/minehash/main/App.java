@@ -20,6 +20,8 @@ public class App {
         TelaLogin telaApp = new TelaLogin();
         telaApp.setVisible(true);
 
+        
+        
     }
 
 }

@@ -5,9 +5,13 @@
  */
 package com.minehash.telas;
 
+import com.minehash.alertas.TelegramBot;
 import java.awt.Color;
 import java.awt.Point;
 import javax.swing.JLabel;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 /**
  *
@@ -29,11 +33,6 @@ public class TelaMonitoramento extends javax.swing.JFrame {
      */
     public TelaMonitoramento() {
         initComponents();
-
-        lbNomeUsuario.setText(nomeUsuario);
-        lbSistemaOperacional.setText(so);
-        lbProcessador.setText(proc);
-        lbMemoria.setText(ram);
 
     }
 
@@ -327,6 +326,7 @@ public class TelaMonitoramento extends javax.swing.JFrame {
 
     private void btPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPropActionPerformed
         // TODO add your handling code here:
+        TelaProcessos telaProc = new TelaProcessos();
 
     }//GEN-LAST:event_btPropActionPerformed
 
@@ -361,6 +361,16 @@ public class TelaMonitoramento extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaMonitoramento().setVisible(true);
+
+                ApiContextInitializer.init();
+
+                TelegramBotsApi botsApi = new TelegramBotsApi();
+
+                try {
+                    botsApi.registerBot(new TelegramBot());
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
 
             }
 
