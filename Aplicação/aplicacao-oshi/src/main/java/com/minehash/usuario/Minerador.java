@@ -125,6 +125,9 @@ public class Minerador {
         telaMon.setSo(comp.getSistemaOperacional());
         telaMon.setRam(comp.getRamTotal());
         telaMon.setVisible(true);
+        telaMon.setFk(consumo.getIdComputador());
+        System.out.println(telaMon.getFk() +  "fkkkkk");
+        
 
 //        mensagem.enviarSMS("Olá! O cadastro do seu equipamento foi realizado com sucesso!\n"
 //                + "DADOS:"
@@ -234,13 +237,11 @@ public class Minerador {
                 e.printStackTrace();
             } finally {
 
-                if(getIdMinerador() == null || getFkMinerador() == null){
-                    
+                if (getIdMinerador() == null || getFkMinerador() == null) {
+
                     System.out.println("ERRO DE LOGIN / ID NULL");
-                    
-                }
-                
-                else if (tela.getAutenticacao() == null) {
+
+                } else if (tela.getAutenticacao() == null) {
 
                     System.out.println("NÃO HÁ MÁQUINAS CADASTRADAS PARA ESSE USUÁRIO");
                     System.out.println("-----------------------------");

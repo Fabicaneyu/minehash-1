@@ -21,8 +21,8 @@ public class TelaProcessos extends javax.swing.JFrame {
 
     Processos processos = new Processos();
 
-     private Point point = new Point();
-    
+    private Point point = new Point();
+
     int idSwing[] = new int[21];
     String nomeSwing[] = new String[21];
     int prioridadeSwing[] = new int[21];
@@ -2051,9 +2051,6 @@ public class TelaProcessos extends javax.swing.JFrame {
         lbNome19.setText(nomeSwing[20]);
         lbPrioridade20.setText(String.valueOf(prioridadeSwing[20]));
 
-        int delay = 2000;   // tempo de espera antes da 1ª execução da tarefa.
-        int interval = 2000;  // intervalo no qual a tarefa será executada.
-
 
     }//GEN-LAST:event_btnMonitorarActionPerformed
 
@@ -2068,12 +2065,12 @@ public class TelaProcessos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMonitorarMouseEntered
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-          point.x = evt.getX();
+        point.x = evt.getX();
         point.y = evt.getY();
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-         Point p = this.getLocation();
+        Point p = this.getLocation();
         this.setLocation(p.x + evt.getX() - point.x, p.y + evt.getY() - point.y);
     }//GEN-LAST:event_formMouseDragged
 
