@@ -165,6 +165,12 @@ public class Minerador {
 
             getIdMinerador();
             getFkMinerador();
+
+            if (getIdMinerador() == null || getFkMinerador() == null) {
+
+                setStatus(false);
+
+            }
             System.out.println("NOME: " + getNome());
             System.out.println("ID: " + getIdMinerador());
             System.out.println("FK: " + getFkMinerador());
@@ -228,7 +234,13 @@ public class Minerador {
                 e.printStackTrace();
             } finally {
 
-                if (tela.getAutenticacao() == null) {
+                if(getIdMinerador() == null || getFkMinerador() == null){
+                    
+                    System.out.println("ERRO DE LOGIN / ID NULL");
+                    
+                }
+                
+                else if (tela.getAutenticacao() == null) {
 
                     System.out.println("NÃO HÁ MÁQUINAS CADASTRADAS PARA ESSE USUÁRIO");
                     System.out.println("-----------------------------");
