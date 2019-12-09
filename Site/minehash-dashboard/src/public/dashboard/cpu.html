@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/sidebar-themes.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
 
 
 
@@ -31,33 +32,11 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-    $.get('/computadores', (results, status) => {
-        if (!results.success || results.data == null) throw new Error('Erro na requisição de Computadores');
-
-        $.post('/processos', {
-            idComputador: results.data.idComputador
-        }, (procs, status) => {
-            if (!procs.success) throw new Error('Erro na requisição de Processos');
-
-            procs.data.map(proc => {
-                $('#table-processos').append(`
-            <tr>
-                <td>${proc.nmProcesso}</td>
-                <td>${proc.nrPid}</td>
-                <td>${proc.nmStatus}</td>
-                <td>${proc.nmPrioridade}</td>
-                <td>${proc.nrConsumoCpu}</td>
-                <td>${proc.nmUsuario}</td>
-            </tr>
-            `);
-            });
-        });
-    });
-</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
+
 <script type="text/javascript">
     const requestData = arg => {
         $.get('/computadores', results => {

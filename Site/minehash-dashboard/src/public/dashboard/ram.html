@@ -4,58 +4,63 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/sidebar-themes.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
 
 
 
 <div class="container-fluid p-3">
-        <div class="container shadow-lg p-3 mb-5 bg-dark rounded">
-            <canvas class="overflow-auto" id="ramChart-a" width="500px"></canvas>
-        </div>
-    
-        <div class="container shadow-lg p-3 mb-5 bg-dark rounded">
-            <canvas class="overflow-auto" id="ramChart-b" width="500px"></canvas>
-        </div>
+    <div class="container shadow-lg p-3 mb-5 bg-dark rounded">
+        <canvas class="overflow-auto" id="ramChart-a" width="500px"></canvas>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
-    <script type="text/javascript">
-        const requestData = arg => {
-            $.get('/computadores', results => {
-            if (!results.success) throw new Error('Computadores Falhou');
-    
-            $.post('/desempenhos', {idComputador: results.data.idComputador}, desempenhos => {
-                let res = {
-                    ram: [],
-                    total: desempenhos.data.somas.nrRam
-                };
-    
-                desempenhos.data.desempenho.map(dsp => res.ram.push(dsp.nrRam));
+    <div class="container shadow-lg p-3 mb-5 bg-dark rounded">
+        <canvas class="overflow-auto" id="ramChart-b" width="500px"></canvas>
+    </div>
+</div>
 
-                return res.ram;
-                });
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    const requestData = arg => {
+        $.get('/computadores', results => {
+        if (!results.success) throw new Error('Computadores Falhou');
+
+        $.post('/desempenhos', {idComputador: results.data.idComputador}, desempenhos => {
+            let res = {
+                ram: [],
+                total: desempenhos.data.somas.nrRam
+            };
+
+            desempenhos.data.desempenho.map(dsp => res.ram.push(dsp.nrRam));
+
+            return res.ram;
+
             });
-        }
-    
-        const chartA = res => { 
-            const chartramA = new Chart(document.getElementById('ramChart-a'), {
-                type: 'bar',
-                data: {
-                    labels: ['Consumo de RAM'],
-                    datasets: [{
-                        label: 'Consumo',
-                        data: res,
-                        backgroundColor: 'rgba(255,179,71,0.1)',
-                        borderColor: 'rgb(255,179,71)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
+        });
+    }
+
+    const chartA = res => { 
+        const chartramA = new Chart(document.getElementById('ramChart-a'), {
+            type: 'bar',
+            data: {
+                labels: ['Consumo de RAM'],
+                datasets: [{
+                    label: 'Consumo',
+                    data: res,
+                    backgroundColor: 'rgba(255,179,71,0.1)',
+                    borderColor: 'rgb(255,179,71)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
                     title: {
                         display: true,
                         text: 'Consumo de RAM',
                         position: 'top',
-                        fontColor: "",
+                        fontColor: ""
                     },
                     scales: {
                         xAxes: {
@@ -71,7 +76,7 @@
                                 max: 100
                             }
                         }
-                    },
+                    }
                 }
             });
             setTimeout(async () => {

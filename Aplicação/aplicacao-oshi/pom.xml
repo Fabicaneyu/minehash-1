@@ -105,15 +105,6 @@
             <version>1.2.1</version>
         </dependency>
         
-        <!-- https://mvnrepository.com/artifact/pengrad/java-telegram-bot-api -->
-        <dependency>
-            <groupId>com.github.pengrad</groupId>
-            <artifactId>java-telegram-bot-api</artifactId>
-            <version>4.4.0</version>
-        </dependency>
-        
-        
-        
         <!-- https://mvnrepository.com/artifact/org.netbeans.external/AbsoluteLayout -->
         <dependency>
             <groupId>org.netbeans.external</groupId>

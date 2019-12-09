@@ -12,7 +12,7 @@ const SessionController = require('../app/controllers/session');
 
 // Rotas Usuário
 
-routes.get('/dashboard/usuarioLogado', SessionController.isLoggedIn, SessionController.getLoggedUser);
+routes.get('/usuarioLogado', SessionController.isLoggedIn, SessionController.getLoggedUser);
 routes.get('/usuarios', UsuarioController.get); // GET Dados do Usuário
 routes.post('/usuarios', UsuarioController.post); // POST Cadastrar Usuario
 routes.put('/usuarios', UsuarioController.put); // PUT Atualizar Cadastro (apenas Senha)

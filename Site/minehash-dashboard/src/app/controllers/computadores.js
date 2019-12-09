@@ -46,8 +46,7 @@ class ComputadoresController {
     const computadores = await Computador.findAll({
       where: {fkUsuario: req.user.idUsuario},
       limit: 20
-    }).then(results => {
-    })
+    }).then(results => results)
     .catch(err => err);
 
     // return res.status(200).json({
@@ -55,40 +54,49 @@ class ComputadoresController {
     //   data: desempenhos(1016)
     // });
 
-    await Promise.all(computadores.map(async cmp => {
-      const prcs = await processos(cmp.idComputador);
-      const dsps = await desempenhos(cmp.idComputador);
-
-      return Object.assign({}, {
-        idComputador: cmp.idComputador,
-        nmGpu: cmp.nmGpu,
-        nmDisco: cmp.nmDisco,
-        nmRam: cmp.nmRam,
-        nmProcessador: cmp.nmProcessador,
-        nmSo: cmp.nmSo,
-        nmHostname: cmp.nmHostname,
-        nmModelo: cmp.nmModelo,
-        nmFabricante: cmp.nmFabricante,
-        obDesempenho: dsps.map(dsp => {
-          return Object.assign({}, {
-            idDesempenho: dsp.idDesempenho,
-            nrCpu: dsp.nrCpu,
-            nrRam: dsp.nrRam,
-            nrDisco: dsp.nrDisco,
-            nrGpu: dsp.nrGpu,
-            nrTemperatura: dsp.nrTemperatura
-          });
-        })//,
-        // obProcessos: prcs.map(prc => {
-        //   return Object.assign({}, {
-        //     idProcesso: prc.idProcesso,
-        //     nrPid: prc.nrPid,
-        //     nmProcesso: prc.nmProcesso,
-        //     dtDatahora: prc.dtDatahora
-        //   });
-        // })
+    await new Promise((resolve, reject) => {
+      computadores.map(async cmp => {
+        const prcs = await processos(cmp.idComputador);
+        const dsps = await desempenhos(cmp.idComputador);
+        
+        return Object.assign({}, {
+          idComputador: cmp.idComputador,
+          nmGpu: cmp.nmGpu,
+          nmDisco: cmp.nmDisco,
+          nmRam: cmp.nmRam,
+          nmProcessador: cmp.nmProcessador,
+          nmSo: cmp.nmSo,
+          nmHostname: cmp.nmHostname,
+          nmModelo: cmp.nmModelo,
+          nmFabricante: cmp.nmFabricante,
+          obDesempenho: dsps.map(dsp => {
+            return Object.assign({}, {
+              idDesempenho: dsp.idDesempenho,
+              nrCpu: dsp.nrCpu,
+              nrRam: dsp.nrRam,
+              nrDisco: dsp.nrDisco,
+              nrGpu: dsp.nrGpu,
+              nrTemperaturaCpu: dsp.nrTemperaturaCpu,
+              nrTemperaturaGpu: dsp.nrTemperaturaCpu,
+              dtDatahora: dsp.dtDatahora
+            });
+          }),
+          obProcessos: prcs.map(prc => {
+            return Object.assign({}, {
+              idProcesso: prc.idProcesso,
+              nrPid: prc.nrPid,
+              nmProcesso: prc.nmProcesso,
+              dtDatahora: prc.dtDatahora,
+              nmStatus: prc.nmStatus,
+              nmPrioridade: prc.nmPrioridade,
+              nrConsumoCpu: prc.nmConsumoCpu,
+              nmUsuario: prc.nmUsuario
+            });
+          })
+        });
       });
-    })).then(results => {
+      
+    }).then(results => {
       return res.status(200).json({
         success: true,
         message: 'OK',

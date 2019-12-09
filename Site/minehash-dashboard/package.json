@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "installEnvDev": ""
   },
   "author": "Yuri Uliam",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "jquery": "^3.4.1",
     "morgan": "^1.9.1",
     "mssql": "^6.0.1",
+    "node-telegram-bot-api": "^0.40.0",
     "nodemon": "^2.0.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",

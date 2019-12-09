@@ -1,8 +1,10 @@
-const { Desempenho } = require('../models')
+const { Desempenho } = require('../models');
 
 class DesempenhosController {
 
   async post(req, res) {
+    const { Op } = require('sequelize');
+
     let somaCPU = 0;
     let somaRAM = 0;
     let somaDisco = 0;
@@ -30,8 +32,18 @@ class DesempenhosController {
       somaTempGPU += formatter(data.nrTemperaturaGpu);
     }
 
+    const datas = {
+      hoje: new Date().toISOString(),
+      semanaPassada: new Date(Date.now()-604800000).toISOString()
+    }
+
     await Desempenho.findAll({
-      where: {fkComputador: req.body.idComputador},
+      where: {
+        fkComputador: req.body.idComputador,
+        dtDatahora: {
+          [Op.between]: [datas.semanaPassada, datas.hoje]
+        }
+      },
       limit: 20
     }).then(results => {
       const resObject = results.map(result => {
@@ -42,8 +54,9 @@ class DesempenhosController {
           nrRam: formatter(result.nrRam), // Consumo em MiB
           nrDisco: formatter(result.nrDisco), // Porcentagem de Consumo
           nrGpu: formatter(result.nrGpu), // Porcentagem de Consumo
-          nrTemperaturaCpu: formatter(result.nrTemperaturaCpu), 
-          nrTemperaturaGpu: formatter(result.nrTemperaturaGpu)
+          nrTemperaturaCpu: formatter(result.nrTemperaturaCpu), // Temperatura da CPU
+          nrTemperaturaGpu: formatter(result.nrTemperaturaGpu), // Temperatura da GPu
+          dtDatahora: new Date(result.dtDatahora).getTime() // Horário formatado em numeral para posterior consulta
         });
       });
 
@@ -52,7 +65,7 @@ class DesempenhosController {
         message: 'OK',
         data: {
           media: resObject.length,
-          somas: {
+          totais: {
             nrCpu: somaCPU,
             nrRam: somaRAM,
             nrDisco: somaDisco,
