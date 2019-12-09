@@ -33,10 +33,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
 
 <script>
+
     const startChart = (media, somatorio, opts) => {
-        calc = somatorio / media;
+        calc = isNaN(somatorio / media) ? 0 : somatorio / media;
+        console.log('CALC', calc);
         const chart = new Chart(document.getElementById(opts.id), { //cpuChart
             type: 'doughnut',
             data: {
@@ -44,12 +47,12 @@
                 datasets: [{
                     data: [calc, 100 - calc],
                     backgroundColor: [
-                        'rgba(255,179,71, 0.85)',
                         'rgb(105, 113, 121, 0.85)',
+                        'rgba(255,179,71, 0.85)'
                     ],
                     borderColor: [
-                        'rgba(255,179,71,1)',
                         'rgb(105, 113, 121, 1)',
+                        'rgba(255,179,71,1)'
                     ],
                     borderWidth: 1
                 }]
@@ -64,45 +67,80 @@
                     position: 'top',
                     fontColor: "white",
                 },
+                plugins: {
+                    labels: {
+                        fontColor: '#000',
+                        render: arg => `${Number(arg.value).toFixed(2)}%`
+                    }
+                },
                 legend: {
                     labels: {
                         fontColor: "white"
+                    }
+                },
+                scales: {
+                    yAxes: {
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            steps: 10,
+                            max: 100,
+                        }
                     }
                 }
             }
         });
     };
 
+    const formatter = data => {
+      if (data == null || typeof data === 'null' || typeof data === 'undefined') return 0;
+      let str = `${data}`;
+
+      if (str.endsWith(' GiB') || str.endsWith(' MiB')) {
+        str = str.substring(0, str.length - 4);
+      }
+
+      return Number(str.replace(',', '.'));
+    };
+
     $.get('/computadores', (results, status) => {
-        console.log(results);
+        // console.log(results);
         if (!results.success && results.data == null) return console.error('Requisição Mal-sucedida.', status);
 
         return $.post('/desempenhos', {
             idComputador: results.data.idComputador
-        }, results => {
+        }, dados => {
 
-            startChart(results.data.media, results.data.somas.nrCpu, {
+            if (!dados.success && dados.data == null) return console.error('Requisição Mal-sucedida.', status);
+
+            console.log('RAM', results.data.nmRam)
+
+            startChart(dados.data.media, dados.data.totais.nrCpu, {
                 id: 'cpuChart',
-                labels: ['Consumido', 'Total Restante'],
-                title: 'Processador'
+                labels: ['Em consumo', 'Livre'],
+                title: 'Processador',
+                isRam: false
             });
 
-            startChart(results.data.media, results.data.somas.nrGpu, {
+            startChart(dados.data.media, dados.data.totais.nrGpu, {
                 id: 'gpuChart',
-                labels: ['Consumido', 'Total Restante'],
-                title: 'Placa de Vídeo'
+                labels: ['Em consumo', 'Livre'],
+                title: 'Placa de Vídeo',
+                isRam: false
             });
 
-            startChart(results.data.media, results.data.somas.nrRam, {
+            startChart((formatter(results.data.nmRam) * 1024), (dados.data.totais.nrRam / dados.data.media) * 100, {
                 id: 'ramChart',
-                labels: ['Consumido', 'Livre'],
-                title: 'Memória RAM'
+                labels: ['Em consumo', 'Livre'],
+                title: 'Memória RAM',
+                isRam: true
             });
 
-            startChart(results.data.media, results.data.somas.nrDisco, {
+            startChart(dados.data.media, dados.data.totais.nrDisco, {
                 id: 'diskChart',
                 labels: ['Espaço Usado', 'Espaço Livre'],
-                title: 'Armazenamento'
+                title: 'Armazenamento',
+                isRam: false
             });
 
 

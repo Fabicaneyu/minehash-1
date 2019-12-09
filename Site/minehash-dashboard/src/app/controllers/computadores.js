@@ -28,6 +28,7 @@ class ComputadoresController {
     const processos = async id => {
       return await Processo.findAll({
         where: {fkComputador: id},
+        order: [['dtDatahora', 'DESC']],
         raw : true,
         limit: 20
       }).then(results => [results])
@@ -37,6 +38,7 @@ class ComputadoresController {
     const desempenhos = async id => {
       return await Desempenho.findAll({
         where: {fkComputador: id},
+        order: [['dtDatahora', 'DESC']],
         raw : true,
         limit: 20
       }).then(results => [results])

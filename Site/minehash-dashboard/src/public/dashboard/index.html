@@ -495,9 +495,9 @@
     <script>
     new Promise((resolve, reject) => {
         $.get('/usuarioLogado', (results, status) => {
-            console.log('RES', results);
+            // console.log('RES', results);
             if (!results.success || results.data == null) reject('Falhou!');
-            console.log('Promise');
+            // console.log('Promise');
             resolve(results.data);
         });
     }).then(res => {

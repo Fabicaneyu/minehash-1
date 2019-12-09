@@ -1,0 +1,10 @@
+{
+  "name": "raiz-minehash-dashboard",
+  "version": "1.0.0",
+  "description": "Minehash Web Dashboard + RESTful API",
+  "private": true,
+  "scripts": {
+    "start": "node ./Site/minehash-dashboard/src/index.js",
+    "postinstall": "cd Site/minehash-dashboard && npm i"
+  }
+}

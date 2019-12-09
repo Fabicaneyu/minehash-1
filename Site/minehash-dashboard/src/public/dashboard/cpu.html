@@ -35,39 +35,66 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<script>
+    $.get('/computadores', (results, status) => {
+        if (!results.success || results.data == null) throw new Error('Erro na requisição de Computadores');
+        $.post('/processos', {
+            idComputador: results.data.idComputador
+        }, (procs, status) => {
+            if (!procs.success) throw new Error('Erro na requisição de Processos');
+            let i = 0;
+            procs.data.map(proc => {
+                i++;
+                $('#table-processos').append(`
+    <tr>
+        <th scope="row">${i}</th>
+        <td>${proc.nmProcesso}</td>
+        <td>${proc.nrPid}</td>
+        <td>${proc.nmStatus}</td>
+        <td>${proc.nmPrioridade}</td>
+        <td>${proc.nrConsumoCpu}</td>
+        <td>${proc.nmUsuario}</td>
+    </tr>
+    `);
+            });
+        });
+    });
+</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
 
 <script type="text/javascript">
-    const requestData = arg => {
-        $.get('/computadores', results => {
-            if (!results.success) throw new Error('Computadores Falhou');
+    // const requestData = () => {
+    //     $.get('/computadores', results => {
+    //         if (!results.success) throw new Error('Computadores Falhou');
 
-            $.post('/desempenhos', {
-                idComputador: results.data.idComputador
-            }, desempenhos => {
-                let res = {
-                    cpu: [],
-                    temp: []
-                }
+    //         $.post('/desempenhos', {
+    //             idComputador: results.data.idComputador
+    //         }, desempenhos => {
+    //             let res = {
+    //                 cpu: [],
+    //                 temp: [],
+    //                 data: []
+    //             }
 
-                desempenhos.data.desempenho.map(dsp => {
-                    res.cpu.push(dsp.nrCpu);
-                    res.temp.push(dsp.nrTemperaturaCpu);
-                });
-                if (arg === 'cpu') return res.cpu;
-                return res.temp;
-            });
-        });
-    }
+    //             desempenhos.data.desempenho.map(dsp => {
+    //                 res.cpu.push(dsp.nrCpu);
+    //                 res.temp.push(dsp.nrTemperaturaCpu)
+    //                 res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
+    //             });
+    //             return res;
+    //         });
+    //     });
+    // }
 
-    const chartA = res => {
-        const chartcpuA = new Chart(document.getElementById('cpuChart-a'), {
+    const chartA = item => {
+        const chartCpuA = new Chart(document.getElementById('cpuChart-a'), {
             type: 'bar',
             data: {
-                labels: ['Consumo de CPU'],
+                labels: item.data,
                 datasets: [{
-                    label: 'Consumo',
-                    data: res,
+                    label: 'Consumo da CPU em %',
+                    data: item.cpu,
                     backgroundColor: 'rgba(255,179,71,0.1)',
                     borderColor: 'rgb(255,179,71)',
                     borderWidth: 1
@@ -77,57 +104,8 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: 'Consumo da CPU',
-                    position: 'top',
-                    fontColor: "white",
-                },
-                legend: {
-                    labels: {
-                        fontColor: 'white',
-                    }
-                },
-                scales: {
-                    xAxes: {
-                        gridLines: {
-                            offsetGridLines: true,
-                            Color: 'white',
-                        }
-                    },
-                    yAxes: {
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            steps: 10,
-                            max: 100
-                        }
-                    }
-                },
-            }
-        });
-        setTimeout(async() => {
-            chartcpuA.data.datasets.data = await requestData('cpu');
-        });
-    };
-
-    const chartB = res => {
-        const chartcpuB = new Chart(document.getElementById('cpuChart-b'), {
-            type: 'line',
-            data: {
-                labels: ['Temperatura da CPU'],
-                datasets: [{
-                    label: 'Temperatura',
-                    data: res,
-                    backgroundColor: 'rgba(255,179,71,0.1)',
-                    borderColor: 'rgb(255,179,71)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                title: {
-                    display: true,
-                    text: 'Temperatura da CPU',
-                    position: 'top',
+                    text: 'Consumo Médio da CPU',
+                    position: 'center',
                     fontColor: "white",
                 },
                 legend: {
@@ -145,15 +123,57 @@
                         display: true,
                         ticks: {
                             min: 0,
-                            steps: 10,
-                            max: 100
+                            max: 100,
+                            steps: 10
                         }
                     }]
                 },
             }
         });
-        setTimeout(async() => {
-            chartcpuB.data.datasets.data = await requestData();
+    };
+
+    const chartB = item => {
+        const chartCpuB = new Chart(document.getElementById('cpuChart-b'), {
+            type: 'line',
+            data: {
+                labels: item.data,
+                datasets: [{
+                    label: 'Temperatura da CPU',
+                    data: item.temp,
+                    backgroundColor: 'rgba(255,179,71,0.1)',
+                    borderColor: 'rgb(255,179,71)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Temperatura Média da CPU',
+                    position: 'center',
+                    fontColor: "white",
+                },
+                legend: {
+                    labels: {
+                        fontColor: 'white',
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            offsetGridLines: true
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 100,
+                            steps: 10
+                        }
+                    }]
+                },
+            }
         });
     };
 
@@ -165,18 +185,20 @@
         }, desempenhos => {
             let res = {
                 cpu: [],
-                temp: []
+                temp: [],
+                data: []
             }
 
             desempenhos.data.desempenho.map(dsp => {
                 res.cpu.push(dsp.nrCpu);
                 res.temp.push(dsp.nrTemperaturaCpu);
+                res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
             });
 
-            console.log(res.cpu);
-            chartA(res.cpu);
-            console.log(res.temp);
-            chartB(res.temp);
+            console.log(res.cpu, res.data);
+            chartA(res);
+            console.log(res.temp, res.data);
+            chartB(res);
         });
     });
 </script>

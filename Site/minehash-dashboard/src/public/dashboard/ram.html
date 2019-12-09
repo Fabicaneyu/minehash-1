@@ -12,43 +12,56 @@
     <div class="container shadow-lg p-3 mb-5 bg-dark rounded">
         <canvas class="overflow-auto" id="ramChart-a" width="500px"></canvas>
     </div>
-
-    <div class="container shadow-lg p-3 mb-5 bg-dark rounded">
-        <canvas class="overflow-auto" id="ramChart-b" width="500px"></canvas>
-    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
+
 <script type="text/javascript">
-    const requestData = arg => {
-        $.get('/computadores', results => {
-        if (!results.success) throw new Error('Computadores Falhou');
+    const formatter = data => {
+      if (data == null || typeof data === 'null' || typeof data === 'undefined') return 0;
+      let str = `${data}`;
 
-        $.post('/desempenhos', {idComputador: results.data.idComputador}, desempenhos => {
-            let res = {
-                ram: [],
-                total: desempenhos.data.somas.nrRam
-            };
+      if (str.endsWith(' GiB') || str.endsWith(' MiB')) {
+        str = str.substring(0, str.length - 4);
+      }
 
-            desempenhos.data.desempenho.map(dsp => res.ram.push(dsp.nrRam));
+      return Number(str.replace(',', '.'));
+    };
 
-            return res.ram;
+    // const requestData = () => {
+    //     $.get('/computadores', results => {
+    //         if (!results.success) throw new Error('Computadores Falhou');
 
-            });
-        });
-    }
+    //         $.post('/desempenhos', {
+    //             idComputador: results.data.idComputador
+    //         }, desempenhos => {
+    //             let res = {
+    //                 cpu: [],
+    //                 temp: [],
+    //                 data: []
+    //             }
 
-    const chartA = res => { 
-        const chartramA = new Chart(document.getElementById('ramChart-a'), {
-            type: 'bar',
+    //             desempenhos.data.desempenho.map(dsp => {
+    //                 res.cpu.push(dsp.nrCpu);
+    //                 res.temp.push(dsp.nrTemperaturaCpu)
+    //                 res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
+    //             });
+    //             return res;
+    //         });
+    //     });
+    // }
+
+    const chartA = item => {
+        const chartRamA = new Chart(document.getElementById('ramChart-a'), {
+            type: 'line',
             data: {
-                labels: ['Consumo de RAM'],
+                labels: item.data,
                 datasets: [{
-                    label: 'Consumo',
-                    data: res,
+                    label: 'Consumo de RAM em %',
+                    data: item.ram,
                     backgroundColor: 'rgba(255,179,71,0.1)',
                     borderColor: 'rgb(255,179,71)',
                     borderWidth: 1
@@ -56,91 +69,53 @@
             },
             options: {
                 responsive: true,
-                    title: {
-                        display: true,
-                        text: 'Consumo de RAM',
-                        position: 'top',
-                        fontColor: ""
-                    },
-                    scales: {
-                        xAxes: {
-                            gridLines: {
-                                offsetGridLines: true
-                            }
-                        },
-                        yAxes: {
-                            display: true,
-                            ticks: {
-                                min: 0,
-                                steps: 10,
-                                max: 100
-                            }
-                        }
+                title: {
+                    display: true,
+                    text: 'Consumo Médio da RAM',
+                    position: 'center',
+                    fontColor: "white",
+                },
+                legend: {
+                    labels: {
+                        fontColor: 'white',
                     }
-                }
-            });
-            setTimeout(async () => {
-                chartramA.data.datasets.data = await requestData();
-            });
-        };
-    
-        const chartB = res => {
-            const chartramB = new Chart(document.getElementById('ramChart-b'), {
-                type: 'bar',
-                data: {
-                    labels: ['Média da RAM'],
-                    datasets: [{
-                        label: 'Temperatura',
-                        data: res/12,
-                        backgroundColor: 'rgba(255,179,71,0.1)',
-                        borderColor: 'rgb(255,179,71)',
-                        borderWidth: 1
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            offsetGridLines: true
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 100,
+                            steps: 10
+                        }
                     }]
                 },
-                options: {
-                    responsive: true,
-                    title: {
-                        display: true,
-                        text: 'Média atual de RAM',
-                        position: 'top',
-                        fontColor: "",
-                    },
-                    scales: {
-                        xAxes: [{
-                            gridLines: {
-                                offsetGridLines: true
-                            }
-                        }],
-                        yAxes: [{
-                            display: true,
-                            ticks: {
-                                min: 0,
-                                steps: 10,
-                                max: 100
-                            }
-                        }]
-                    },
-                }
-            });
-        };
-    
-        $.get('/computadores', results => {
-            if (!results.success) throw new Error('Computadores Falhou');
-    
-            $.post('/desempenhos', {idComputador: results.data.idComputador}, desempenhos => {
+            }
+        });
+    };
+
+    $.get('/computadores', results => {
+        if (!results.success) throw new Error('Computadores Falhou');
+
+        $.post('/desempenhos', {
+            idComputador: results.data.idComputador
+        }, desempenhos => {
             let res = {
                 ram: [],
-                total: desempenhos.data.somas.nrRam
+                data: []
             }
-    
+
             desempenhos.data.desempenho.map(dsp => {
-                res.ram.push(dsp.nrRam);
+                res.ram.push(Number((dsp.nrRam / (formatter(results.data.nmRam) * 1024)) * 100).toFixed(2   ));
+                res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
             });
-    
-                console.log(res.ram);
-                chartA(res.ram);
-                console.log(res.temp);
-                chartB(res.total);
-            });
+
+            chartA(res);
         });
-    </script>
+    });
+</script>

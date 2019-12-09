@@ -22,129 +22,141 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
+
 <script type="text/javascript">
+    // const requestData = () => {
+    //     $.get('/computadores', results => {
+    //         if (!results.success) throw new Error('Computadores Falhou');
 
-    const requestData = arg => {
-        $.get('/computadores', results => {
-        if (!results.success) throw new Error('Computadores Falhou');
+    //         $.post('/desempenhos', {
+    //             idComputador: results.data.idComputador
+    //         }, desempenhos => {
+    //             let res = {
+    //                 cpu: [],
+    //                 temp: [],
+    //                 data: []
+    //             }
 
-        $.post('/desempenhos', {idComputador: results.data.idComputador}, desempenhos => {
-            let res = {
-                gpu: [],
-                temp: []
-            }
+    //             desempenhos.data.desempenho.map(dsp => {
+    //                 res.cpu.push(dsp.nrCpu);
+    //                 res.temp.push(dsp.nrTemperaturaCpu)
+    //                 res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
+    //             });
+    //             return res;
+    //         });
+    //     });
+    // }
 
-            desempenhos.data.desempenho.map(dsp => {
-                return res.gpu.push(dsp.nrGpu), res.temp.push(dsp.nrTemperaturaGpu);
-            });
-                if (arg === 'gpu') return res.gpu;
-                return res.temp;
-            });
-        });
-    }
-
-    const chartA = res => { 
-        const gpuchartA = new Chart(document.getElementById('gpuChart-a'), {
+    const chartA = item => {
+        const chartGpuA = new Chart(document.getElementById('gpuChart-a'), {
             type: 'bar',
             data: {
-                labels: ['Consumo de GPU'],
+                labels: item.data,
                 datasets: [{
-                    label: 'Consumo',
-                    data: res,
+                    label: 'Consumo Médio da GPU',
+                    data: item.gpu,
                     backgroundColor: 'rgba(255,179,71,0.1)',
                     borderColor: 'rgb(255,179,71)',
                     borderWidth: 1
                 }]
             },
             options: {
-                responsive: false,
-                title: {
-                    display: true,
-                    text: 'Consumo Atual',
-                    position: 'top',
-                    fontColor: "",
-                },
-                scales: {
-                    xAxes: {
-                        gridLines: {
-                            offsetGridLines: true
-                        }
-                    },
-                    yAxes: {
-                        display: true,
-                        ticks: {
-                            min: 0,
-                            steps: 10,
-                            max: 100
-                        }
-                    }
-                },
-            }
-        });
-        setTimeout(() => {
-            gpuchartA.data.datasets.data = requestData('gpu');
-        });
-    };
-
-    const chartB = res => {
-        const gpuchartB = new Chart(document.getElementById('gpuChart-b'), {
-            type: 'line',
-            data: {
-                labels: ['Temperatura da GPU'],
-                datasets: [{
-                    label: 'Temperatura',
-                    data: res,
-                    backgroundColor: 'rgba(255,179,71,0.1)',
-                    borderColor: 'rgb(255,179,71)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: false,
+                responsive: true,
                 title: {
                     display: true,
                     text: 'Temperatura da GPU',
-                    position: 'top',
-                    fontColor: "",
+                    position: 'center',
+                    fontColor: "white",
+                },
+                legend: {
+                    labels: {
+                        fontColor: 'white',
+                    }
                 },
                 scales: {
-                    xAxes: {
+                    xAxes: [{
                         gridLines: {
                             offsetGridLines: true
                         }
-                    },
-                    yAxes: {
+                    }],
+                    yAxes: [{
                         display: true,
                         ticks: {
                             min: 0,
-                            steps: 10,
-                            max: 100
+                            max: 100,
+                            steps: 10
                         }
-                    }
+                    }]
                 },
             }
         });
-        setTimeout(() => {
-            gpuchartB.data.datasets.data = requestData('gpu');
+    };
+
+    const chartB = item => {
+        const chartGpuB = new Chart(document.getElementById('gpuChart-b'), {
+            type: 'line',
+            data: {
+                labels: item.data,
+                datasets: [{
+                    label: 'Temperatura da GPU',
+                    data: item.temp,
+                    backgroundColor: 'rgba(255,179,71,0.1)',
+                    borderColor: 'rgb(255,179,71)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Temperatura da GPU',
+                    position: 'center',
+                    fontColor: "white",
+                },
+                legend: {
+                    labels: {
+                        fontColor: 'white',
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            offsetGridLines: true
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            min: 0,
+                            max: 100,
+                            steps: 10
+                        }
+                    }]
+                },
+            }
         });
     };
 
     $.get('/computadores', results => {
         if (!results.success) throw new Error('Computadores Falhou');
 
-        $.post('/desempenhos', {idComputador: results.data.idComputador}, desempenhos => {
+        $.post('/desempenhos', {
+            idComputador: results.data.idComputador
+        }, desempenhos => {
             let res = {
                 gpu: [],
-                temp: []
+                temp: [],
+                data: []
             }
 
             desempenhos.data.desempenho.map(dsp => {
-                console.log(dsp.nrGpu);
-                return res.gpu.push(dsp.nrGpu), res.temp.push(dsp.nrTemperaturaGpu);
+                res.gpu.push(dsp.nrGpu);
+                res.temp.push(dsp.nrTemperaturaGpu);
+                res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
             });
 
-            chartA(res.gpu);
-            chartB(res.temp);
+            chartA(res);
+            chartB(res);
         });
     });
 </script>

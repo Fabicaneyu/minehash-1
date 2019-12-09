@@ -44,7 +44,8 @@ class DesempenhosController {
           [Op.between]: [datas.semanaPassada, datas.hoje]
         }
       },
-      limit: 20
+      order: [['dtDatahora', 'DESC']],
+      limit: 15
     }).then(results => {
       const resObject = results.map(result => {
         somador(result);
