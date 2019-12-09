@@ -182,14 +182,11 @@ public class TelaCadastroComputador extends javax.swing.JFrame {
         Minerador usuario = new Minerador();
         Consumo con = new Consumo();
         Processos proc = new Processos();
-        
+
         usuario.setIdMinerador(id);
         usuario.setFkMinerador(fk);
         usuario.cadastrarComputador(email, senha, fk);
 
-        con.inserirDesempenhoQuery(fk);
-        
-        proc.inserirProcessosQuery(fk);
 
     }//GEN-LAST:event_btCadastroActionPerformed
 

@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
     nrTemperaturaGpu: {
       type: DataTypes.DECIMAL,
       field: 'nr_temperatura_gpu'
+    },
+    dtDatahora: {
+      type: DataTypes.DATE,
+      field: 'dt_datahora'
     }
   }, { 
     tableName: 'tb_desempenho',

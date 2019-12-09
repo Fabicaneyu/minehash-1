@@ -116,8 +116,10 @@
                           <Component id="lbQ" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lbProc" min="-2" pref="22" max="-2" attributes="0"/>
-                          <EmptySpace pref="179" max="32767" attributes="0"/>
-                          <Component id="btProp" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btMonitorar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btProp1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -155,7 +157,7 @@
                                           <Component id="lbSistemaOperacional" min="-2" pref="110" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="225" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
@@ -217,8 +219,9 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lbQ" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lbProc" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btProp" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btProp1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btMonitorar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               </Group>
@@ -235,6 +238,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JProgressBar" name="pbCPU">
+          <Properties>
+            <Property name="stringPainted" type="boolean" value="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbD">
           <Properties>
@@ -299,6 +305,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JProgressBar" name="pbDisco">
+          <Properties>
+            <Property name="stringPainted" type="boolean" value="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -341,6 +350,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JProgressBar" name="pbRAM">
+          <Properties>
+            <Property name="stringPainted" type="boolean" value="true"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -358,7 +370,7 @@
             <Property name="text" type="java.lang.String" value="TEMPERATURA CPU:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btProp">
+        <Component class="javax.swing.JButton" name="btMonitorar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d" green="e" red="a" type="rgb"/>
@@ -366,12 +378,12 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f0" green="f0" red="f0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="PROCESSOS"/>
+            <Property name="text" type="java.lang.String" value="MONITORAR"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btPropMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btPropMouseExited"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btPropActionPerformed"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btMonitorarMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btMonitorarMouseExited"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btMonitorarActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbR">
@@ -396,6 +408,22 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="------------------------------------------"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btProp1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="d" green="e" red="a" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f0" green="f0" red="f0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="PROCESSOS"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btProp1MouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btProp1MouseExited"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btProp1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

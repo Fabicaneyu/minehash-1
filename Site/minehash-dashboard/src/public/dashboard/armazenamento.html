@@ -4,61 +4,22 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/sidebar-themes.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
 
-
-
-<div class="container shadow-lg p-3 mb-5 bg-dark rounded">
-    <canvas class="overflow-auto" id="diskChart-a" width="60vw" height="20vh"></canvas>
-</div>
-<div class="container shadow-lg p-3 mb-5 bg-dark rounded">
-    <canvas class="overflow-auto" id="diskChart-b" width="500px"></canvas>
-</div>
-
-<div class="container shadow-lg p-3 mb-5 bg-dark rounded">
-    <table class="table">
-        <thead>
-            <th scope="col">Nome do Processo</th>
-            <th scope="col">PID</th>
-            <th scope="col">Status</th>
-            <th scope="col">Prioridade</th>
-            <th scope="col">Consumo de CPU</th>
-            <th scope="col">Usuário (OS)</th>
-        </thead>
-        <tbody id="table-processos"></tbody>
-    </table>
-</div>
+<div>
+    <div class="container shadow-lg p-3 mb-5 bg-dark rounded">
+        <canvas class="overflow-auto" id="diskChart-a" width="60vw" height="20vh"></canvas>
+    </div>
+    <div class="container shadow-lg p-3 mb-5 bg-dark rounded">
+        <canvas class="overflow-auto" id="diskChart-b" width="500px"></canvas>
+    </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-    $.get('/computadores', (results, status) => {
-        if (!results.success || results.data == null) throw new Error('Erro na requisição de Computadores');
-
-        $.post('/processos', {
-            idComputador: results.data.idComputador
-        }, (procs, status) => {
-            if (!procs.success) throw new Error('Erro na requisição de Processos');
-
-            let i = 0;
-            procs.data.map(proc => {
-                i++;
-                $('#table-processos').append(`
-    <tr>
-        <th scope="row">${i}</th>
-        <td>${proc.nmProcesso}</td>
-        <td>${proc.nrPid}</td>
-        <td>${proc.nmStatus}</td>
-        <td>${proc.nmPrioridade}</td>
-        <td>${proc.nrConsumoCpu}</td>
-        <td>${proc.nmUsuario}</td>
-    </tr>
-    `);
-            });
-        });
-    });
-</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
+
 <script type="text/javascript">
     const chart = new Chart(document.getElementById('diskChart-a'), {
         type: 'line',
