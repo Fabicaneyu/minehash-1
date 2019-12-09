@@ -68,7 +68,6 @@ public class TelaMonitoramento extends javax.swing.JFrame {
         lbProc = new javax.swing.JLabel();
         lbTempCPU = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        pbRAM = new javax.swing.JProgressBar();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         btMonitorar = new javax.swing.JButton();
@@ -78,6 +77,7 @@ public class TelaMonitoramento extends javax.swing.JFrame {
         lbProcessador = new javax.swing.JLabel();
         btProp1 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        lbRAM = new javax.swing.JLabel();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -175,8 +175,6 @@ public class TelaMonitoramento extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("TEMPERATURA GPU:");
 
-        pbRAM.setStringPainted(true);
-
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("SISTEMA OPERACIONAL:");
 
@@ -233,25 +231,36 @@ public class TelaMonitoramento extends javax.swing.JFrame {
             }
         });
 
+        lbRAM.setText("0 MB");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btMonitorar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btProp1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addGap(21, 21, 21))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addGap(20, 20, 20))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(pbDisco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbD)
-                            .addComponent(pbRAM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbR)
                             .addComponent(pbCPU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbC)
@@ -281,17 +290,10 @@ public class TelaMonitoramento extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbTempCPU, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
                                     .addComponent(lbTempGPU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(20, 20, 20))))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btMonitorar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btProp1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addGap(21, 21, 21))
+                                .addGap(20, 20, 20))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lbRAM, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,9 +329,9 @@ public class TelaMonitoramento extends javax.swing.JFrame {
                 .addComponent(pbCPU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(lbR)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pbRAM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
+                .addComponent(lbRAM)
+                .addGap(15, 15, 15)
                 .addComponent(lbD)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pbDisco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -393,9 +395,10 @@ public class TelaMonitoramento extends javax.swing.JFrame {
                 LocalDateTime now = LocalDateTime.now();
 
                 pbDisco.setValue(cons.getConsumoDisco().intValue());
-                pbRAM.setValue(Integer.valueOf(cons.getConsumoRAM()));
+//                pbRAM.setValue(Integer.valueOf(cons.getConsumoRAM()));
                 pbCPU.setValue(cons.getCpu().intValue());
                 lbTempCPU.setText(String.valueOf(cons.getTemperaturaCPU()));
+                lbRAM.setText(String.valueOf(cons.getConsumoRAM().toString()));
                 
             }
         }, delay, interval);
@@ -571,11 +574,11 @@ public class TelaMonitoramento extends javax.swing.JFrame {
     private javax.swing.JLabel lbProcessador;
     private javax.swing.JLabel lbQ;
     private javax.swing.JLabel lbR;
+    private javax.swing.JLabel lbRAM;
     private javax.swing.JLabel lbSistemaOperacional;
     private javax.swing.JLabel lbTempCPU;
     private javax.swing.JLabel lbTempGPU;
     private javax.swing.JProgressBar pbCPU;
     private javax.swing.JProgressBar pbDisco;
-    private javax.swing.JProgressBar pbRAM;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,15 +12,15 @@ import com.twilio.type.PhoneNumber;
 
 public class SmsAlert {
 
-    public static final String ACCOUNT_SID = "ACce49cdcce0902ae6fc5b60956ba37594";
-    public static final String AUTH_TOKEN = "7baf3e53c3620dc4cd4d3f88e3ff7c12";
+    public static final String ACCOUNT_SID = "AC2dbb87b4948fe6080ee79bae5866370a";
+    public static final String AUTH_TOKEN = "37fc14f677d6203270c83d9b4898a35e";
 
     public void enviarSMS(String conteudo) {
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
         Message message = Message
-                .creator(new PhoneNumber("+5511959358729"), new PhoneNumber("+12055576890"),
+                .creator(new PhoneNumber("+5511959358729"), new PhoneNumber("(202) 517-0883"),
                         conteudo
                 ).create();
 

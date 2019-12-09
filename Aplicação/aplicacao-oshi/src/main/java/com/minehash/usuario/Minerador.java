@@ -88,9 +88,9 @@ public class Minerador {
 
         }
 
-//        mensagem.enviarSMS("Olá, login realizado com sucesso! \n"
-//                + "EMAIL: " + getEmail()
-//        );
+        mensagem.enviarSMS("Olá, login realizado com sucesso! \n"
+                + "EMAIL: " + getEmail()
+        );
     }
 
     public void cadastrarComputador(String e, String s, Integer fk) {
@@ -129,12 +129,12 @@ public class Minerador {
         System.out.println(telaMon.getFk() +  "fkkkkk");
         
 
-//        mensagem.enviarSMS("Olá! O cadastro do seu equipamento foi realizado com sucesso!\n"
-//                + "DADOS:"
-//                + "\nUsuário: " + getEmail()
-//                + "\nSistema Operacional: " + comp.getSistemaOperacional()
-//                + "\nHostname: " + comp.getHostname()
-//                + "\n Para saber mais, acesso a aplicação!");
+        mensagem.enviarSMS("Olá! O cadastro do seu equipamento foi realizado com sucesso!\n"
+                + "DADOS:"
+                + "\nUsuário: " + getEmail()
+                + "\nSistema Operacional: " + comp.getSistemaOperacional()
+                + "\nHostname: " + comp.getHostname()
+                + "\n Para saber mais, acesso a aplicação!");
     }
 
     public void selectQuery(String url, String user, String password, String sql) {
