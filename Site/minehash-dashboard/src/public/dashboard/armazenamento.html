@@ -23,41 +23,23 @@
 <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
 
 <script type="text/javascript">
-    const formatter = data => {
-      if (data == null || typeof data === 'null' || typeof data === 'undefined') return 0;
-      let str = `${data}`;
+const formatter = data => {
+  if (data == null || typeof data === 'null' || typeof data === 'undefined') return 0;
+  let str = `${data}`;
 
-      if (str.endsWith(' GiB') || str.endsWith(' MiB')) {
-        str = str.substring(0, str.length - 4);
-      }
-
-      return Number(str.replace(',', '.'));
-    };
-
-    // const requestData = () => {
-    //     $.get('/computadores', results => {
-    //         if (!results.success) throw new Error('Computadores Falhou');
-
-    //         $.post('/desempenhos', {
-    //             idComputador: results.data.idComputador
-    //         }, desempenhos => {
-    //             let res = {
-    //                 disco: [],
-    //                 discoTotal: formatter(results.data.nmDisco),
-    //                 data: []
-    //             }
-
-    //             desempenhos.data.desempenho.map(dsp => {
-    //                 res.disco.push(dsp.nrDisco *);
-    //                 res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
-    //             });
-    //             return res;
-    //         });
-    //     });
-    // }
+  if (str.endsWith(' MiB')) {
+    str = str.substring(0, str.length - 4);
+    return Number(str.replace(',', '.'));
+  }
+  
+  if (str.endsWith(' GiB')) {
+    str = str.substring(0, str.length - 4);
+    return Number(str.replace(',', '.')) * 1024;
+  }
+};
 
     const chartA = item => {
-        const diskChatA = new Chart(document.getElementById('diskChart-a'), {
+        const diskChartA = new Chart(document.getElementById('diskChart-a'), {
             type: 'line',
             data: {
                 labels: item.data,

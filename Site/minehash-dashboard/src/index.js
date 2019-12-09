@@ -8,6 +8,30 @@ const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(botConfig.token, {polling: true});
 const { Usuario, Computador, Desempenho } = require('./app/models');
 
+setInterval(() => {
+  Usuario.findAll({
+    where: {idTelegram: {[Op.ne]: null}},
+    raw: true
+  }).then(results => {
+    const comp = async id => await Computador.findAll({where: {fkUsuario: id}, raw: true})
+    .then(results => results).catch(err => err);
+
+    const desp = async id => await Desempenho.findAll({where: {fkComputador: id}, order: [['dtDatahora', 'DESC']], raw: true, limit: 1})
+    .then(results => results).catch(err => err);
+
+    results.map(usuario => {
+      comp(usuario.idUsuario).map(computador => {
+        desp(computador.idComputador).map(desempenho => {
+          if (desempenho.nrCpu > 90) return bot.sendMessage(usuario.idTelegram, `Alerta de Consumo de CPU! ${desempenho.nrCpu} da máquina ${computador.nmHostname}`);
+          if (desempenho.nrGpu > 98) return bot.sendMessage(usuario.idTelegram, `Alerta de Consumo de GPU! ${desempenho.nrGpu} da máquina ${computador.nmHostname}`);
+          if (desempenho.nrTemperaturaCpu > 98) return bot.sendMessage(usuario.idTelegram, `Alerta de Temperatura de CPU! ${desempenho.nrTemperaturaCpu} da máquina ${computador.nmHostname}`);
+          if (desempenho.nrTemperaturaGpu > 98) return bot.sendMessage(usuario.idTelegram, `Alerta de Temperatura de GPU! ${desempenho.nrTemperaturaGpu} da máquina ${computador.nmHostname}`);
+        })
+      })
+    });
+  }).catch(err => err);
+}, 15000);
+
 const verificador = (msg) => {
   if (msg.chat.type !== 'private') return bot.sendMessage(msg.chat.id, 'Este chat não é privado (Direct Messages).');
 };

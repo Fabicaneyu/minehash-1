@@ -24,28 +24,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
 
 <script type="text/javascript">
-    // const requestData = () => {
-    //     $.get('/computadores', results => {
-    //         if (!results.success) throw new Error('Computadores Falhou');
-
-    //         $.post('/desempenhos', {
-    //             idComputador: results.data.idComputador
-    //         }, desempenhos => {
-    //             let res = {
-    //                 cpu: [],
-    //                 temp: [],
-    //                 data: []
-    //             }
-
-    //             desempenhos.data.desempenho.map(dsp => {
-    //                 res.cpu.push(dsp.nrCpu);
-    //                 res.temp.push(dsp.nrTemperaturaCpu)
-    //                 res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
-    //             });
-    //             return res;
-    //         });
-    //     });
-    // }
 
     const chartA = item => {
         const chartGpuA = new Chart(document.getElementById('gpuChart-a'), {

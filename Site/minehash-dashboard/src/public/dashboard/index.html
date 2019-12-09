@@ -46,6 +46,7 @@
                     <div class="user-info">
                         <span class="user-name" id="user-name"></span>
                         <span class="user-role" id="user-role"></span>
+                        <button onclick="criarAlerta({title: 'Alerta de Teste', msg: 'Isso é um teste'})">Testar Alerta</button>
                         <!-- <span class="user-status">
                             <i class="fa fa-circle"></i>
                             <span>Online</span>
@@ -53,7 +54,7 @@
                     </div>
                 </div>
                 <!-- sidebar-search  -->
-                <div class="sidebar-item sidebar-search">
+                <!-- <div class="sidebar-item sidebar-search">
                     <div>
                         <div class="input-group">
                             <input type="text" class="form-control search-menu" placeholder="Search...">
@@ -64,7 +65,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- sidebar-menu  -->
                 <div class=" sidebar-item sidebar-menu">
                     <ul>
@@ -492,6 +493,93 @@
     <!-- End of minehashhelp Zendesk Widget script -->
 
     <script src="js/main.js"></script>
+
+<script>
+
+const formatter = data => {
+  if (data == null || typeof data === 'null' || typeof data === 'undefined') return 0;
+  let str = `${data}`;
+
+  if (str.endsWith(' MiB')) {
+    str = str.substring(0, str.length - 4);
+    return Number(str.replace(',', '.'));
+  }
+  
+  if (str.endsWith(' GiB')) {
+    str = str.substring(0, str.length - 4);
+    return Number(str.replace(',', '.')) * 1024;
+  }
+};
+
+const criarAlerta = opts => { // {title: 'X', msg: 'Y'}
+  iziToast.warning({
+    title: opts.title,
+    message: opts.msg,
+    position: 'topRight'
+  });
+}
+
+const requestData = () => {
+  $.get('/computadores', results => {
+    if (!results.success) throw new Error('Computadores Falhou');
+      $.post('/desempenhosLimite', {
+        idComputador: results.data.idComputador
+      }, desempenhos => {
+        desempenhos.data.desempenho.map(dsp => {
+          if (dsp.nrCpu > 90) {
+            criarAlerta({
+              title: 'Alerta de CPu',
+              msg: `Sua CPU está em ${Number(dsp.nrCpu).toFixed(2)}%`
+            });
+          }
+
+          if (dsp.nrRam > (formatter(results.data.nmRam) / 100) * 80) {
+            criarAlerta({
+              title: 'Alerta de RAM',
+              msg: `Sua Memória está em ${Number((dsp.nrRam / formatter(results.data.nmRam)) * 100).toFixed(2)}%`
+            });
+          }
+
+          if (((formatter(results.data.nmDisco) / 100) * dsp.nrDisco > (formatter(results.data.nmDisco) / 100) * 95)) {
+            criarAlerta({
+              title: 'Alerta de Disco',
+              msg: `Seu Armazenamento está em ${dsp.nrDisco}%`
+            });
+          }
+
+          if (dsp.nrGpu > 98) {
+            criarAlerta({
+              title: 'Alerta de GPU',
+              msg: `Sua Placa de Vídeo está em ${dsp.nrGpu}%`
+            });
+          }
+
+          if (dsp.nrTemperaturaCpu > 80) {
+            criarAlerta({
+              title: 'Alerta de Temperatura (CPU)',
+              msg: `Seu processador está em ${dsp.nrTemperaturaCpu}°C`
+            });
+          }
+
+          if (dsp.nrTemperaturaGpu > 90) {
+            criarAlerta({
+              title: 'Alerta de Temperatura (GPU)',
+              msg: `Sua Placa de Vídeo está em ${dsp.nrTemperaturaCpu}°C`
+            });
+          }
+
+          console.log('ALertas');
+        });
+      });
+    }
+  );
+}
+
+setInterval(() => requestData(), 5000);
+
+</script>
+
+
     <script>
     new Promise((resolve, reject) => {
         $.get('/usuarioLogado', (results, status) => {

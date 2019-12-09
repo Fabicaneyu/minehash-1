@@ -20,39 +20,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" charset="utf-8"></script>
 
 <script type="text/javascript">
-    const formatter = data => {
-      if (data == null || typeof data === 'null' || typeof data === 'undefined') return 0;
-      let str = `${data}`;
 
-      if (str.endsWith(' GiB') || str.endsWith(' MiB')) {
-        str = str.substring(0, str.length - 4);
-      }
+const formatter = data => {
+  if (data == null || typeof data === 'null' || typeof data === 'undefined') return 0;
+  let str = `${data}`;
 
-      return Number(str.replace(',', '.'));
-    };
-
-    // const requestData = () => {
-    //     $.get('/computadores', results => {
-    //         if (!results.success) throw new Error('Computadores Falhou');
-
-    //         $.post('/desempenhos', {
-    //             idComputador: results.data.idComputador
-    //         }, desempenhos => {
-    //             let res = {
-    //                 cpu: [],
-    //                 temp: [],
-    //                 data: []
-    //             }
-
-    //             desempenhos.data.desempenho.map(dsp => {
-    //                 res.cpu.push(dsp.nrCpu);
-    //                 res.temp.push(dsp.nrTemperaturaCpu)
-    //                 res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
-    //             });
-    //             return res;
-    //         });
-    //     });
-    // }
+  if (str.endsWith(' MiB')) {
+    str = str.substring(0, str.length - 4);
+    return Number(str.replace(',', '.'));
+  }
+  
+  if (str.endsWith(' GiB')) {
+    str = str.substring(0, str.length - 4);
+    return Number(str.replace(',', '.')) * 1024;
+  }
+};}
 
     const chartA = item => {
         const chartRamA = new Chart(document.getElementById('ramChart-a'), {
@@ -111,7 +93,7 @@
             }
 
             desempenhos.data.desempenho.map(dsp => {
-                res.ram.push(Number((dsp.nrRam / (formatter(results.data.nmRam) * 1024)) * 100).toFixed(2   ));
+                res.ram.push(Number((dsp.nrRam / (formatter(results.data.nmRam) * 1024)) * 100).toFixed(2));
                 res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
             });
 

@@ -1,4 +1,4 @@
-const { Processo, Computador } = require('../models')
+const { Processo } = require('../models')
 
 class ProcessosController {
 
@@ -6,7 +6,9 @@ class ProcessosController {
 
     await Processo.findAll({
       where: {fkComputador: req.body.idComputador},
-      limit: 20
+      order: [['dtDatahora', 'DESC']],
+      limit: 21,
+      raw: true
     }).then(results => {
       return res.status(200).json({
         success: true,

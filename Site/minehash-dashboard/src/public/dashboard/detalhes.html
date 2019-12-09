@@ -37,6 +37,21 @@
 
 <script>
 
+const formatter = data => {
+  if (data == null || typeof data === 'null' || typeof data === 'undefined') return 0;
+  let str = `${data}`;
+
+  if (str.endsWith(' MiB')) {
+    str = str.substring(0, str.length - 4);
+    return Number(str.replace(',', '.'));
+  }
+  
+  if (str.endsWith(' GiB')) {
+    str = str.substring(0, str.length - 4);
+    return Number(str.replace(',', '.')) * 1024;
+  }
+};
+
     const startChart = (media, somatorio, opts) => {
         calc = isNaN(somatorio / media) ? 0 : somatorio / media;
         console.log('CALC', calc);
@@ -91,18 +106,6 @@
             }
         });
     };
-
-    const formatter = data => {
-      if (data == null || typeof data === 'null' || typeof data === 'undefined') return 0;
-      let str = `${data}`;
-
-      if (str.endsWith(' GiB') || str.endsWith(' MiB')) {
-        str = str.substring(0, str.length - 4);
-      }
-
-      return Number(str.replace(',', '.'));
-    };
-
     $.get('/computadores', (results, status) => {
         // console.log(results);
         if (!results.success && results.data == null) return console.error('Requisição Mal-sucedida.', status);

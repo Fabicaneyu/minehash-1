@@ -25,6 +25,7 @@ routes.get('/detalhes', SessionController.isLoggedIn, ComputadoresController.get
 // Rotas Detalhes do Computador
 
 routes.post('/desempenhos', SessionController.isLoggedIn, DesempenhosController.post); // GET Dados de Desempenho do Computador
+routes.post('/desempenhosLimite', SessionController.isLoggedIn, DesempenhosController.postLimite)
 
 routes.post('/processos', SessionController.isLoggedIn, ProcessosController.post); // GET Dados de Processos do Computador
 
