@@ -25,14 +25,13 @@ public class TelaMonitoramento extends javax.swing.JFrame {
     private Point point = new Point();
     Consumo consumo = new Consumo();
     Integer fk;
+    Computador comp = new Computador();
 
     /**
      * Creates new form TelaMonitoramento
      */
     public TelaMonitoramento() {
         initComponents();
-
-        Computador comp = new Computador();
 
         lbSistemaOperacional.setText(comp.getSistemaOperacional());
         lbProcessador.setText(comp.getProcessador());
@@ -66,9 +65,9 @@ public class TelaMonitoramento extends javax.swing.JFrame {
                 } else {
 
                     lbGPU.setText("Não encontrada");
-                    
+
                 }
-                
+
                 consumo.inserirDesempenho(17);
 
             }
