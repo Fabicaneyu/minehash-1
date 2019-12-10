@@ -26,6 +26,9 @@ public class TelaMonitoramento extends javax.swing.JFrame {
     Consumo consumo = new Consumo();
     Integer fk;
     Computador comp = new Computador();
+    TelaProcessos telaProc = new TelaProcessos();
+    Timer timer = new Timer();
+    Processos procs = new Processos();
 
     /**
      * Creates new form TelaMonitoramento
@@ -39,8 +42,6 @@ public class TelaMonitoramento extends javax.swing.JFrame {
 
         int delay = 2000;   // tempo de espera antes da 1ª execução da tarefa.
         int interval = 1000;  // intervalo no qual a tarefa será executada.
-
-        Timer timer = new Timer();
 
         timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -69,6 +70,7 @@ public class TelaMonitoramento extends javax.swing.JFrame {
                 }
 
                 consumo.inserirDesempenho(17);
+                procs.inserirProcessosQuery(17);
 
             }
         }, delay, interval);
@@ -105,13 +107,11 @@ public class TelaMonitoramento extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        btMonitorar = new javax.swing.JButton();
         lbR = new javax.swing.JLabel();
         lbSistemaOperacional = new javax.swing.JLabel();
         lbMemoria = new javax.swing.JLabel();
         lbProcessador = new javax.swing.JLabel();
         btProp1 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         lbRAM = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lbGPU = new javax.swing.JLabel();
@@ -218,23 +218,6 @@ public class TelaMonitoramento extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("TEMPERATURA CPU:");
 
-        btMonitorar.setBackground(new java.awt.Color(10, 14, 13));
-        btMonitorar.setForeground(new java.awt.Color(240, 240, 240));
-        btMonitorar.setText("MONITORAR");
-        btMonitorar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btMonitorarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btMonitorarMouseExited(evt);
-            }
-        });
-        btMonitorar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btMonitorarActionPerformed(evt);
-            }
-        });
-
         lbR.setForeground(new java.awt.Color(255, 255, 255));
         lbR.setText("RAM:");
 
@@ -261,13 +244,6 @@ public class TelaMonitoramento extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("CADASTRAR COMPUTADOR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         lbRAM.setForeground(new java.awt.Color(255, 255, 255));
         lbRAM.setText("0 MB");
 
@@ -281,11 +257,7 @@ public class TelaMonitoramento extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(220, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btMonitorar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btProp1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
@@ -344,7 +316,7 @@ public class TelaMonitoramento extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbGPU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(lbGPU, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
                             .addComponent(lbC))
                         .addGap(290, 290, 290))))
         );
@@ -394,9 +366,7 @@ public class TelaMonitoramento extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(btProp1)
-                    .addComponent(btMonitorar)
-                    .addComponent(jButton1))
+                    .addComponent(btProp1))
                 .addGap(14, 14, 14))
         );
 
@@ -420,20 +390,6 @@ public class TelaMonitoramento extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btMonitorarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btMonitorarMouseEntered
-        btMonitorar.setBackground(new Color(17, 63, 64));
-    }//GEN-LAST:event_btMonitorarMouseEntered
-
-    private void btMonitorarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btMonitorarMouseExited
-        btMonitorar.setBackground(new Color(5, 13, 14));
-    }//GEN-LAST:event_btMonitorarMouseExited
-
-    private void btMonitorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMonitorarActionPerformed
-        // TODO add your handling code here:
-
-
-    }//GEN-LAST:event_btMonitorarActionPerformed
-
     private void btProp1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btProp1MouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_btProp1MouseEntered
@@ -444,16 +400,10 @@ public class TelaMonitoramento extends javax.swing.JFrame {
 
     private void btProp1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProp1ActionPerformed
         // TODO add your handling code here:
-        TelaProcessos telaProc = new TelaProcessos();
+
         telaProc.setVisible(true);
+
     }//GEN-LAST:event_btProp1ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        TelaCadastroComputador telaC = new TelaCadastroComputador();
-        telaC.setVisible(true);
-
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -503,9 +453,7 @@ public class TelaMonitoramento extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btMonitorar;
     private javax.swing.JButton btProp1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
