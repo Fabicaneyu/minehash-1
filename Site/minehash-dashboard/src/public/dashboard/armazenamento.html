@@ -138,14 +138,14 @@ const formatter = data => {
                 responsive: true,
                 title: {
                     display: true,
-                    text: `Consumo de Disco (Total: ${item.discoTotal}GB)`,
+                    text: `Consumo de Disco (Total: ${item.discoTotal / 1024}GB)`,
                     position: 'top',
                     fontColor: "white",
                 },
                 plugins: {
                     labels: {
                         fontColor: '#000',
-                        render: arg => `${Number(arg.value).toFixed(1)}GB`
+                        render: arg => `${Number(arg.value / 1024).toFixed(1)}GB`
                     }
                 },
                 legend: {
@@ -176,7 +176,7 @@ const formatter = data => {
                     if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
                       const datasets = diskChartB.data.datasets;
                       let res = {
-                          discoSoma: formatter(dsps.data.totais.nrDisco).toFixed(2) / dsps.data.media,
+                          discoSoma: formatter(dsps.data.totais.nrDisco) / dsps.data.media,
                           discoTotal: formatter(comps.data.nmDisco),
                       }
 
@@ -202,7 +202,7 @@ const formatter = data => {
         }, desempenhos => {
             let res = {
                 disco: [],
-                discoSoma: formatter(desempenhos.data.totais.nrDisco).toFixed(2) / desempenhos.data.media,
+                discoSoma: Number(desempenhos.data.totais.nrDisco).toFixed(2) / desempenhos.data.media,
                 discoTotal: formatter(results.data.nmDisco),
                 data: []
             }

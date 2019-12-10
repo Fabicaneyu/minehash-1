@@ -95,7 +95,7 @@ const formatter = data => {
                         }
 
                         dsps.data.desempenho.map(dsp => {
-                            res.ram.push(Number((dsp.nrRam / (formatter(results.data.nmRam) * 1024)) * 100).toFixed(2));
+                            res.ram.push(Number((dsps.data.totais.nrRam / dsps.data.media) * 100 / formatter(comps.data.nmRam)).toFixed(2));
                             res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
                         });
 
@@ -123,7 +123,7 @@ const formatter = data => {
             }
 
             desempenhos.data.desempenho.map(dsp => {
-                res.ram.push(Number((dsp.nrRam / (formatter(results.data.nmRam) * 1024)) * 100).toFixed(2));
+                res.ram.push(Number((desempenhos.data.totais.nrRam / desempenhos.data.media) * 100 / formatter(results.data.nmRam)).toFixed(2));
                 res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
             });
 
