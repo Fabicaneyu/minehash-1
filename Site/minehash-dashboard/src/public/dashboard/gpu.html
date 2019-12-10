@@ -78,20 +78,15 @@
                     if (!dsps.success || dsps.data == null) return;
                     if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
                       const datasets = chartGpuA.data.datasets;
-                      let res = {
-                        gpu: [],
-                        data: []
-                      }
 
                       dsps.data.desempenho.map(dsp => {
-                        res.gpu.push(dsp.nrGpu);
-                        res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
+                        chartGpuA.data.labels.shift();
+                        chartGpuA.data.labels.push(new Date(dsp.dtDatahora).toLocaleString().toString());
+                        datasets.map(dataset => {
+                            dataset.data.shift();
+                            dataset.data.push(dsp.nrGpu);
+                        })
                       });
-
-                      chartGpuA.data.labels = res.data;
-                      datasets.map(dataset => {
-                        dataset.data = res.gpu
-                      })
 
                       chartGpuA.update();
                     }
@@ -153,20 +148,15 @@
                     if (!dsps.success || dsps.data == null) return;
                     if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
                       const datasets = chartGpuB.data.datasets;
-                      let res = {
-                        temp: [],
-                        data: []
-                      }
 
                       dsps.data.desempenho.map(dsp => {
-                        res.temp.push(dsp.nrTemperaturaGpu);
-                        res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
+                        chartGpuA.data.labels.shift();
+                        chartGpuA.data.labels.push(new Date(dsp.dtDatahora).toLocaleString().toString());
+                        datasets.map(dataset => {
+                            dataset.data.shift();
+                            dataset.data.push(dsp.nrTemperaturaGpu);
+                        })
                       });
-
-                      chartGpuB.data.labels = res.data;
-                      datasets.map(dataset => {
-                        dataset.data = res.temp
-                      })
 
                       chartGpuB.update();
                     }
