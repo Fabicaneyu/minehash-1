@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.minehash.usuario;
+package com.minehash.computador;
 
-//import oshi.hardware.HWDiskStore;
 import com.profesorfalken.jsensors.JSensors;
 import com.profesorfalken.jsensors.model.components.Cpu;
-//import com.profesorfalken.jsensors.model.components.Disk;
 import com.profesorfalken.jsensors.model.components.Gpu;
 import java.util.List;
 import oshi.SystemInfo;
@@ -22,6 +20,10 @@ public class Computador {
     public final HardwareAbstractionLayer hal = si.getHardware();
     public final OperatingSystem os = si.getOperatingSystem();
 
+    List<Cpu> cpus;
+    List<Gpu> gpus;
+    HWDiskStore[] ds;
+
     String usuario;
     String hostname;
     String fabricante;
@@ -29,11 +31,6 @@ public class Computador {
     String processador;
     String ramTotal;
     String sistemaOperacional;
-    HWDiskStore[] ds;
-
-    List<Cpu> cpus;
-    List<Gpu> gpus;
-
     String disco;
     String gpu;
     String cpu;
@@ -47,7 +44,6 @@ public class Computador {
         processador = hal.getProcessor().getName();
         ramTotal = FormatUtil.formatBytes(hal.getMemory().getTotal());
         sistemaOperacional = si.getOperatingSystem().getFamily();
-
         ds = hal.getDiskStores();
         disco = FormatUtil.formatBytes(ds[0].getSize());
 
@@ -60,7 +56,6 @@ public class Computador {
         if (getGpus().size() == 0) {
 
             System.out.println("COMPUTADOR NÃO POSSUI PLACA DEDICADA");
-
             return false;
 
         } else {
@@ -75,40 +70,87 @@ public class Computador {
         return usuario;
     }
 
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
     public String getHostname() {
         return hostname;
+    }
+
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
     }
 
     public String getFabricante() {
         return fabricante;
     }
 
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
+    }
+
     public String getModelo() {
         return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     public String getProcessador() {
         return processador;
     }
 
+    public void setProcessador(String processador) {
+        this.processador = processador;
+    }
+
     public String getRamTotal() {
         return ramTotal;
+    }
+
+    public void setRamTotal(String ramTotal) {
+        this.ramTotal = ramTotal;
     }
 
     public String getSistemaOperacional() {
         return sistemaOperacional;
     }
 
+    public void setSistemaOperacional(String sistemaOperacional) {
+        this.sistemaOperacional = sistemaOperacional;
+    }
+
     public String getDisco() {
         return disco;
+    }
+
+    public void setDisco(String disco) {
+        this.disco = disco;
     }
 
     public String getGpu() {
         return gpu;
     }
 
+    public void setGpu(String gpu) {
+        this.gpu = gpu;
+    }
+
+    public String getCpu() {
+        return cpu;
+    }
+
+    public void setCpu(String cpu) {
+        this.cpu = cpu;
+    }
+
     public List<Gpu> getGpus() {
         return gpus;
     }
+    
+    
+    
 
 }

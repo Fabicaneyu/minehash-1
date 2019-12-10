@@ -187,13 +187,18 @@ public class TelaCadastroComputador extends javax.swing.JFrame {
         usuario.setFkMinerador(fk);
         usuario.cadastrarComputador(email, senha, fk);
 
-
+        
+        con.inserirDesempenhoQuery(fk);
+        proc.inserirProcessosQuery(fk);
+        
     }//GEN-LAST:event_btCadastroActionPerformed
 
     private void btAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAvancarActionPerformed
 
-        TelaProcessos telaProc = new TelaProcessos();
-        telaProc.setVisible(true);
+        TelaMonitoramento telaMon = new TelaMonitoramento();
+        telaMon.setVisible(true);
+//        TelaProcessos telaProc = new TelaProcessos();
+//        telaProc.setVisible(true);
 
 
     }//GEN-LAST:event_btAvancarActionPerformed

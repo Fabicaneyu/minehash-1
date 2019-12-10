@@ -18,6 +18,8 @@ public class TelaLogin extends javax.swing.JFrame {
     Minerador usuario = new Minerador();
     private Point point = new Point();
 
+    Integer fkUsuario;
+
     /**
      * Creates new form TelaLogin
      */
@@ -220,6 +222,32 @@ public class TelaLogin extends javax.swing.JFrame {
 
         usuario.logar(tfUsuario.getText(), tfSenha.getText());
 
+        if (usuario.getStatus() == true) {
+
+            setFkUsuario(usuario.getFkUsuario());
+            System.out.println("FK LOGIN: " + getFkUsuario());
+
+            if (usuario.getPc() == true) {
+
+                TelaMonitoramento telaM = new TelaMonitoramento();
+                telaM.setFk(getFkUsuario());
+                telaM.setVisible(true);
+
+            } else {
+
+                TelaCadastroComputador telaC = new TelaCadastroComputador();
+                telaC.setIdUsuario(getFkUsuario());
+                telaC.setFkUsuario(getFkUsuario());
+                telaC.setVisible(true);
+
+            }
+
+        } else {
+
+            System.out.println("FALHA DE LOGIN/ LOGIN INCORRETO");
+
+        }
+
     }//GEN-LAST:event_btLoginActionPerformed
 
     private void btLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLoginMouseExited
@@ -268,6 +296,15 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
     }
+
+    public Integer getFkUsuario() {
+        return fkUsuario;
+    }
+
+    public void setFkUsuario(Integer fkUsuario) {
+        this.fkUsuario = fkUsuario;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Sair;
