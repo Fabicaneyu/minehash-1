@@ -29,12 +29,12 @@ const formatter = data => {
     str = str.substring(0, str.length - 4);
     return Number(str.replace(',', '.'));
   }
-  
+
   if (str.endsWith(' GiB')) {
     str = str.substring(0, str.length - 4);
     return Number(str.replace(',', '.')) * 1024;
   }
-};}
+};
 
     const chartA = item => {
         const chartRamA = new Chart(document.getElementById('ramChart-a'), {
@@ -79,6 +79,36 @@ const formatter = data => {
                 },
             }
         });
+        setInterval(() => {
+            $.get('/computadores', (comps, status) => {
+                if (!comps.success || comps.data == null) return;
+
+                $.post('/desempenhosLimite', {
+                    idComputador: comps.data.idComputador
+                }, dsps => {
+                    if (!dsps.success || dsps.data == null) return;
+                    if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
+                        const datasets = chartRamA.data.datasets;
+                        let res = {
+                            ram: [],
+                            data: []
+                        }
+
+                        dsps.data.desempenho.map(dsp => {
+                            res.ram.push(Number((dsp.nrRam / (formatter(results.data.nmRam) * 1024)) * 100).toFixed(2));
+                            res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
+                        });
+
+                        chartRamA.data.labels = res.data;
+                        datasets.map(dataset => {
+                            dataset.data = res.ram
+                        })
+
+                        chartRamA.update();
+                    }
+                });
+            });
+        }, 2000);
     };
 
     $.get('/computadores', results => {

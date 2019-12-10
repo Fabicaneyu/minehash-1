@@ -45,7 +45,7 @@ const formatter = data => {
     str = str.substring(0, str.length - 4);
     return Number(str.replace(',', '.'));
   }
-  
+
   if (str.endsWith(' GiB')) {
     str = str.substring(0, str.length - 4);
     return Number(str.replace(',', '.')) * 1024;
@@ -105,16 +105,53 @@ const formatter = data => {
                 }
             }
         });
+        setInterval(() => {
+            $.get('/computadores', (comps, status) => {
+                if (!comps.success || comps.data == null) return;
+
+                $.post('/desempenhosLimite', {
+                    idComputador: comps.data.idComputador
+                }, dsps => {
+                    if (!dsps.success || dsps.data == null) return;
+                    if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
+                      const datasets = chart.data.datasets;
+                      let calc;
+
+                      if (opts.id == 'cpuChart') {
+                        calc = dsps.data.totais.nrCpu / dsps.data.media;
+                      }
+
+                      if (opts.id == 'gpuChart') {
+                        calc = dsps.data.totais.nrGpu / dsps.data.media;
+                      }
+
+                      if (opts.id == 'ramChart') {
+                        calc = (dsps.data.totais.nrRam / dsps.data.media) * 100 / formatter(comps.data.nmRam);
+                      }
+
+                      if (opts.id == 'diskChart') {
+                        calc = dsps.data.totais.nrDisco / dsps.data.media;
+                      }
+
+                      datasets.map(dataset => {
+                        return dataset.data = [calc, 100 - calc];
+                      })
+                      
+                      chart.update();
+                    }
+                });
+            });
+        }, 2000);
     };
     $.get('/computadores', (results, status) => {
         // console.log(results);
-        if (!results.success && results.data == null) return console.error('Requisição Mal-sucedida.', status);
+        if (!results.success || results.data == null) return console.error('Requisição Mal-sucedida.', status);
 
         return $.post('/desempenhos', {
             idComputador: results.data.idComputador
         }, dados => {
 
-            if (!dados.success && dados.data == null) return console.error('Requisição Mal-sucedida.', status);
+            if (!dados.success || dados.data == null) return console.error('Requisição Mal-sucedida.', status);
 
             console.log('RAM', results.data.nmRam)
 
@@ -122,76 +159,27 @@ const formatter = data => {
                 id: 'cpuChart',
                 labels: ['Em consumo', 'Livre'],
                 title: 'Processador',
-                isRam: false
             });
 
             startChart(dados.data.media, dados.data.totais.nrGpu, {
                 id: 'gpuChart',
                 labels: ['Em consumo', 'Livre'],
                 title: 'Placa de Vídeo',
-                isRam: false
             });
 
-            startChart((formatter(results.data.nmRam) * 1024), (dados.data.totais.nrRam / dados.data.media) * 100, {
+            startChart(formatter(results.data.nmRam), (dados.data.totais.nrRam / dados.data.media) * 100, {
                 id: 'ramChart',
                 labels: ['Em consumo', 'Livre'],
                 title: 'Memória RAM',
-                isRam: true
             });
 
             startChart(dados.data.media, dados.data.totais.nrDisco, {
                 id: 'diskChart',
-                labels: ['Espaço Usado', 'Espaço Livre'],
+                labels: ['  Espaço Usado', 'Espaço Livre'],
                 title: 'Armazenamento',
-                isRam: false
             });
 
 
         });
-    });
-</script>
-
-
-<script>
-    iziToast.settings({
-        timeout: 10000,
-        resetOnHover: true,
-        icon: 'material-icons',
-        transitionIn: 'flipInX',
-        transitionOut: 'flipOutX',
-        onOpening: function() {
-            console.log('callback abriu!');
-        },
-        onClosing: function() {
-            console.log("callback fechou!");
-        }
-    });
-
-    iziToast.show({
-        theme: 'dark',
-        icon: 'icon-person',
-        title: 'Hey',
-        message: 'Welcome!',
-        position: 'center', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
-        progressBarColor: 'rgb(0, 255, 184)',
-        buttons: [
-            ['<button>Ok</button>', function(instance, toast) {
-                alert("Hello world!");
-            }, true], // true to focus
-            ['<button>Close</button>', function(instance, toast) {
-                instance.hide({
-                    transitionOut: 'fadeOutUp',
-                    onClosing: function(instance, toast, closedBy) {
-                        console.info('closedBy: ' + closedBy); // The return will be: 'closedBy: buttonName'
-                    }
-                }, toast, 'buttonName');
-            }]
-        ],
-        onOpening: function(instance, toast) {
-            console.info('callback abriu!');
-        },
-        onClosing: function(instance, toast, closedBy) {
-            console.info('closedBy: ' + closedBy); // tells if it was closed by 'drag' or 'button'
-        }
     });
 </script>

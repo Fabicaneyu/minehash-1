@@ -108,6 +108,36 @@
                 },
             }
         });
+        setInterval(() => {
+            $.get('/computadores', (comps, status) => {
+                if (!comps.success || comps.data == null) return;
+
+                $.post('/desempenhosLimite', {
+                    idComputador: comps.data.idComputador
+                }, dsps => {
+                    if (!dsps.success || dsps.data == null) return;
+                    if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
+                      const datasets = chartCpuA.data.datasets;
+                      let res = {
+                        cpu: [],
+                        data: []
+                      }
+
+                      dsps.data.desempenho.map(dsp => {
+                        res.cpu.push(dsp.nrCpu);
+                        res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
+                      });
+
+                      chartCpuA.data.labels = res.data;
+                      datasets.map(dataset => {
+                        dataset.data = res.cpu
+                      })
+
+                      chartCpuA.update();
+                    }
+                });
+            });
+        }, 2000);
     };
 
     const chartB = item => {
@@ -153,6 +183,36 @@
                 },
             }
         });
+        setInterval(() => {
+            $.get('/computadores', (comps, status) => {
+                if (!comps.success || comps.data == null) return;
+
+                $.post('/desempenhosLimite', {
+                    idComputador: comps.data.idComputador
+                }, dsps => {
+                    if (!dsps.success || dsps.data == null) return;
+                    if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
+                      const datasets = chartCpuB.data.datasets;
+                      let res = {
+                        temp: [],
+                        data: []
+                      }
+
+                      dsps.data.desempenho.map(dsp => {
+                        res.temp.push(dsp.nrTemperaturaCpu);
+                        res.data.push(new Date(dsp.dtDatahora).toLocaleString().toString());
+                      });
+
+                      chartCpuB.data.labels = res.data;
+                      datasets.map(dataset => {
+                        dataset.data = res.temp
+                      })
+
+                      chartCpuB.update();
+                    }
+                });
+            });
+        }, 2000);
     };
 
     $.get('/computadores', results => {

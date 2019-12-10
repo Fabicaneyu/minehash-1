@@ -85,15 +85,15 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a id="toggle-cpu">CPU</a>
+                                        <a id="toggle-cpu">Processador</a>
                                     </li>
                                     <li>
-                                        <a id="toggle-gpu">GPU
+                                        <a id="toggle-gpu">Placa de Vídeo
                                         <!-- <span class="badge badge-pill badge-warning">New</span> -->
                                       </a>
                                     </li>
                                     <li>
-                                        <a id="toggle-ram">RAM</a>
+                                        <a id="toggle-ram">Memória RAM</a>
                                     </li>
                                     <li>
                                         <a id="toggle-disco">Disco</a>
@@ -504,7 +504,7 @@ const formatter = data => {
     str = str.substring(0, str.length - 4);
     return Number(str.replace(',', '.'));
   }
-  
+
   if (str.endsWith(' GiB')) {
     str = str.substring(0, str.length - 4);
     return Number(str.replace(',', '.')) * 1024;
@@ -526,49 +526,49 @@ const requestData = () => {
         idComputador: results.data.idComputador
       }, desempenhos => {
         desempenhos.data.desempenho.map(dsp => {
-          if (dsp.nrCpu > 90) {
-            criarAlerta({
-              title: 'Alerta de CPu',
-              msg: `Sua CPU está em ${Number(dsp.nrCpu).toFixed(2)}%`
-            });
-          }
+            if (new Date(dsp.dtDatahora).getTime() + 5000 > Date.now()) {
+                if (dsp.nrCpu > 90) {
+                    criarAlerta({
+                        title: 'Alerta de CPu',
+                        msg: `Sua CPU está em ${Number(dsp.nrCpu).toFixed(2)}%`
+                    });
+                }
 
-          if (dsp.nrRam > (formatter(results.data.nmRam) / 100) * 80) {
-            criarAlerta({
-              title: 'Alerta de RAM',
-              msg: `Sua Memória está em ${Number((dsp.nrRam / formatter(results.data.nmRam)) * 100).toFixed(2)}%`
-            });
-          }
+                if (dsp.nrRam > (formatter(results.data.nmRam) / 100) * 80) {
+                    criarAlerta({
+                        title: 'Alerta de RAM',
+                        msg: `Sua Memória está em ${Number((dsp.nrRam / formatter(results.data.nmRam)) * 100).toFixed(2)}%`
+                    });
+                }
 
-          if (((formatter(results.data.nmDisco) / 100) * dsp.nrDisco > (formatter(results.data.nmDisco) / 100) * 95)) {
-            criarAlerta({
-              title: 'Alerta de Disco',
-              msg: `Seu Armazenamento está em ${dsp.nrDisco}%`
-            });
-          }
+                if (((formatter(results.data.nmDisco) / 100) * dsp.nrDisco > (formatter(results.data.nmDisco) / 100) * 95)) {
+                    criarAlerta({
+                        title: 'Alerta de Disco',
+                        msg: `Seu Armazenamento está em ${dsp.nrDisco}%`
+                    });
+                }
 
-          if (dsp.nrGpu > 98) {
-            criarAlerta({
-              title: 'Alerta de GPU',
-              msg: `Sua Placa de Vídeo está em ${dsp.nrGpu}%`
-            });
-          }
+                if (dsp.nrGpu > 98) {
+                    criarAlerta({
+                        title: 'Alerta de GPU',
+                        msg: `Sua Placa de Vídeo está em ${dsp.nrGpu}%`
+                    });
+                }
 
-          if (dsp.nrTemperaturaCpu > 80) {
-            criarAlerta({
-              title: 'Alerta de Temperatura (CPU)',
-              msg: `Seu processador está em ${dsp.nrTemperaturaCpu}°C`
-            });
-          }
+                if (dsp.nrTemperaturaCpu > 80) {
+                    criarAlerta({
+                        title: 'Alerta de Temperatura (CPU)',
+                        msg: `Seu processador está em ${dsp.nrTemperaturaCpu}°C`
+                    });
+                }
 
-          if (dsp.nrTemperaturaGpu > 90) {
-            criarAlerta({
-              title: 'Alerta de Temperatura (GPU)',
-              msg: `Sua Placa de Vídeo está em ${dsp.nrTemperaturaCpu}°C`
-            });
-          }
-
-          console.log('ALertas');
+                if (dsp.nrTemperaturaGpu > 90) {
+                    criarAlerta({
+                        title: 'Alerta de Temperatura (GPU)',
+                        msg: `Sua Placa de Vídeo está em ${dsp.nrTemperaturaCpu}°C`
+                    });
+                }
+            }
         });
       });
     }
