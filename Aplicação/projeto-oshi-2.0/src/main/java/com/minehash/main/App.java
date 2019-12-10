@@ -5,10 +5,19 @@
  */
 package com.minehash.main;
 
+import com.minehash.telas.TelaLogin;
+
 /**
  *
  * @author natal
  */
 public class App {
-    
+
+    public static void main(String[] args) {
+
+        TelaLogin telaL = new TelaLogin();
+        telaL.setVisible(true);
+
+    }
+
 }
