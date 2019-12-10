@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.minehash.monitoramento;
+package com.minehash.main;
 
 /**
  *
  * @author natal
  */
-public class Processos {
+public class Logs {
     
 }

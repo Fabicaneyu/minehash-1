@@ -5,9 +5,9 @@
  */
 package com.minehash.telas;
 
-import com.minehash.monitoramento.Consumo;
-import com.minehash.monitoramento.Processos;
-import com.minehash.usuario.Computador;
+import com.minehash.computador.Consumo;
+import com.minehash.computador.Processos;
+import com.minehash.computador.Computador;
 import java.awt.Color;
 import java.awt.Point;
 import java.time.LocalDateTime;
@@ -24,12 +24,6 @@ public class TelaMonitoramento extends javax.swing.JFrame {
 
     private Point point = new Point();
 
-    String nomeUsuario;
-    String so;
-    String proc;
-    String ram;
-    int qtdProcessos;
-    String disco;
     Integer fk;
 
     /**
@@ -37,6 +31,12 @@ public class TelaMonitoramento extends javax.swing.JFrame {
      */
     public TelaMonitoramento() {
         initComponents();
+
+        Computador comp = new Computador();
+
+        lbSistemaOperacional.setText(comp.getSistemaOperacional());
+        lbProcessador.setText(comp.getProcessador());
+        lbRAM.setText(comp.getRamTotal());
 
     }
 
@@ -239,7 +239,7 @@ public class TelaMonitoramento extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(220, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btMonitorar)
@@ -251,6 +251,9 @@ public class TelaMonitoramento extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(pbDisco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -290,17 +293,13 @@ public class TelaMonitoramento extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbRAM, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lbSistemaOperacional, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(pbCPU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbRAM, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pbDisco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,13 +335,13 @@ public class TelaMonitoramento extends javax.swing.JFrame {
                 .addComponent(pbCPU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(lbR)
-                .addGap(12, 12, 12)
-                .addComponent(pbDisco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(9, 9, 9)
+                .addComponent(lbRAM)
+                .addGap(24, 24, 24)
                 .addComponent(lbD)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbRAM)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(pbDisco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(btProp1)
@@ -381,34 +380,6 @@ public class TelaMonitoramento extends javax.swing.JFrame {
 
     private void btMonitorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMonitorarActionPerformed
         // TODO add your handling code here:
-        Computador comp = new Computador();
-
-        lbSistemaOperacional.setText(comp.getSistemaOperacional());
-        lbProcessador.setText(comp.getProcessador());
-        lbMemoria.setText(comp.getRamTotal());
-        lbProc.setText(String.valueOf(comp.os.getProcessCount()));
-
-        int delay = 2000;   // tempo de espera antes da 1ª execução da tarefa.
-        int interval = 2000;  // intervalo no qual a tarefa será executada.
-
-        Timer timer = new Timer();
-
-        timer.scheduleAtFixedRate(new TimerTask() {
-            Consumo cons = new Consumo();
-
-            public void run() {
-
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-                LocalDateTime now = LocalDateTime.now();
-
-                pbDisco.setValue(cons.getConsumoDisco().intValue());
-//                pbRAM.setValue(Integer.valueOf(cons.getConsumoRAM()));
-                pbCPU.setValue(cons.getCpu().intValue());
-                lbTempCPU.setText(String.valueOf(cons.getTemperaturaCPU()));
-                lbRAM.setText(String.valueOf(cons.getConsumoRAM().toString()));
-                
-            }
-        }, delay, interval);
 
 
     }//GEN-LAST:event_btMonitorarActionPerformed
@@ -428,10 +399,10 @@ public class TelaMonitoramento extends javax.swing.JFrame {
     }//GEN-LAST:event_btProp1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    
+
         TelaCadastroComputador telaC = new TelaCadastroComputador();
         telaC.setVisible(true);
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -470,82 +441,6 @@ public class TelaMonitoramento extends javax.swing.JFrame {
 
         });
 
-    }
-
-    public String getNomeUsuario() {
-        return nomeUsuario;
-    }
-
-    public void setNomeUsuario(String nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
-    }
-
-    public String getSo() {
-        return so;
-    }
-
-    public void setSo(String so) {
-        this.so = so;
-    }
-
-    public String getProc() {
-        return proc;
-    }
-
-    public void setProc(String proc) {
-        this.proc = proc;
-    }
-
-    public String getRam() {
-        return ram;
-    }
-
-    public void setRam(String ram) {
-        this.ram = ram;
-    }
-
-    public int getQtdProcessos() {
-        return qtdProcessos;
-    }
-
-    public void setQtdProcessos(int qtdProcessos) {
-        this.qtdProcessos = qtdProcessos;
-    }
-
-    public String getDisco() {
-        return disco;
-    }
-
-    public void setDisco(String disco) {
-        this.disco = disco;
-    }
-
-    public void setLbMemoria(JLabel lbMemoria) {
-        this.lbMemoria = lbMemoria;
-    }
-
-    public void setLbNomeUsuario(JLabel lbNomeUsuario) {
-        this.lbNomeUsuario = lbNomeUsuario;
-    }
-
-    public void setLbProc(JLabel lbProc) {
-        this.lbProc = lbProc;
-    }
-
-    public void setLbProcessador(JLabel lbProcessador) {
-        this.lbProcessador = lbProcessador;
-    }
-
-    public void setLbSistemaOperacional(JLabel lbSistemaOperacional) {
-        this.lbSistemaOperacional = lbSistemaOperacional;
-    }
-
-    public void setLbTempCPU(JLabel lbTempCPU) {
-        this.lbTempCPU = lbTempCPU;
-    }
-
-    public void setLbTempGPU(JLabel lbTempGPU) {
-        this.lbTempGPU = lbTempGPU;
     }
 
     public Integer getFk() {

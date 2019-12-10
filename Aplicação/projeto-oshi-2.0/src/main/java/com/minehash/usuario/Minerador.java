@@ -5,10 +5,26 @@
  */
 package com.minehash.usuario;
 
-/**
- *
- * @author natal
- */
-public class Minerador {
-    
+public class Minerador extends Usuario {
+
+    @Override
+    public void consultarIdUsuario(String sql) {
+        super.consultarIdUsuario(sql);
+    }
+
+    @Override
+    public void checarCadastro() {
+        super.checarCadastro();
+    }
+
+    @Override
+    public void cadastrarComputador(Integer fk) {
+        super.cadastrarComputador(fk);
+    }
+
+    @Override
+    public void logar(String e, String s) {
+        super.logar(e, s);
+    }
+
 }

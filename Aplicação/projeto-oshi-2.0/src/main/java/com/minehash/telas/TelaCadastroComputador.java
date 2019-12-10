@@ -5,8 +5,8 @@
  */
 package com.minehash.telas;
 
-import com.minehash.monitoramento.Consumo;
-import com.minehash.monitoramento.Processos;
+import com.minehash.computador.Consumo;
+import com.minehash.computador.Processos;
 import com.minehash.usuario.Minerador;
 import java.awt.Color;
 import java.awt.Point;
@@ -20,15 +20,14 @@ import javax.swing.JLabel;
 public class TelaCadastroComputador extends javax.swing.JFrame {
 
     private Point point = new Point();
-    String email;
-    String senha;
-    Integer id;
-    Integer fk;
-    Integer autenticacao;
-    Integer fkComputador;
+
+    Minerador usuario = new Minerador();
+    Integer idUsuario;
+    Integer fkUsuario;
 
     public TelaCadastroComputador() {
         initComponents();
+
     }
 
     /**
@@ -174,27 +173,17 @@ public class TelaCadastroComputador extends javax.swing.JFrame {
 
     private void btCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastroActionPerformed
 
-        System.out.println(email);
-        System.out.println(senha);
-        System.out.println(id);
-        System.out.println(fk);
-
-        Minerador usuario = new Minerador();
-        Consumo con = new Consumo();
-        Processos proc = new Processos();
-
-        usuario.setIdMinerador(id);
-        usuario.setFkMinerador(fk);
-        usuario.cadastrarComputador(email, senha, fk);
+        System.out.println("FK USUARIO: " + getFkUsuario());
+        usuario.cadastrarComputador(getFkUsuario());
 
 
     }//GEN-LAST:event_btCadastroActionPerformed
 
     private void btAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAvancarActionPerformed
 
-        TelaProcessos telaProc = new TelaProcessos();
-        telaProc.setVisible(true);
-
+        TelaMonitoramento telaM = new TelaMonitoramento();
+        telaM.setFk(getFkUsuario());
+        telaM.setVisible(true);
 
     }//GEN-LAST:event_btAvancarActionPerformed
 
@@ -264,6 +253,23 @@ public class TelaCadastroComputador extends javax.swing.JFrame {
         });
     }
 
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getFkUsuario() {
+        return fkUsuario;
+    }
+
+    public void setFkUsuario(Integer fkUsuario) {
+        this.fkUsuario = fkUsuario;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAvancar;
     private javax.swing.JButton btAvancar1;
@@ -273,53 +279,5 @@ public class TelaCadastroComputador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lbStatus;
     // End of variables declaration//GEN-END:variables
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getFk() {
-        return fk;
-    }
-
-    public void setFk(Integer fk) {
-        this.fk = fk;
-    }
-
-    public Integer getAutenticacao() {
-        return autenticacao;
-    }
-
-    public void setAutenticacao(Integer autenticacao) {
-        this.autenticacao = autenticacao;
-    }
-
-    public Integer getFkComputador() {
-        return fkComputador;
-    }
-
-    public void setFkComputador(Integer fkComputador) {
-        this.fkComputador = fkComputador;
-    }
 
 }
