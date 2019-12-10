@@ -183,6 +183,7 @@ public class TelaCadastroComputador extends javax.swing.JFrame {
 
         TelaMonitoramento telaM = new TelaMonitoramento();
         telaM.setFk(getFkUsuario());
+        System.out.println(telaM.getFk());
         telaM.setVisible(true);
 
     }//GEN-LAST:event_btAvancarActionPerformed

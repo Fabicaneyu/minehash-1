@@ -163,45 +163,27 @@ public class Consumo {
         ConexaoBanco conectar = new ConexaoBanco();
         conectar.montarConexao();
 
-        int delay = 2000;   // tempo de espera antes da 1ª execução da tarefa.
-        int interval = 2000;  // intervalo no qual a tarefa será executada.
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
 
-        Timer timer = new Timer();
         gpuUsuario();
 
-        timer.scheduleAtFixedRate(new TimerTask() {
+        if (gpuUsuario() == false) {
 
-            public void run() {
+            conectar.template().update(
+                    "INSERT INTO tb_desempenho (fk_computador, nr_cpu, nr_ram, nr_disco, nr_temperatura_cpu, dt_datahora)\n"
+                    + "values (?,?,?,?,?,?)", getFkComputador(), getCpu(), getConsumoRAM(), getConsumoDisco(),
+                    getTemperaturaCPU(), dtf.format(now));
 
-                System.out.println("INSERINDO DADOS...");
-                System.out.println("------------------");
+        } else {
 
-                System.out.println("FK: " + getFkComputador());
+            conectar.template().update(
+                    "INSERT INTO tb_desempenho (fk_computador, nr_cpu, nr_ram, nr_disco,"
+                    + " nr_gpu, nr_temperatura_cpu, nr_temperatura_gpu)\n"
+                    + "values (?,?,?,?,?,?,?)", getFkComputador(), getCpu(), getConsumoRAM(), getConsumoDisco(),
+                    getGpu(), getTemperaturaCPU(), getTemperaturaGPU());
 
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-                LocalDateTime now = LocalDateTime.now();
-
-                if (gpuUsuario() == false) {
-
-                    conectar.template().update(
-                            "INSERT INTO tb_desempenho (fk_computador, nr_cpu, nr_ram, nr_disco, nr_temperatura_cpu, dt_datahora)\n"
-                            + "values (?,?,?,?,?,?)", getFkComputador(), getCpu(), getConsumoRAM(), getConsumoDisco(),
-                            getTemperaturaCPU(), dtf.format(now));
-
-                } else {
-
-                    conectar.template().update(
-                            "INSERT INTO tb_desempenho (fk_computador, nr_cpu, nr_ram, nr_disco,"
-                            + " nr_gpu, nr_temperatura_cpu, nr_temperatura_gpu)\n"
-                            + "values (?,?,?,?,?,?,?)", getFkComputador(), getCpu(), getConsumoRAM(), getConsumoDisco(),
-                            getGpu(), getTemperaturaCPU(), getTemperaturaGPU());
-
-                }
-
-                System.out.println("FIM DE INSERÇÃO");
-
-            }
-        }, delay, interval);
+        }
 
         return;
 
