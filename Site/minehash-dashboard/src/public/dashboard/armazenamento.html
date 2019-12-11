@@ -89,7 +89,7 @@ const formatter = data => {
                     idComputador: comps.data.idComputador
                 }, dsps => {
                     if (!dsps.success || dsps.data == null) return;
-                    if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
+                    if (true) {
                       const datasets = diskChartA.data.datasets;
 
                       dsps.data.desempenho.map(dsp => {
@@ -97,7 +97,7 @@ const formatter = data => {
                           diskChartA.data.labels.push(new Date(dsps.dtDatahora).toLocaleString());
                           datasets.map(dataset => {
                             dataset.data.shift();
-                            dataset.data.push(dsps.nrDisco);
+                            dataset.data.push(dsp.nrDisco);
                           })
                       });
 
@@ -168,7 +168,7 @@ const formatter = data => {
                     idComputador: comps.data.idComputador
                 }, dsps => {
                     if (!dsps.success || dsps.data == null) return;
-                    if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
+                    if (true) {
                       const datasets = diskChartB.data.datasets;
                       let res = {
                           discoSoma: formatter(dsps.data.totais.nrDisco) / dsps.data.media,

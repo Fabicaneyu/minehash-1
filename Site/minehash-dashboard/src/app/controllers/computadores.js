@@ -5,7 +5,8 @@ class ComputadoresController {
   async get(req, res) {
 
     await Computador.findOne({
-      where: {fkUsuario: req.user.idUsuario}
+      where: {fkUsuario: req.user.idUsuario},
+      order: [['idComputador', 'DESC']]
     }).then(results => {
 
       return res.status(200).json({

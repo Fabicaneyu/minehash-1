@@ -113,7 +113,7 @@ const formatter = data => {
                     idComputador: comps.data.idComputador
                 }, dsps => {
                     if (!dsps.success || dsps.data == null) return;
-                    if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
+                    if (true) {
                       const datasets = chart.data.datasets;
                       let calc;
 
@@ -126,7 +126,7 @@ const formatter = data => {
                       }
 
                       if (opts.id == 'ramChart') {
-                        calc = (dsps.data.totais.nrRam / dsps.data.media) * 100 / formatter(comps.data.nmRam);
+                        calc = (dsps.data.totais.nrRam / dsps.data.media) * 10000 / formatter(comps.data.nmRam);
                       }
 
                       if (opts.id == 'diskChart') {
@@ -167,7 +167,7 @@ const formatter = data => {
                 title: 'Placa de Vídeo',
             });
 
-            startChart(formatter(results.data.nmRam), (dados.data.totais.nrRam / dados.data.media) * 100, {
+            startChart((formatter(results.data.nmRam)).toFixed(2), (dados.data.totais.nrRam / dados.data.media) * 10000, {
                 id: 'ramChart',
                 labels: ['Em consumo', 'Livre'],
                 title: 'Memória RAM',
@@ -175,7 +175,7 @@ const formatter = data => {
 
             startChart(dados.data.media, dados.data.totais.nrDisco, {
                 id: 'diskChart',
-                labels: ['  Espaço Usado', 'Espaço Livre'],
+                labels: ['  Consumo', 'Limite Máximo'],
                 title: 'Armazenamento',
             });
 

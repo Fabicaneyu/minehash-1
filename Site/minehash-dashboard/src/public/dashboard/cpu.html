@@ -116,7 +116,7 @@
                     idComputador: comps.data.idComputador
                 }, dsps => {
                     if (!dsps.success || dsps.data == null) return;
-                    if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
+                    if (true) {
                       const datasets = chartCpuA.data.datasets;
 
                       dsps.data.desempenho.map(dsp => {
@@ -186,12 +186,12 @@
                     idComputador: comps.data.idComputador
                 }, dsps => {
                     if (!dsps.success || dsps.data == null) return;
-                    if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
+                    if (true) {
                       const datasets = chartCpuB.data.datasets; 
                       dsps.data.desempenho.map(dsp => {
                         chartCpuB.data.labels.shift();
                         chartCpuB.data.labels.push(new Date(dsps.dtDatahora).toLocaleString());
-                        res.temp.push();
+                        // res.temp.push();
                         datasets.map(dataset => {
                             dataset.data.shift();
                             dataset.data.push(dsp.nrTemperaturaCpu);

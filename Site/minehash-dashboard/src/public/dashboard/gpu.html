@@ -76,7 +76,7 @@
                     idComputador: comps.data.idComputador
                 }, dsps => {
                     if (!dsps.success || dsps.data == null) return;
-                    if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
+                    if (true) {
                       const datasets = chartGpuA.data.datasets;
 
                       dsps.data.desempenho.map(dsp => {
@@ -146,12 +146,12 @@
                     idComputador: comps.data.idComputador
                 }, dsps => {
                     if (!dsps.success || dsps.data == null) return;
-                    if (new Date(dsps.data.dtDatahora).getTime + 5000 > Date.now()) {
+                    if (true) {
                       const datasets = chartGpuB.data.datasets;
 
                       dsps.data.desempenho.map(dsp => {
-                        chartGpuA.data.labels.shift();
-                        chartGpuA.data.labels.push(new Date(dsp.dtDatahora).toLocaleString().toString());
+                        chartGpuB.data.labels.shift();
+                        chartGpuB.data.labels.push(new Date(dsp.dtDatahora).toLocaleString().toString());
                         datasets.map(dataset => {
                             dataset.data.shift();
                             dataset.data.push(dsp.nrTemperaturaGpu);
