@@ -259,8 +259,8 @@ a:hover {
 }
 
 p.description {
-    font-size: 16px;
-    color: #000000;
+    font-size: 1.3em;
+    color: #000000 !important;
 }
 
 a:hover,

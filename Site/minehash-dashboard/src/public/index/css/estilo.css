@@ -4,7 +4,7 @@
 } */
 
 .input-login {
-    width: -webkit-fill-available;
+    width: 42vw;
     align-content: center;
     border: solid 1px black;
     border-radius: 4px;
@@ -48,4 +48,16 @@
 .labelLogin {
     right: 28em;
     position: absolute;
+}
+
+@media only screen and (max-width: 700px) {
+    .input-login {
+        width: 300px;
+        align-content: center;
+        border: solid 1px black;
+        border-radius: 4px;
+        padding: 8px 16px;
+        color: black;
+        font-size: 1em;
+    }
 }
