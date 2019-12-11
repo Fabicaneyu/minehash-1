@@ -65,10 +65,10 @@ public class Processos {
             estadoProcesso = procs.getState().name();
             cpuPercentual = procs.calculateCpuPercent();
 
-            System.out.println(usuarioProc);
-            System.out.println(pid);
-            System.out.println(nomeProcesso);
-            System.out.println(prioridadeProcesso);
+            System.out.println("usuarioProc: " + usuarioProc);
+            System.out.println("pid: " + pid);
+            System.out.println("nomeProcesso: " + nomeProcesso);
+            System.out.println("prioridadeProcesso: " + prioridadeProcesso);
             System.out.println(estadoProcesso);
             System.out.println(cpuPercentual + "%");
             System.out.println("-------------");
@@ -76,13 +76,17 @@ public class Processos {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
 
-            conectarBanco.template().update(
+            try{
+                conectarBanco.template().update(
                     "insert into tb_processo (fk_computador, nr_pid, nm_processo, dt_datahora, "
                     + "nm_status, nm_prioridade, nr_consumo_cpu, nm_usuario) values "
                     + "(?,?,?,?,?,?,?,?)",
                     getFkComputador(), pid, nomeProcesso, dtf.format(now), estadoProcesso, prioridadeProcesso,
                     cpuPercentual, usuarioProc
-            );
+                );
+            }catch(RuntimeException e){
+                System.out.println("Deu ruim aqui ...");
+            }
 
         }
 
@@ -90,6 +94,7 @@ public class Processos {
 
     public void inserirProcessosQuery(Integer fkMinerador) {
 
+        System.out.println("inserirProcessosQueryinserirProcessosQueryinserirProcessosQueryinserirProcessosQuery");
         String query = String.format("select id_computador from tb_computador where fk_usuario = %d", fkMinerador);
 
         selectComputador("jdbc:sqlserver://srvminehash.database.windows.net:1433;"

@@ -176,13 +176,12 @@ public class Consumo {
                     getTemperaturaCPU(), dtf.format(now));
 
         } else {
-
-            conectar.template().update(
+                conectar.template().update(
                     "INSERT INTO tb_desempenho (fk_computador, nr_cpu, nr_ram, nr_disco,"
                     + " nr_gpu, nr_temperatura_cpu, nr_temperatura_gpu)\n"
                     + "values (?,?,?,?,?,?,?)", getFkComputador(), getCpu(), getConsumoRAM(), getConsumoDisco(),
                     getGpu(), getTemperaturaCPU(), getTemperaturaGPU());
-
+              
         }
 
         return;
