@@ -54,7 +54,7 @@ public class Consumo {
 
     Computador comp = new Computador();
 
-    public void monitorarConsumo() {
+    public Consumo() {
 
         cpus = JSensors.get.components().cpus;
         disco = JSensors.get.components().disks;
@@ -69,7 +69,6 @@ public class Consumo {
         consumoRAM = FormatUtil.formatBytes(comp.hal.getMemory().getAvailable());
 
         cpu = cpus.get(0).sensors.loads.get(cpuLoad - 1).value;
-
     }
 
     public Boolean gpuUsuario() {
@@ -154,10 +153,13 @@ public class Consumo {
             }
         }
 
+        return;
+
     }
 
     public void monitorarDesempenho(Integer fk) {
 
+        //2016/11/16 12:08:43
         ConexaoBanco conectar = new ConexaoBanco();
         conectar.montarConexao();
 
@@ -174,6 +176,7 @@ public class Consumo {
                     getTemperaturaCPU(), dtf.format(now));
 
         } else {
+
             conectar.template().update(
                     "INSERT INTO tb_desempenho (fk_computador, nr_cpu, nr_ram, nr_disco,"
                     + " nr_gpu, nr_temperatura_cpu, nr_temperatura_gpu)\n"
@@ -181,6 +184,8 @@ public class Consumo {
                     getGpu(), getTemperaturaCPU(), getTemperaturaGPU());
 
         }
+
+        return;
 
     }
 
