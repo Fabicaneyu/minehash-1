@@ -16,7 +16,7 @@
 
 :small_blue_diamond: [Descrição do projeto](#descrição-do-projeto-star)
 
-:small_blue_diamond: [Plataforma mineHash](#plataforma-mineHash-checkered-flag)
+:small_blue_diamond: [Plataforma mineHash](#plataforma-minehash-checkered-flag)
 
 :small_blue_diamond: [Linguagens, dependencias e libs utilizadas ](#linguagens-dependencias-e-libs-utilizadas-books)
 
@@ -24,7 +24,7 @@
 <p align="justify"> 
 Nosso projeto tem o intuito de
 ajudar aos mineradores de criptomoedas 
-a terem um melhor desempenho de suas 
+a monitorarem o desempenho de suas 
 máquinas mineradoras.</p>
 
 ## Plataforma mineHash :checkered_flag:
