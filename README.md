@@ -1,14 +1,14 @@
 <h1 align="center"> mineHash </h1>
 
 <p align="center">
-  <br> <sub> mineHash - Você minera, e a gente monitora! </sub>
+  <br> mineHash - Você minera, e a gente monitora! 
 </p>
 
 ## Desenvolvedores :octocat:
 
-[<br> <sub> Alunos da Bandtec </sub>] | 
-| :---: | :---: | :---: | :---: | :---: | :---: 
-
+<p >
+  <br> Alunos da Bandtec 
+</p>
 
 > Status do Projeto: Finalizado :heavy_check_mark:
 
@@ -16,7 +16,7 @@
 
 :small_blue_diamond: [Descrição do projeto](#descrição-do-projeto-star)
 
-:small_blue_diamond: [Plataforma mineHash](#plataforma-JDIT-checkered_flag)
+:small_blue_diamond: [Plataforma mineHash](#plataforma-mineHash-checkered-flag)
 
 :small_blue_diamond: [Linguagens, dependencias e libs utilizadas ](#linguagens-dependencias-e-libs-utilizadas-books)
 
@@ -44,4 +44,4 @@ máquinas mineradoras.</p>
 
 - [Bootstrap](https://getbootstrap.com.br/): 
 
-- [Java, JDBC]
+- Java, JDBC
